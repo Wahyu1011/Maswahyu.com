@@ -29,7 +29,10 @@
     'host' => 'smtp.elasticemail.com',
     'username' => 'maswahyu@gmail.com',
     'password' => '960018FAC12B440C15801CA48982F02718F2',
-    'port' => '2525'
+    'port' => '2525',
+    'To' => 'wahyuekosetyopribowo@gmail.com',
+    'From' => 'maswahyu@gmail.com',
+    'Subject'=> 'Dari Website Mas Wahyu'
   );
   
 
