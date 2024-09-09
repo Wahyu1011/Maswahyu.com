@@ -1,1 +1,37 @@
-aa
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-image: url('img/bg/12bck.png');
+    background-size: cover; /* Mengatur gambar latar belakang agar mencakup seluruh halaman */
+    background-repeat: no-repeat; /* Mencegah pengulangan gambar */
+    width: 100%; /* Mengatur lebar penuh */
+    height: 100vh; /* Mengatur tinggi penuh halaman */
+    margin: 0; /* Menghapus margin default */
+    padding: 0;
+}
+
+.navbar-brand{
+    font-family: 'Righteous', cursive;
+}
+
+.link a{
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.link a:hover .bi-facebook{
+    color: #3b5998;
+}
+
+.link a:hover .bi-github{
+    color: #ccc;
+}
+
+.link a:hover .bi-instagram{
+    color: #C13584;
+}
+
+.link a:hover .bi-twitter{
+    color: #1DA1F2;
+}
