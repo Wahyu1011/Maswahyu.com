@@ -144,3 +144,48 @@ nav a {
   font-size: 13px;
   z-index: 1000;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+body {
+  background-color: #f9f9f9; /* Warna latar belakang */
+  font-family: Arial, sans-serif; /* Font default */
+}
+
+.banner {
+  animation: fadeIn 1s ease-in-out;
+  background-color: #e0e0e0; /* Warna latar belakang banner */
+  padding: 20px; /* Ruang dalam */
+  text-align: center; /* Pusatkan teks */
+  border-radius: 8px; /* Sudut melingkar */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan */
+}
+
+h2 {
+  animation: wave 1s ease-in-out infinite; /* Menerapkan animasi gelombang pada judul */
+  display: inline-block; /* Agar animasi lebih halus */
+}
+
+p {
+  animation: wave 1.5s ease-in-out infinite; /* Menerapkan animasi gelombang pada paragraf dengan durasi lebih lambat */
+  display: inline-block; /* Agar animasi lebih halus */
+}
