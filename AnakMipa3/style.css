@@ -1,0 +1,146 @@
+body {
+  font-family: "Poppins", Sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.banner {
+  background-image: url("./XII MIPA3/bg-banner-page-kendal.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  text-align: center;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.staff-member {
+  text-align: center;
+}
+
+.staff-member img {
+  width: 50%;
+  border-radius: 25px;
+}
+
+.staff-member h3 {
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.staff-member p {
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .staff-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff; /* Teal color */
+}
+
+header {
+  background-color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 300px; /* Coba ubah menjadi lebih besar */
+  height: auto; /* Atur otomatis agar rasio tetap terjaga */
+  max-width: 100%;
+}
+
+h1 {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 3em;
+  margin: 0;
+}
+
+h2 {
+  font-size: 7.5em;
+  margin: 0;
+  background: linear-gradient(90deg, #0066ff, #00ccff); /* Gradien biru */
+  background-clip: text;
+  color: transparent;
+  opacity: 0.8; /* Mengurangi opacity */
+  transform: translateY(-120px); /* Menggeser elemen ke atas */
+}
+
+p {
+  font-size: 2.5em;
+  margin: 0;
+  background: black; /* Gradien biru */
+  background-clip: text;
+  color: transparent;
+  opacity: 0.8; /* Mengurangi opacity */
+  transform: translateY(-130px); /* Menggeser elemen ke atas */
+}
+
+nav {
+  background-color: #00bfff; /* Teal color */
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #00bfff; /* Warna latar untuk footer utama */
+  color: #333;
+  text-align: center;
+  padding: 0, 10px 0; /* Sesuaikan padding sesuai kebutuhan */
+  font-size: 13px;
+  z-index: 1000;
+}
