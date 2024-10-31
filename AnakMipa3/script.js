@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       name: "Afina Hafiyyan Nisa'",
       role: "",
       subject: "",
-      image: "./XII MIPA3/2.jpg",
+      image: "./XII MIPA3/2.JPG",
     },
     {
       name: "Aini Dwi Mesyana",
