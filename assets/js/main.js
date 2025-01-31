@@ -296,7 +296,7 @@ function eyeBall() {
 };
 
 
-<script>
+
 function startCountdown(targetDate) {
     let timerDisplay = document.getElementById("timer");
 
@@ -325,7 +325,6 @@ function startCountdown(targetDate) {
 // Set target countdown ke 1 Maret 2025 pukul 00:00:00
 let targetDate = new Date("March 1, 2025 00:00:00").getTime();
 startCountdown(targetDate);
-</script>
 
 
 
