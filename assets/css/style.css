@@ -1275,35 +1275,56 @@ section {
   border-radius: 50%;
 }
 
-.countdown {
+.countdown-container {
+        background-color: rgba(
+          56,
+          142,
+          60,
+          0.8
+        ); /* Hijau dengan transparansi */
+        color: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 2rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        max-width: 800px;
+      }
+      .countdown {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: #282c34;
-        color: white;
-        padding: 20px 50px;
-        border-radius: 10px;
-        font-size: 2rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        flex-direction: row;
+        font-size: 2.5rem;
+        margin-top: 20px;
       }
       .countdown div {
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: #66bb6a; /* Hijau cerah */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
       .countdown span {
-        font-size: 3rem;
+        font-size: 4rem;
         font-weight: bold;
       }
       .countdown div span:first-child {
         font-size: 1.5rem;
+        font-weight: normal;
+      }
+      .title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 30px;
       }
       @media (orientation: landscape) {
         body {
           height: 100vh;
         }
-        .countdown {
+        .countdown-container {
           font-size: 3rem;
         }
       }
