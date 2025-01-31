@@ -296,4 +296,37 @@ function eyeBall() {
 };
 
 
+<script>
+function startCountdown(targetDate) {
+    let timerDisplay = document.getElementById("timer");
+
+    function updateCountdown() {
+        let now = new Date().getTime();
+        let timeLeft = targetDate - now;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            timerDisplay.textContent = "TIME'S UP!";
+            return;
+        }
+
+        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        timerDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    let countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+}
+
+// Set target countdown ke 1 Maret 2025 pukul 00:00:00
+let targetDate = new Date("March 1, 2025 00:00:00").getTime();
+startCountdown(targetDate);
+</script>
+
+
+
 
