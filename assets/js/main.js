@@ -297,7 +297,8 @@ function eyeBall(event) {
     });
 }
 
-function updateCountdown() {
+
+    function updateCountdown() {
       const targetDate = new Date("March 1, 2025 00:00:00").getTime();
       const now = new Date().getTime();
       const timeRemaining = targetDate - now;
@@ -313,7 +314,7 @@ function updateCountdown() {
       document.getElementById("seconds").textContent = seconds;
 
       if (timeRemaining < 0) {
-        document.getElementById("countdown").innerHTML = "<span>Waktu telah tiba!</span>";
+        document.querySelector(".countdown-container").innerHTML = "<div class='title'>Selamat Menunaikan Ibadah Puasa!</div>";
       }
     }
 
