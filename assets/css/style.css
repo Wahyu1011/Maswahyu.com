@@ -1274,3 +1274,21 @@ section {
   background: #333;
   border-radius: 50%;
 }
+
+.countdown {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff4500;
+}
+
+#timer {
+    font-size: 24px;
+    background: #222;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+}
