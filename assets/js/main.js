@@ -297,35 +297,29 @@ function eyeBall(event) {
     });
 }
 
-function startCountdown(targetDate) {
-    let timerDisplay = document.getElementById("timer");
+function updateCountdown() {
+      const targetDate = new Date("March 1, 2025 00:00:00").getTime();
+      const now = new Date().getTime();
+      const timeRemaining = targetDate - now;
 
-    function updateCountdown() {
-        let now = new Date().getTime();
-        let timeLeft = targetDate - now;
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-        if (timeLeft <= 0) {
-            clearInterval(countdownInterval);
-            timerDisplay.textContent = "TIME'S UP!";
-            return;
-        }
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
 
-        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        timerDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      if (timeRemaining < 0) {
+        document.getElementById("countdown").innerHTML = "<span>Waktu telah tiba!</span>";
+      }
     }
 
-    let countdownInterval = setInterval(updateCountdown, 1000);
-    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Call once to initialize
+
 }
-
-// Set target countdown ke 1 Maret 2025 pukul 00:00:00
-let targetDate = new Date("March 1, 2025 00:00:00").getTime();
-startCountdown(targetDate);
-
-
 
 
