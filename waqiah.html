@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quran Verse Expand</title>
+    <style>
+      body {
+        font-family: "Traditional Arabic", sans-serif;
+        text-align: right;
+        direction: rtl;
+        margin: 40px;
+        background: linear-gradient(to bottom, #a8dadc, #457b9d);
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      .ayah {
+        margin-bottom: 15px;
+        font-size: 28px;
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+        text-align: right;
+      }
+      .ayah:hover {
+        transform: scale(1.05);
+      }
+      .hidden {
+        display: none;
+      }
+      .toggle {
+        color: #007bff;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background 0.3s;
+        background: #f1faee;
+      }
+      .toggle:hover {
+        background: #e63946;
+        color: #ffffff;
+      }
+      .container {
+        max-width: 800px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        text-align: right;
+        box-sizing: border-box;
+      }
+
+      /* Responsiveness */
+      @media (max-width: 1024px) {
+        .ayah {
+          font-size: 24px;
+        }
+        .container {
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .ayah {
+          font-size: 20px;
+        }
+        .container {
+          padding: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .ayah {
+          font-size: 18px;
+        }
+        .container {
+          padding: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>QS. An-Najm/53</p>
+      <h2 align="center">بسم الله الرحمن الرحيم</h2>
+      <!-- Ayah 1 -->
+      <div class="ayah"> اِذَا وَقَعَتِ
+
+        <span class="hidden" id="hidden-ayah-1"> الْوَاقِعَةُۙ ۝١       
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-1', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> لَيْسَ
+
+        <span class="hidden" id="hidden-ayah-2"> لِوَقْعَتِهَا كَاذِبَةٌۘ ۝٢         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-2', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> خَافِضَةٌ
+
+        <span class="hidden" id="hidden-ayah-3"> رَّافِعَةٌ ۝٣          
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-3', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> اِذَا رُجَّتِ 
+
+        <span class="hidden" id="hidden-ayah-4"> الْاَرْضُ رَجًّاۙ ۝٤     
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-4', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> وَّبُسَّتِ 
+
+        <span class="hidden" id="hidden-ayah-5"> الْجِبَالُ بَسًّاۙ ۝٥     
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-5', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> فَكَانَتْ 
+
+        <span class="hidden" id="hidden-ayah-6"> هَبَاۤءً مُّنْۢبَثًّاۙ ۝٦       
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-6', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> وَّكُنْتُمْ
+        <span class="hidden" id="hidden-ayah-7"> اَزْوَاجًا ثَلٰثَةًۗ ۝٧      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-7', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> فَاَصْحٰبُ
+
+        <span class="hidden" id="hidden-ayah-8"> الْمَيْمَنَةِ ەۙ مَآ اَصْحٰبُ الْمَيْمَنَةِۗ ۝٨          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-8', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> وَاَصْحٰبُ 
+
+        <span class="hidden" id="hidden-ayah-9"> الْمَشْـَٔمَةِ ەۙ مَآ اَصْحٰبُ الْمَشْـَٔمَةِۗ ۝٩          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-9', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> وَالسّٰبِقُوْنَ
+
+        <span class="hidden" id="hidden-ayah-10"> السّٰبِقُوْنَۙ ۝١٠               
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-10', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 1 -->
+      <div class="ayah"> اُولٰۤىِٕكَ 
+
+        <span class="hidden" id="hidden-ayah-11"> الْمُقَرَّبُوْنَۚ ۝١١      
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-11', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> فِيْ
+
+        <span class="hidden" id="hidden-ayah-12"> جَنّٰتِ النَّعِيْمِ ۝١٢       
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-12', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> ثُلَّةٌ 
+
+        <span class="hidden" id="hidden-ayah-13"> مِّنَ الْاَوَّلِيْنَۙ ۝١٣        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-13', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> وَقَلِيْلٌ
+
+        <span class="hidden" id="hidden-ayah-14"> مِّنَ الْاٰخِرِيْنَۗ ۝١٤        
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-14', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> عَلٰى
+
+        <span class="hidden" id="hidden-ayah-15"> سُرُرٍ مَّوْضُوْنَةٍۙ ۝١٥           
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-15', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> مُّتَّكِـِٕيْنَ 
+
+        <span class="hidden" id="hidden-ayah-16"> عَلَيْهَا مُتَقٰبِلِيْنَ ۝١٦       
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-16', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> يَطُوْفُ
+
+        <span class="hidden" id="hidden-ayah-17"> عَلَيْهِمْ وِلْدَانٌ مُّخَلَّدُوْنَۙ ۝١٧         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-17', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> بِاَكْوَابٍ
+
+        <span class="hidden" id="hidden-ayah-18"> وَّاَبَارِيْقَۙ وَكَأْسٍ مِّنْ مَّعِيْنٍۙ ۝١٨                   
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-18', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> لَّا يُصَدَّ
+
+        <span class="hidden" id="hidden-ayah-19"> عُوْنَ عَنْهَا وَلَا يُنْزِفُوْنَۙ ۝١٩            
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-19', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> وَفَاكِهَةٍ
+
+        <span class="hidden" id="hidden-ayah-20"> مِّمَّا يَتَخَيَّرُوْنَۙ ۝٢٠         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-20', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> وَلَحْمِ
+
+        <span class="hidden" id="hidden-ayah-21"> طَيْرٍ مِّمَّا يَشْتَهُوْنَۗ ۝٢١         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-21', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> وَحُوْرٌ 
+
+        <span class="hidden" id="hidden-ayah-22"> عِيْنٌۙ ۝٢٢      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-22', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> كَاَمْثَالِ
+
+        <span class="hidden" id="hidden-ayah-23"> اللُّؤْلُؤِ الْمَكْنُوْنِۚ ۝٢٣     
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-23', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> جَزَاۤءًۢ 
+
+        <span class="hidden" id="hidden-ayah-24"> بِمَا كَانُوْا يَعْمَلُوْنَ ۝٢٤           
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-24', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> لَا يَسْمَعُوْنَ
+
+        <span class="hidden" id="hidden-ayah-25"> فِيْهَا لَغْوًا وَّلَا تَأْثِيْمًاۙ ۝٢٥                    
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-25', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> اِلَّا قِيْلًا
+
+        <span class="hidden" id="hidden-ayah-26"> سَلٰمًا سَلٰمًا ۝٢٦         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-26', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> وَاَصْحٰبُ
+
+        <span class="hidden" id="hidden-ayah-27"> الْيَمِينِ ەۙ مَآ اَصْحٰبُ الْيَمِيْنِۗ ۝٢٧         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-27', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> فِيْ سِدْرٍ
+
+        <span class="hidden" id="hidden-ayah-28"> مَّخْضُوْدٍۙ ۝٢٨          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-28', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> وَّطَلْحٍ
+
+        <span class="hidden" id="hidden-ayah-29"> مَّنْضُوْدٍۙ ۝٢٩      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-29', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> وَّظِلٍّ
+
+        <span class="hidden" id="hidden-ayah-30"> مَّمْدُوْدٍۙ ۝٣٠     
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-30', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> وَّمَاۤءٍ
+
+        <span class="hidden" id="hidden-ayah-31"> مَّسْكُوْبٍۙ ۝٣١    
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-31', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> وَّفَاكِهَةٍ 
+
+        <span class="hidden" id="hidden-ayah-32"> كَثِيْرَةٍۙ ۝٣٢    
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-32', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> لَّا مَقْطُوْ
+
+        <span class="hidden" id="hidden-ayah-33"> عَةٍ وَّلَا مَمْنُوْعَةٍۙ ۝٣٣           
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-33', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> وَّفُرُشٍ
+
+        <span class="hidden" id="hidden-ayah-34"> مَّرْفُوْعَةٍۗ ۝٣٤       
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-34', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> اِنَّآ اَنْشَأْ
+
+        <span class="hidden" id="hidden-ayah-35"> نٰهُنَّ اِنْشَاۤءًۙ ۝٣٥         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-35', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> فَجَعَلْنٰ 
+
+        <span class="hidden" id="hidden-ayah-36"> هُنَّ اَبْكَارًاۙ ۝٣٦      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-36', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> عُرُبًا
+
+        <span class="hidden" id="hidden-ayah-37"> اَتْرَابًاۙ ۝٣٧      
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-37', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> لِّاَصْحٰ 
+
+        <span class="hidden" id="hidden-ayah-38"> بِ الْيَمِيْنِۗࣖ ۝٣٨   
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-38', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> ثُلَّةٌ 
+
+        <span class="hidden" id="hidden-ayah-39"> مِّنَ الْاَوَّلِيْنَۙ ۝٣٩       
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-39', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 --> وَثُلَّةٌ 
+
+      <div class="ayah">
+        <span class="hidden" id="hidden-ayah-40"> مِّنَ الْاٰخِرِيْنَۗ ۝٤٠         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-40', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> وَاَصْحٰبُ
+
+        <span class="hidden" id="hidden-ayah-41"> الشِّمَالِ ەۙ مَآ اَصْحٰبُ الشِّمَالِۗ ۝٤١         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-41', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> فِيْ سَمُوْ 
+
+        <span class="hidden" id="hidden-ayah-42"> مٍ وَّحَمِيْمٍۙ ۝٤٢             
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-42', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> وَّظِلٍّ 
+
+        <span class="hidden" id="hidden-ayah-43"> مِّنْ يَّحْمُوْمٍۙ ۝٤٣      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-43', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> لَّا بَارِدٍ 
+
+        <span class="hidden" id="hidden-ayah-44"> وَّلَا كَرِيْمٍ ۝٤٤         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-44', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> اِنَّهُمْ كَانُوْا 
+
+        <span class="hidden" id="hidden-ayah-45"> قَبْلَ ذٰلِكَ مُتْرَفِيْنَۚ ۝٤٥         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-45', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> وَكَانُوْا 
+
+        <span class="hidden" id="hidden-ayah-46"> يُصِرُّوْنَ عَلَى الْحِنْثِ الْعَظِيْمِۚ ۝٤٦        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-46', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> وَكَانُوْا 
+
+        <span class="hidden" id="hidden-ayah-47"> يَقُوْلُوْنَ ەۙ اَىِٕذَا مِتْنَا وَكُنَّا تُرَابًا وَّعِظَامًا ءَاِنَّا لَمَبْعُوْثُوْنَۙ ۝٤٧                           
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-47', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> اَوَاٰبَاۤؤُ
+
+        <span class="hidden" id="hidden-ayah-48"> نَا الْاَوَّلُوْنَ ۝٤٨          
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-48', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> قُلْ اِنَّ 
+
+        <span class="hidden" id="hidden-ayah-49"> الْاَوَّلِيْنَ وَالْاٰخِرِيْنَۙ ۝٤٩           
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-49', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> لَمَجْمُوْ
+
+        <span class="hidden" id="hidden-ayah-50"> عُوْنَۙ اِلٰى مِيْقَاتِ يَوْمٍ مَّعْلُوْمٍ ۝٥٠              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-50', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> ثُمَّ اِنَّكُمْ
+
+        <span class="hidden" id="hidden-ayah-51"> اَيُّهَا الضَّاۤ لُّوْنَ الْمُكَذِّبُوْنَۙ ۝٥١         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-51', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> لَاٰكِلُوْنَ 
+
+        <span class="hidden" id="hidden-ayah-52"> مِنْ شَجَرٍ مِّنْ زَقُّوْمٍۙ ۝٥٢        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-52', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> فَمَالِـُٔوْنَ 
+
+        <span class="hidden" id="hidden-ayah-53"> مِنْهَا الْبُطُوْنَۚ ۝٥٣       
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-53', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> فَشٰرِبُوْ
+
+        <span class="hidden" id="hidden-ayah-54"> نَ عَلَيْهِ مِنَ الْحَمِيْمِۚ ۝٥٤              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-54', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> فَشٰرِبُوْ
+
+        <span class="hidden" id="hidden-ayah-55"> نَ شُرْبَ الْهِيْمِۗ ۝٥٥         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-55', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> هٰذَا نُزُ
+
+        <span class="hidden" id="hidden-ayah-56"> لُهُمْ يَوْمَ الدِّيْنِۗ ۝٥٦        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-56', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> نَحْنُ 
+
+        <span class="hidden" id="hidden-ayah-57"> خَلَقْنٰكُمْ فَلَوْلَا تُصَدِّقُوْنَ ۝٥٧            
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-57', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> اَفَرَءَيْ 
+
+        <span class="hidden" id="hidden-ayah-58"> تُمْ مَّا تُمْنُوْنَۗ ۝٥٨           
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-58', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> ءَاَنْتُمْ 
+
+        <span class="hidden" id="hidden-ayah-59"> تَخْلُقُوْنَهٗٓ اَمْ نَحْنُ الْخٰلِقُوْنَ ۝٥٩          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-59', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah">	نَحْنُ 
+
+        <span class="hidden" id="hidden-ayah-60"> قَدَّرْنَا بَيْنَكُمُ الْمَوْتَ وَمَا نَحْنُ بِمَسْبُوْقِيْنَۙ ۝٦٠                
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-60', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> عَلٰٓى
+
+        <span class="hidden" id="hidden-ayah-61"> اَنْ نُّبَدِّلَ اَمْثَالَكُمْ وَنُنْشِئَكُمْ فِيْ مَا لَا تَعْلَمُوْنَ ۝٦١                       
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-61', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> وَلَقَدْ 
+
+        <span class="hidden" id="hidden-ayah-62"> عَلِمْتُمُ النَّشْاَةَ الْاُوْلٰى فَلَوْلَا تَذَكَّرُوْنَ ۝٦٢                 
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-62', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> اَفَرَءَيْ 
+
+        <span class="hidden" id="hidden-ayah-63"> تُمْ مَّا تَحْرُثُوْنَۗ ۝٦٣          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-63', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> ءَاَنْتُمْ 
+
+        <span class="hidden" id="hidden-ayah-64"> تَزْرَعُوْنَهٗٓ اَمْ نَحْنُ الزّٰرِعُوْنَ ۝٦٤           
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-64', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> لَوْ نَشَاۤءُ 
+
+        <span class="hidden" id="hidden-ayah-65"> لَجَعَلْنٰهُ حُطَامًا فَظَلْتُمْ تَفَكَّهُوْنَۙ ۝٦٥                 
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-65', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> اِنَّا 
+
+        <span class="hidden" id="hidden-ayah-66"> لَمُغْرَمُوْنَۙ ۝٦٦       
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-66', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> بَلْ 
+
+        <span class="hidden" id="hidden-ayah-67"> نَحْنُ مَحْرُوْمُوْنَ ۝٦٧        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-67', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> اَفَرَءَيْ 
+
+        <span class="hidden" id="hidden-ayah-68"> تُمُ الْمَاۤءَ الَّذِيْ تَشْرَبُوْنَۗ ۝٦٨         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-68', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> ءَاَنْتُمْ
+
+        <span class="hidden" id="hidden-ayah-69"> اَنْزَلْتُمُوْهُ مِنَ الْمُزْنِ اَمْ نَحْنُ الْمُنْزِلُوْنَ ۝٦٩              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-69', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> لَوْ نَشَاۤءُ
+
+        <span class="hidden" id="hidden-ayah-70"> جَعَلْنٰهُ اُجَاجًا فَلَوْلَا تَشْكُرُوْنَ ۝٧٠               
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-70', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah”> اَفَرَءَيْتُمُ 
+
+
+        <span class="hidden" id="hidden-ayah-71"> النَّارَ الَّتِيْ تُوْرُوْنَۗ ۝٧١         
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-71', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> ءَاَنْتُمْ 
+
+        <span class="hidden" id="hidden-ayah-72"> اَنْشَأْتُمْ شَجَرَتَهَآ اَمْ نَحْنُ الْمُنْشِـُٔوْنَ ۝٧٢             
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-72', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> نَحْنُ 
+
+        <span class="hidden" id="hidden-ayah-73"> جَعَلْنٰهَا تَذْكِرَةً وَّمَتَاعًا لِّلْمُقْوِيْنَۚ ۝٧٣               
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-73', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> فَسَبِّحْ 
+
+        <span class="hidden" id="hidden-ayah-74"> بِاسْمِ رَبِّكَ الْعَظِيْمِࣖ ۝٧٤          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-74', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> فَلَآ 
+
+        <span class="hidden" id="hidden-ayah-75"> اُقْسِمُ بِمَوٰقِعِ النُّجُوْمِ ۝٧٥        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-75', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> وَاِنَّهٗ 
+
+        <span class="hidden" id="hidden-ayah-76"> لَقَسَمٌ لَّوْ تَعْلَمُوْنَ عَظِيْمٌۙ ۝٧٦              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-76', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> اِنَّهٗ 
+
+        <span class="hidden" id="hidden-ayah-77"> لَقُرْاٰنٌ كَرِيْمٌۙ ۝٧٧        
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-77', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> فِيْ
+
+        <span class="hidden" id="hidden-ayah-78"> كِتٰبٍ مَّكْنُوْنٍۙ ۝٧٨     
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-78', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> لَّا
+
+        <span class="hidden" id="hidden-ayah-79"> يَمَسُّهٗٓ اِلَّا الْمُطَهَّرُوْنَۙ ۝٧٩           
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-79', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> تَنْزِيْلٌ
+
+        <span class="hidden" id="hidden-ayah-80"> مِّنْ رَّبِّ الْعٰلَمِيْنَ ۝٨٠       
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-80', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> اَفَبِهٰذَا
+
+        <span class="hidden" id="hidden-ayah-81"> الْحَدِيْثِ اَنْتُمْ مُّدْهِنُوْنَ ۝٨١          
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-81', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> وَتَجْعَلُوْنَ
+
+        <span class="hidden" id="hidden-ayah-82"> رِزْقَكُمْ اَنَّكُمْ تُكَذِّبُوْنَ ۝٨٢                
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-82', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> فَلَوْلَآ
+
+        <span class="hidden" id="hidden-ayah-83"> اِذَا بَلَغَتِ الْحُلْقُوْمَۙ ۝٨٣              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-83', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> وَاَنْتُمْ
+
+        <span class="hidden" id="hidden-ayah-84"> حِيْنَىِٕذٍ تَنْظُرُوْنَۙ ۝٨٤           
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-84', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> وَنَحْنُ 
+
+        <span class="hidden" id="hidden-ayah-85"> اَقْرَبُ اِلَيْهِ مِنْكُمْ وَلٰكِنْ لَّا تُبْصِرُوْنَ ۝٨٥                     
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-85', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> فَلَوْلَآ 
+
+        <span class="hidden" id="hidden-ayah-86"> اِنْ كُنْتُمْ غَيْرَ مَدِيْنِيْنَۙ ۝٨٦           
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-86', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 7 -->
+      <div class="ayah"> تَرْجِعُوْ
+
+        <span class="hidden" id="hidden-ayah-87"> نَهَآ اِنْ كُنْتُمْ صٰدِقِيْنَ ۝٨٧            
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-87', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 8 -->
+      <div class="ayah"> فَاَمَّآ 
+
+        <span class="hidden" id="hidden-ayah-88"> اِنْ كَانَ مِنَ الْمُقَرَّبِيْنَۙ ۝٨٨              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-88', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 9 -->
+      <div class="ayah"> فَرَوْحٌ
+
+        <span class="hidden" id="hidden-ayah-89"> وَّرَيْحَانٌ ەۙ وَّجَنَّتُ نَعِيْمٍ ۝٨٩              
+</span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-89', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 10 -->
+      <div class="ayah"> وَاَمَّآ 
+
+        <span class="hidden" id="hidden-ayah-90"> اِنْ كَانَ مِنْ اَصْحٰبِ الْيَمِيْنِۙ ۝٩٠         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-90', this)"
+          >...</span
+        >
+      </div>
+
+
+<!-- Ayah 1 -->
+      <div class="ayah"> فَسَلٰمٌ
+
+        <span class="hidden" id="hidden-ayah-91"> لَّكَ مِنْ اَصْحٰبِ الْيَمِيْنِۗ ۝٩١         
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-91', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 2 -->
+      <div class="ayah"> وَاَمَّآ 
+
+        <span class="hidden" id="hidden-ayah-92"> اِنْ كَانَ مِنَ الْمُكَذِّبِيْنَ الضَّاۤلِّيْنَۙ ۝٩٢           
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-92', this)"
+          >...</span
+        >
+      </div>
+<!-- Ayah 3 -->
+      <div class="ayah"> فَنُزُلٌ 
+
+        <span class="hidden" id="hidden-ayah-93"> مِّنْ حَمِيْمٍۙ ۝٩٣      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-93', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 4 -->
+      <div class="ayah"> وَّتَصْ 
+
+        <span class="hidden" id="hidden-ayah-94"> لِيَةُ جَحِيْمٍ ۝٩٤      
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-94', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 5 -->
+      <div class="ayah"> اِنَّ هٰذَا
+
+        <span class="hidden" id="hidden-ayah-95"> لَهُوَ حَقُّ الْيَقِيْنِۚ ۝٩٥       
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-95', this)"
+          >...</span
+        >
+      </div>
+
+<!-- Ayah 6 -->
+      <div class="ayah"> فَسَبِّحْ
+
+        <span class="hidden" id="hidden-ayah-96"> بِاسْمِ رَبِّكَ الْعَظِيْمِࣖ ۝٩٦          
+ </span>
+        <span class="toggle" onclick="toggleText('hidden-ayah-96', this)"
+          >...</span
+        >
+      </div>
+
+</div>
+
+    <script>
+      function toggleText(ayahId, toggleButton) {
+        const ayah = document.getElementById(ayahId);
+        const isHidden = ayah.style.display === "none";
+        ayah.style.display = isHidden ? "inline" : "none";
+        toggleButton.textContent = isHidden ? "..." : "...";
+      }
+    </script>
+  </body>
+</html>
