@@ -241,9 +241,20 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero-bg2.jpg") top center;
   background-size: cover;
+  background-position: center;
+  animation: slideBg 6s infinite alternate;
 }
+
+@keyframes slideBg {
+  0% {
+    background-image: url("../img/hero-bg1.jpg");
+  }
+  100% {
+    background-image: url("../img/hero-bg2.jpg");
+  }
+}
+
 
 #hero:before {
   content: "";
