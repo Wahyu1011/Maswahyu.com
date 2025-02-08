@@ -248,7 +248,7 @@ h6 {
 
 @keyframes slideBg {
   0% {
-    background-image: url("../img/hero-bg1.png");
+    background-image: url("../img/12bck.png");
   }
   100% {
     background-image: url("../img/hero-bg2.jpg");
