@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .countdown-container {
+            background: white;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .time-box {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            width: 80px;
+        }
+
+        .time-box span {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <h1>Hitung Mundur Idhul Fitri 2025</h1>
+        <div id="timer">
+            <div class="time-box"><span id="days">00</span><p>Hari</p></div>
+            <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
+            <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
+            <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
+        </div>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // Target tanggal 
+        const targetDate = new Date("Apr 1, 2025 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById("days").textContent = days.toString().padStart(2, '0');
+                document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById("timer").style.display = "none";
+                document.getElementById("message").textContent = "Pengumuman Telah Dimulai!";
+            }
+        }
+
+        // Update setiap detik
+        setInterval(updateCountdown, 1000);
+
+        // Panggil langsung saat halaman dimuat
+        updateCountdown();
+    </script>
+</body>
+</html>
