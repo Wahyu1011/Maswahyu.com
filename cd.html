@@ -3,42 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown</title>
+    <title>Countdown Timer - Dark Green</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212; /* Dark Mode */
+            color: #c0ff93; /* Light Green */
             text-align: center;
             margin: 0;
             padding: 0;
         }
 
         .countdown-container {
-            background: white;
+            background: #1e1e1e;
             max-width: 400px;
             margin: 50px auto;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(192, 255, 147, 0.3);
         }
 
         h1 {
-            font-size: 20px;
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #98fb98; /* Soft Green */
+        }
+
+        #input-container {
             margin-bottom: 20px;
         }
 
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        input {
+            background: #282828;
+            color: #c0ff93;
+            border: 1px solid #c0ff93;
+        }
+
+        button {
+            background: #98fb98;
+            color: #121212;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #76e76e;
+        }
+
         #timer {
-            display: flex;
+            display: none;
             justify-content: center;
             gap: 15px;
+            margin-top: 10px;
         }
 
         .time-box {
-            background: #007bff;
+            background: #007b55; /* Dark Green */
             color: white;
             padding: 15px;
             border-radius: 5px;
             width: 80px;
+            box-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
         }
 
         .time-box span {
@@ -51,27 +84,51 @@
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
-            color: #d9534f;
+            color: #ff6666;
         }
     </style>
 </head>
 <body>
     <div class="countdown-container">
-        <h1>Hitung Mundur Idhul Fitri 2025</h1>
+        <h1>COUNTDOWN</h1>
+
+        <!-- Input tanggal & waktu -->
+        <div id="input-container">
+            <input type="datetime-local" id="datetimeInput">
+            <button onclick="setCountdown()">Mulai</button>
+        </div>
+
         <div id="timer">
             <div class="time-box"><span id="days">00</span><p>Hari</p></div>
             <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
             <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
             <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
         </div>
+        
         <p id="message"></p>
     </div>
 
     <script>
-        // Target tanggal 
-        const targetDate = new Date("Apr 1, 2025 00:00:00").getTime();
+        let targetDate = null;
+        let countdownInterval = null;
+
+        function setCountdown() {
+            const input = document.getElementById("datetimeInput").value;
+            if (!input) {
+                alert("Masukkan tanggal & waktu yang valid!");
+                return;
+            }
+
+            targetDate = new Date(input).getTime();
+            document.getElementById("timer").style.display = "flex";
+            clearInterval(countdownInterval);
+            countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
 
         function updateCountdown() {
+            if (!targetDate) return;
+
             const now = new Date().getTime();
             const timeLeft = targetDate - now;
 
@@ -85,17 +142,13 @@
                 document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
                 document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
                 document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+                document.getElementById("message").textContent = "";
             } else {
                 document.getElementById("timer").style.display = "none";
-                document.getElementById("message").textContent = "Pengumuman Telah Dimulai!";
+                document.getElementById("message").textContent = "Waktu telah tiba!";
+                clearInterval(countdownInterval);
             }
         }
-
-        // Update setiap detik
-        setInterval(updateCountdown, 1000);
-
-        // Panggil langsung saat halaman dimuat
-        updateCountdown();
     </script>
 </body>
 </html>
