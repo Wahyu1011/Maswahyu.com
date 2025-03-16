@@ -279,22 +279,22 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock(); // Initial call to display clock immediately
 
-/**Wajah Lucu */
+/** Wajah Lucu */
 
-document.querySelectorAll('.eye').forEach(function(eye) {
-    eye.addEventListener('mousemove', eyeBall);
-});
+document.addEventListener('mousemove', eyeBall);
 
 function eyeBall(event) {
-    let eye = document.querySelectorAll('.eye');
-    eye.forEach(function(eye) {
-        let x = (eye.getBoundingClientRect().left) + (eye.clientWidth / 2);
-        let y = (eye.getBoundingClientRect().top) + (eye.clientHeight / 2);
+    document.querySelectorAll('.eye').forEach(eye => {
+        let x = eye.getBoundingClientRect().left + (eye.clientWidth / 2);
+        let y = eye.getBoundingClientRect().top + (eye.clientHeight / 2);
 
-        let radian = Math.atan2(event.pageX - x, event.pageY - y);
-        let rot = (radian * (180 / Math.PI) * -1) + 270;
-        eye.style.transform = "rotate(" + rot + "deg)";
+        let radian = Math.atan2(event.clientY - y, event.clientX - x);
+        let rot = (radian * (180 / Math.PI)) + 90;
+
+        eye.style.transform = `rotate(${rot}deg)`;
     });
+}
+
 }
 
 
