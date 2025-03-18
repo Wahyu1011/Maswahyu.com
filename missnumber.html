@@ -50,7 +50,7 @@
             color: red;
             font-weight: bold;
         }
-        #timer, #question-count, #score {
+        #timer, #score {
             font-size: 18px;
             font-weight: bold;
             margin: 10px 0;
@@ -71,7 +71,6 @@
         <h2>Cari Angka yang Hilang</h2>
         <button id="start-btn">Mulai</button>
         <p id="timer" style="display:none;">Waktu: 120 detik</p>
-        <p id="question-count" style="display:none;">Soal ke: 1 / 20</p>
         <div class="code-list" id="full-code" style="display:none;"></div>
         <div class="code-list" id="question" style="display:none;"></div>
         <div class="choices" id="choices" style="display:none;"></div>
@@ -114,7 +113,6 @@
         function startGame() {
             document.getElementById("start-btn").style.display = "none";
             document.getElementById("timer").style.display = "block";
-            document.getElementById("question-count").style.display = "block";
             document.getElementById("full-code").style.display = "block";
             document.getElementById("question").style.display = "block";
             document.getElementById("choices").style.display = "block";
@@ -137,14 +135,9 @@
         }
 
         function nextQuestion() {
-            if (questionIndex >= 100) {
-                endGame();
-                return;
-            }
             let currentQuestion = generateQuestion();
             document.getElementById("full-code").innerText = `Kode Asli:\n${currentQuestion.fullCode}`;
             document.getElementById("question").innerText = `Kode yang hilang:\n${currentQuestion.question}`;
-            document.getElementById("question-count").innerText = `Soal ke: ${questionIndex + 1} / 100`;
             document.getElementById("score").innerText = `Skor: ${score}`;
             let choicesDiv = document.getElementById("choices");
             choicesDiv.innerHTML = "";
@@ -154,7 +147,6 @@
                 button.innerText = option;
                 button.onclick = () => {
                     checkAnswer(option, currentQuestion.answer);
-                    questionIndex++;
                     setTimeout(nextQuestion, 1000);
                 };
                 choicesDiv.appendChild(button);
