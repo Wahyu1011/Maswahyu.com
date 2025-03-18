@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mencari Angka yang Hilang</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 50px;
+        }
+        .container {
+            max-width: 450px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h2 {
+            color: #333;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #start-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .choices button {
+            background-color: #007bff;
+            color: white;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .wrong {
+            color: red;
+            font-weight: bold;
+        }
+        #timer, #question-count, #score {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .code-list {
+            text-align: left;
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cari Angka yang Hilang</h2>
+        <button id="start-btn">Mulai</button>
+        <p id="timer" style="display:none;">Waktu: 120 detik</p>
+        <p id="question-count" style="display:none;">Soal ke: 1 / 100</p>
+        <div class="code-list" id="full-code" style="display:none;"></div>
+        <div class="code-list" id="question" style="display:none;"></div>
+        <div class="choices" id="choices" style="display:none;"></div>
+        <p id="result"></p>
+        <p id="score" style="display:none;">Skor: 0</p>
+        <button id="restart-btn" style="display:none; background-color: #dc3545; color: white;">Main Lagi</button>
+    </div>
+
+    <script>
+        function shuffleString(str) {
+            return str.split('').sort(() => Math.random() - 0.5).join('');
+        }
+
+        function generateQuestion() {
+            let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let letter = chars[Math.floor(Math.random() * chars.length)];
+            let number = Math.floor(1000 + Math.random() * 9000);
+            let fullCode = letter + number;
+            let shuffledCode = shuffleString(fullCode); 
+            let missingIndex = Math.floor(Math.random() * shuffledCode.length);
+            let answer = shuffledCode[missingIndex];
+            
+            let hiddenCode = shuffledCode.substring(0, missingIndex) + "_" + shuffledCode.substring(missingIndex + 1);
+            let options = [answer];
+            
+            while (options.length < 5) {
+                let randomChar = Math.random() < 0.5 ? chars[Math.floor(Math.random() * chars.length)] : Math.floor(Math.random() * 10).toString();
+                if (!options.includes(randomChar)) options.push(randomChar);
+            }
+            options.sort(() => Math.random() - 0.5);
+            
+            return { fullCode, question: hiddenCode, answer, options };
+        }
+
+        let timeLeft;
+        let questionIndex;
+        let score;
+        let timer;
+
+        function startGame() {
+            document.getElementById("start-btn").style.display = "none";
+            document.getElementById("timer").style.display = "block";
+            document.getElementById("question-count").style.display = "block";
+            document.getElementById("full-code").style.display = "block";
+            document.getElementById("question").style.display = "block";
+            document.getElementById("choices").style.display = "block";
+            document.getElementById("score").style.display = "block";
+            
+            timeLeft = 120;
+            questionIndex = 0;
+            score = 0;
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").innerText = `Waktu: ${timeLeft} detik`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endGame();
+                }
+            }, 1000);
+            
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (questionIndex >= 100) {
+                endGame();
+                return;
+            }
+            let currentQuestion = generateQuestion();
+            document.getElementById("full-code").innerText = `Kode Asli:\n${currentQuestion.fullCode}`;
+            document.getElementById("question").innerText = `Kode yang hilang:\n${currentQuestion.question}`;
+            document.getElementById("question-count").innerText = `Soal ke: ${questionIndex + 1} / 100`;
+            document.getElementById("score").innerText = `Skor: ${score}`;
+            let choicesDiv = document.getElementById("choices");
+            choicesDiv.innerHTML = "";
+            
+            currentQuestion.options.forEach(option => {
+                let button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => {
+                    checkAnswer(option, currentQuestion.answer);
+                    questionIndex++;
+                    setTimeout(nextQuestion, 1000);
+                };
+                choicesDiv.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected, correct) {
+            let resultText = document.getElementById("result");
+            if (selected === correct) {
+                resultText.innerText = "Jawaban benar!";
+                resultText.className = "correct";
+                score += 10;
+            } else {
+                resultText.innerText = "Jawaban salah!";
+                resultText.className = "wrong";
+            }
+            document.getElementById("score").innerText = `Skor: ${score}`;
+        }
+
+        function endGame() {
+            alert(`Waktu habis! Skor akhir: ${score}`);
+            document.getElementById("restart-btn").style.display = "block";
+        }
+        
+        document.getElementById("start-btn").addEventListener("click", startGame);
+        document.getElementById("restart-btn").addEventListener("click", () => location.reload());
+    </script>
+</body>
+</html>
