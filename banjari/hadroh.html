@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellipses</title>
+    <style>
+        body{
+            background-color: darkslategrey ;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .ellipse {
+            width: 3cm;
+            height: 3cm;
+            background-color: greenyellow;
+            border-radius: 50%;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            font-size: 0.5cm;
+            color: black;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+        .active {
+            background-color: blue !important;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ellipse" data-audio="audio1" data-key="q">Awalan (Q)</div>
+        <div class="ellipse" data-audio="audio2" data-key="w">Kaidah1 (W)</div>
+        <div class="ellipse" data-audio="audio3" data-key="e">OFF (E)</div>
+        <div class="ellipse" data-audio="audio4" data-key="r">Getrak (R)</div>
+        <div class="ellipse" data-audio="audio5" data-key="t">Naik (T)</div>
+        <div class="ellipse" data-audio="audio6" data-key="y">Kaidah3 (Y)</div>
+        <div class="ellipse" data-audio="audio7" data-key="u">Kaidah4 (U)</div>
+        <div class="ellipse" data-audio="audio8" data-key="i">Kaidah4 (I)</div>
+        <div class="ellipse" data-audio="audio9" data-key="o">Kaidah4 (O)</div>
+        <div class="ellipse" data-audio="audio10" data-key="p">Kaidah4 (P)</div>
+        <div class="ellipse" data-audio="audio11" data-key="a">4 3xD (A)</div>
+        <div class="ellipse" data-audio="audio12" data-key="s">Kaidah5 (S)</div>
+        <div class="ellipse" data-audio="audio13" data-key="d">Turun (D)</div>
+        <div class="ellipse" data-audio="audio14" data-key="f">Naik diulang (F)</div>
+
+    </div>
+
+    <img src="rbn.png" alt="" width="300px" height="400px">
+    <img src="rbn.png" alt="" width="300px" height="400px">
+    <img src="rbn.png" alt="" width="300px" height="400px">
+    <img src="rbn.png" alt="" width="300px" height="400px">
+
+    <audio id="audio1" loop>
+        <source src="audio1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio2" loop>
+        <source src="audio2.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio3" loop>
+        <source src="audio3.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio4" loop>
+        <source src="audio4.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio5" loop>
+        <source src="audio5.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio6" loop>
+        <source src="audio6.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio7" loop>
+        <source src="audio7.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio8" loop>
+        <source src="audio8.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio9" loop>
+        <source src="audio9.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio10" loop>
+        <source src="audio10.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio11" loop>
+        <source src="audio11.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio12" loop>
+        <source src="audio12.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio13" loop>
+        <source src="audio13.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audio14" loop>
+        <source src="audio14.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        let currentAudio = null;
+
+        function playAudio(audioElement) {
+            if (currentAudio && currentAudio !== audioElement) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            if (currentAudio === audioElement) {
+                audioElement.pause();
+                currentAudio = null;
+            } else {
+                audioElement.play();
+                currentAudio = audioElement;
+            }
+        }
+
+        document.querySelectorAll('.ellipse').forEach(ellipse => {
+            ellipse.addEventListener('click', function() {
+                const audioId = this.getAttribute('data-audio');
+                const audioElement = document.getElementById(audioId);
+                playAudio(audioElement);
+            });
+        });
+
+        document.addEventListener('keydown', function(event) {
+            const key = event.key.toLowerCase();
+            const ellipse = document.querySelector(`.ellipse[data-key="${key}"]`);
+            if (ellipse) {
+                document.querySelectorAll('.ellipse').forEach(e => e.classList.remove('active'));
+                ellipse.classList.add('active');
+                ellipse.click();
+            }
+        });
+
+        // Event listener to return to audio2 when audio4 ends
+        document.getElementById('audio4').addEventListener('ended', function() {
+            const audio2 = document.getElementById('audio2');
+            audio2.play();
+            currentAudio = audio2;
+
+            // Mengubah warna ellips ke audio2 saat audio4 selesai
+            document.querySelectorAll('.ellipse').forEach(e => e.classList.remove('active'));
+            const ellipse = document.querySelector('.ellipse[data-audio="audio2"]');
+            ellipse.classList.add('active');
+        });
+    </script>
+</body>
+</html>
