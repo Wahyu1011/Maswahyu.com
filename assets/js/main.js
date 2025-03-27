@@ -143,8 +143,6 @@
     });
   }
 
-  
-
   /**
    * Skills animation
    */
@@ -189,7 +187,6 @@
         });
       }, true);
     }
-
   });
 
   /**
@@ -262,40 +259,38 @@
    */
   new PureCounter();
 
-})()
+})();
 
-
+// Kode tambahan (jika diperlukan)
 function updateClock() {
   const clock = document.getElementById('clock');
-  const now = new Date();
-
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-
-  clock.textContent = `${hours}:${minutes}:${seconds}`;
+  if (clock) {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    clock.textContent = `${hours}:${minutes}:${seconds}`;
+  }
 }
 
-setInterval(updateClock, 1000);
-updateClock(); // Initial call to display clock immediately
+if (document.getElementById('clock')) {
+  setInterval(updateClock, 1000);
+  updateClock(); // Initial call to display clock immediately
+}
 
-/** Wajah Lucu */
+// Wajah Lucu (jika diperlukan)
+if (document.querySelector('.eye')) {
+  document.addEventListener('mousemove', eyeBall);
 
-document.addEventListener('mousemove', eyeBall);
-
-function eyeBall(event) {
+  function eyeBall(event) {
     document.querySelectorAll('.eye').forEach(eye => {
-        let x = eye.getBoundingClientRect().left + (eye.clientWidth / 2);
-        let y = eye.getBoundingClientRect().top + (eye.clientHeight / 2);
+      let x = eye.getBoundingClientRect().left + (eye.clientWidth / 2);
+      let y = eye.getBoundingClientRect().top + (eye.clientHeight / 2);
 
-        let radian = Math.atan2(event.clientY - y, event.clientX - x);
-        let rot = (radian * (180 / Math.PI)) + 90;
+      let radian = Math.atan2(event.clientY - y, event.clientX - x);
+      let rot = (radian * (180 / Math.PI)) + 90;
 
-        eye.style.transform = `rotate(${rot}deg)`;
+      eye.style.transform = `rotate(${rot}deg)`;
     });
+  }
 }
-
-}
-
-
-   
