@@ -16,49 +16,56 @@
       }
       .container {
         text-align: center;
+        position: relative;
       }
       img {
         max-width: 100%;
         height: auto;
       }
       #movableImage {
-        position: relative;
+        position: absolute;
         cursor: grab;
+        touch-action: none;
       }
     </style>
   </head>
   <body>
     <div class="container">
       <h2>Viewer Gambar</h2>
-      <img
-        id="image"
-        src="image1.png"
-        alt="Gambar Anatomi"
-      />
+      <img id="image" src="image1.png" alt="Gambar Anatomi" />
       <br />
       <img id="movableImage" src="image2.png" alt="Gambar Kedua" width="300" />
     </div>
 
     <audio id="sound1" src="sound1.mp3"></audio>
-    <audio id="sound1" src="sound2.mp3"></audio>
+    <audio id="sound2" src="sound2.mp3"></audio>
 
     <script>
       const movableImage = document.getElementById("movableImage");
       const mainImage = document.getElementById("image");
       const sounds = [
         document.getElementById("sound1"),
-        document.getElementById("sound2"),
-        document.getElementById("sound3"),
-        document.getElementById("sound4"),
-        document.getElementById("sound5"),
+        document.getElementById("sound2")
       ];
-
+      
       let isDragging = false;
       let startY, prevY;
 
       function playRandomSound() {
         const randomIndex = Math.floor(Math.random() * sounds.length);
         sounds[randomIndex].play();
+      }
+
+      function moveImage(newY) {
+        const maxTop = mainImage.offsetTop + mainImage.offsetHeight + 10;
+        const minTop = mainImage.offsetTop - movableImage.offsetHeight;
+        newY = Math.max(minTop, Math.min(newY, maxTop));
+        
+        if (newY !== prevY) {
+          playRandomSound();
+        }
+        movableImage.style.top = `${newY}px`;
+        prevY = newY;
       }
 
       movableImage.addEventListener("mousedown", (event) => {
@@ -70,18 +77,7 @@
 
       document.addEventListener("mousemove", (event) => {
         if (!isDragging) return;
-        let newY = event.clientY - startY;
-
-        // Batasi pergerakan
-        const maxTop = mainImage.offsetTop + mainImage.offsetHeight + 10;
-        const minTop = mainImage.offsetTop - movableImage.offsetHeight;
-        newY = Math.max(minTop, Math.min(newY, maxTop));
-
-        if (newY !== prevY) {
-          playRandomSound();
-        }
-        movableImage.style.top = `${newY}px`;
-        prevY = newY;
+        moveImage(event.clientY - startY);
       });
 
       document.addEventListener("mouseup", () => {
@@ -89,7 +85,7 @@
         movableImage.style.cursor = "grab";
       });
 
-      // Support for touch events
+      // Touch event handlers
       movableImage.addEventListener("touchstart", (event) => {
         isDragging = true;
         startY = event.touches[0].clientY - movableImage.offsetTop;
@@ -99,18 +95,8 @@
 
       document.addEventListener("touchmove", (event) => {
         if (!isDragging) return;
-        let newY = event.touches[0].clientY - startY;
-
-        // Batasi pergerakan
-        const maxTop = mainImage.offsetTop + mainImage.offsetHeight + 10;
-        const minTop = mainImage.offsetTop - movableImage.offsetHeight;
-        newY = Math.max(minTop, Math.min(newY, maxTop));
-
-        if (newY !== prevY) {
-          playRandomSound();
-        }
-        movableImage.style.top = `${newY}px`;
-        prevY = newY;
+        event.preventDefault(); // Mencegah halaman bergulir
+        moveImage(event.touches[0].clientY - startY);
       });
 
       document.addEventListener("touchend", () => {
