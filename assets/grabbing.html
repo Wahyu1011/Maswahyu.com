@@ -2,7 +2,7 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Viewer Gambar</title>
     <style>
       body {
@@ -13,10 +13,13 @@
         height: 100vh;
         background-color: #f4f4f4;
         margin: 0;
+        overflow: hidden;
       }
       .container {
         text-align: center;
         position: relative;
+        width: 100vw;
+        height: 100vh;
       }
       img {
         max-width: 100%;
@@ -28,6 +31,18 @@
         touch-action: none;
         left: 50%;
         transform: translateX(-50%);
+      }
+      @media (min-width: 768px) {
+        /* Tampilan untuk PC */
+        #movableImage {
+          width: 400px;
+        }
+      }
+      @media (max-width: 767px) {
+        /* Tampilan untuk Android */
+        #movableImage {
+          width: 250px;
+        }
       }
     </style>
   </head>
