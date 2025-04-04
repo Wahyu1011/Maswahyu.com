@@ -71,15 +71,31 @@
     </div>
 
     <script>
-        function checkLogin() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-            if (username === "maswahyu.id" && password === "cekdulu") {
-                window.location.href = "assets/grabbing.html";
-            } else {
-                document.getElementById("error").textContent = "Username atau password salah!";
-            }
+        <script>
+    function checkLogin() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        // Daftar user yang valid
+        var validUsers = [
+            { username: "maswahyu.id", password: "cekdulu" },
+            { username: "cek.id", password: "123#" },
+            { username: "tes.id", password: "@123#" },
+            { username: "ok.id", password: "123" }
+        ];
+
+        // Cek kecocokan credential dengan array
+        var isValid = validUsers.some(user => 
+            user.username === username && user.password === password
+        );
+
+        if (isValid) {
+            window.location.href = "assets/grabbing.html";
+        } else {
+            document.getElementById("error").textContent = "Username atau password salah!";
         }
+    }
+</script>
     </script>
 </body>
 </html>
