@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buku Kenangan</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #f0f0f0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .book {
+        width: 400px;
+        height: 600px;
+        perspective: 2000px;
+        position: relative;
+      }
+      .page {
+        width: 100%;
+        height: 100%;
+        background: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform 1s, z-index 1s;
+        transform-origin: left;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        backface-visibility: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 1s ease-in-out;
+      }
+      .page img,
+      .page video {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      .page.flipped {
+        transform: rotateY(-180deg);
+      }
+      .navigation {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .navigation button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 8px;
+        background-color: #4a90e2;
+        color: white;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s;
+      }
+      .navigation button:hover {
+        background-color: #357abd;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="book" id="book"></div>
+    <div class="navigation">
+      <button onclick="halamanSebelumnya()">Sebelumnya</button>
+      <button onclick="halamanBerikutnya()">Berikutnya</button>
+    </div>
+
+    <script>
+      let halamanSaatIni = 0;
+      const kontenHalaman = [
+        { type: "image", src: "images/1.jpg" },
+        { type: "image", src: "images/2.jpg" },
+        { type: "image", src: "images/3.png" },
+
+        { type: "image", src: "Sunan_Muria/muria.png" },
+        { type: "video", src: "Sunan_Muria/muria.mp4" },
+        { type: "image", src: "Sunan_Muria/2.jpg" },
+        { type: "image", src: "Sunan_Muria/1.jpg" },
+
+        { type: "image", src: "Sunan_Kudus/kudus.png" },
+        { type: "video", src: "Sunan_Kudus/kudus.mp4" },
+        { type: "image", src: "Sunan_Kudus/1.jpg" },
+        { type: "image", src: "Sunan_Kudus/2.jpg" },
+
+        { type: "image", src: "Sunan_Kalijaga/kalijaga.png" },
+        { type: "video", src: "Sunan_Kalijaga/kalijaga.mp4" },
+        { type: "image", src: "Sunan_Kalijaga/1.jpg" },
+        { type: "image", src: "Sunan_Kalijaga/2.jpg" },
+
+        { type: "image", src: "Sunan_Ampel/ampel.png" },
+        { type: "video", src: "Sunan_Ampel/ampel.mp4" },
+        { type: "image", src: "Sunan_Ampel/2.jpg" },
+        { type: "image", src: "Sunan_Ampel/1.jpg" },
+
+        { type: "image", src: "Sunan_Giri/giri.png" },
+        { type: "video", src: "Sunan_Giri/Giri.mp4" },
+        { type: "image", src: "Sunan_Giri/1.jpg" },
+        { type: "image", src: "Sunan_Giri/2.jpg" },
+
+        { type: "image", src: "Sunan_Gresik/gresik.png" },
+        { type: "video", src: "Sunan_Gresik/gresik.mp4" },
+        { type: "image", src: "Sunan_Gresik/1.jpg" },
+        { type: "image", src: "Sunan_Gresik/2.jpg" },
+
+        { type: "image", src: "Sunan_Drajat/drajat.png" },
+        { type: "video", src: "Sunan_Drajat/drajat.mp4" },
+        { type: "image", src: "Sunan_Drajat/2.jpg" },
+        { type: "image", src: "Sunan_Drajat/1.jpg" },
+
+        { type: "image", src: "Sunan_Bonang/Bonang.png" },
+        { type: "video", src: "Sunan_Bonang/bonang.mp4" },
+        { type: "image", src: "Sunan_Bonang/1.jpg" },
+        { type: "image", src: "Sunan_Bonang/2.jpg" },
+
+        { type: "image", src: "Sunan_Gunungjati/gunungjati.png" },
+        { type: "video", src: "Sunan_Gunungjati/gunungjati.mp4" },
+        { type: "image", src: "Sunan_Gunungjati/1.jpg" },
+        { type: "image", src: "Sunan_Gunungjati/2.jpg" },
+      ];
+
+      const buku = document.getElementById("book");
+
+      function buatHalaman(id, jenisKonten, sumber, teksAlt) {
+        const halaman = document.createElement("div");
+        halaman.className = "page";
+        halaman.id = `page${id}`;
+
+        if (jenisKonten === "video") {
+          const video = document.createElement("video");
+          video.src = sumber;
+          video.controls = true;
+          video.playsInline = true;
+          halaman.appendChild(video);
+        } else {
+          const img = document.createElement("img");
+          img.src = sumber;
+          img.alt = teksAlt;
+          halaman.appendChild(img);
+        }
+
+        return halaman;
+      }
+
+      function buatBuku() {
+        const halamanList = [];
+
+        halamanList.push(
+          buatHalaman(1, "image", `images/cover-depan.jpg`, "Sampul Depan")
+        );
+
+        kontenHalaman.forEach((item, index) => {
+          halamanList.push(
+            buatHalaman(index + 2, item.type, item.src, `Halaman ${index + 1}`)
+          );
+        });
+
+        halamanList.push(
+          buatHalaman(
+            kontenHalaman.length + 2,
+            "image",
+            `images/cover-belakang.jpg`,
+            "Sampul Belakang"
+          )
+        );
+
+        halamanList.forEach((halaman, index) => {
+          halaman.style.zIndex = halamanList.length - index;
+          buku.appendChild(halaman);
+        });
+      }
+
+      function halamanBerikutnya() {
+        const halaman = document.querySelectorAll(".page");
+        if (halamanSaatIni < halaman.length) {
+          halaman[halamanSaatIni].classList.add("flipped");
+          halamanSaatIni++;
+        }
+      }
+
+      function halamanSebelumnya() {
+        const halaman = document.querySelectorAll(".page");
+        if (halamanSaatIni > 0) {
+          halamanSaatIni--;
+          halaman[halamanSaatIni].classList.remove("flipped");
+        }
+      }
+
+      buatBuku();
+    </script>
+  </body>
+</html>
