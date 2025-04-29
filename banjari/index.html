@@ -148,7 +148,7 @@
         if (currentAudio) {
           currentAudio.pause();
           currentAudio.currentTime = 0;
-          clearInterval(volumeInterval); // stop perubahan volume
+          clearInterval(volumeInterval);
           currentAudio = null;
         }
       }
@@ -172,18 +172,18 @@
       function startVolumeDynamics(audio) {
         volumeInterval = setInterval(() => {
           if (!audio.paused) {
-            let randomVariation = (Math.random() * 0.3) - 0.15; // variasi antara -0.15 sampai +0.15
+            let randomVariation = (Math.random() * 0.3) - 0.15;
             let newVolume = targetVolume + randomVariation;
-            audio.volume = Math.max(0.1, Math.min(newVolume, 1)); // jaga volume tetap wajar
+            audio.volume = Math.max(0.1, Math.min(newVolume, 1));
           }
-        }, 300); // tiap 300ms ubah dikit volume biar terasa hidup
+        }, 300);
       }
       
       function playAudio(audioElement) {
         stopCurrentAudio();
         currentAudio = audioElement;
       
-        if (audioElement.id === "audio1" || audioElement.id === "audio7") {
+        if (audioElement.id === "audio1" || audioElement.id === "audio10") {
           clearInterval(volumeInterval);
           audioElement.volume = targetVolume;
           audioElement.playbackRate = currentTempo;
@@ -194,24 +194,26 @@
         }
       }
       
-      document.getElementById("increaseTempo").addEventListener("click", function () {
+      function increaseTempo() {
         if (currentTempo < 2) {
           currentTempo += 0.1;
           currentTempo = Math.min(currentTempo, 2);
           if (currentAudio) currentAudio.playbackRate = currentTempo;
           updateTempoDisplay();
         }
-      });
+      }
       
-      document.getElementById("decreaseTempo").addEventListener("click", function () {
+      function decreaseTempo() {
         if (currentTempo > 0.5) {
           currentTempo -= 0.1;
           currentTempo = Math.max(currentTempo, 0.5);
           if (currentAudio) currentAudio.playbackRate = currentTempo;
           updateTempoDisplay();
         }
-      });
+      }
       
+      document.getElementById("increaseTempo").addEventListener("click", increaseTempo);
+      document.getElementById("decreaseTempo").addEventListener("click", decreaseTempo);
       document.getElementById("resetTempo").addEventListener("click", function () {
         currentTempo = 1;
         if (currentAudio) currentAudio.playbackRate = currentTempo;
@@ -230,11 +232,20 @@
       // keyboard event
       document.addEventListener("keydown", function (event) {
         const key = event.key.toLowerCase();
-        const ellipse = document.querySelector(`.ellipse[data-key="${key}"]`);
-        if (ellipse) {
-          document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
-          ellipse.classList.add("active");
-          ellipse.click();
+      
+        if (key === "arrowright") {
+          // tekan panah kanan buat tambah tempo
+          increaseTempo();
+        } else if (key === "arrowleft") {
+          // tekan panah kiri buat kurangi tempo
+          decreaseTempo();
+        } else {
+          const ellipse = document.querySelector(`.ellipse[data-key="${key}"]`);
+          if (ellipse) {
+            document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
+            ellipse.classList.add("active");
+            ellipse.click();
+          }
         }
       });
       
@@ -251,6 +262,7 @@
       // pas pertama buka halaman
       updateTempoDisplay();
       </script>
+      
       
     </script>
   </body>
