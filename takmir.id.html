@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KETAKMIRAN - MADANI FSM</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background-color: #6fc6f3;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        background: linear-gradient(
+          to bottom right,
+          #0d3a74,
+          #6fc6f3
+        ); /* gradasi biru tenang seperti poster kajian */
+        border-radius: 15px;
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* efek mengambang manis */
+      }
+
+      .logo img {
+        width: 200px;
+        height: auto;
+        margin-top: 100px; /* turun 1px */
+      }
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .item:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      .footer {
+        margin-top: 20px;
+        font-size: 12px;
+      }
+      /* MEDIA QUERIES */
+      @media (max-width: 480px) {
+        .container {
+          padding: 15px;
+        }
+
+        h1 {
+          font-size: 1.2em;
+        }
+
+        h2 {
+          font-size: 1em;
+        }
+
+        .item {
+          font-size: 0.9em;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .container {
+          max-width: 400px;
+        }
+
+        h1 {
+          font-size: 1.6em;
+        }
+
+        h2 {
+          font-size: 1.2em;
+        }
+
+        .item {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="takmir.png" alt="Logo" width="150" />
+      </div>
+      <h1>KETAKMIRAN MASJID AL - KAUTSAR</h1>
+      <h2>FSM UNDIP</h2>
+
+      <div class="item">Halo Takmir! <span>ℹ️</span></div>
+      <div class="item">Lapor Takmir!<span>📄</span></div>
+      <div class="item"><span>📄</span></div>
+      <div class="item">Template Surat Peminjaman Masjid <span>📄</span></div>
+      <div class="item">Lost and Found<span>📄</span></div>
+      <div class="item">Media Partner<span>🔗</span></div>
+      <div class="item">Timeline Program Kerja<span>📅</span></div>
+      <div class="item"><span>💰</span></div>
+
+      <div class="footer">KABINET HARMONI CITA 2025</div>
+    </div>
+  </body>
+</html>
