@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jadwal Petugas Adzan</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f0f4f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+      }
+      h1 {
+        margin-bottom: 10px;
+        color: #333;
+        text-align: center;
+      }
+      #tanggal {
+        text-align: center;
+        color: #666;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      th {
+        background-color: #e3f2fd;
+        color: #0d47a1;
+      }
+      .penanggung-jawab {
+        margin-top: 20px;
+        background: #e8f5e9;
+        padding: 10px;
+        border-radius: 8px;
+        color: #2e7d32;
+        font-weight: bold;
+        text-align: center;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #0d47a1;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #1565c0;
+      }
+      #kotak-infaq {
+        margin-top: 20px;
+        text-align: center;
+      }
+      #kotak-infaq h3 {
+        color: #0d47a1;
+      }
+      #kotak-infaq ul {
+        padding: 0;
+        list-style: none;
+      }
+      #kotak-infaq li {
+        padding: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Jadwal Petugas Adzan</h1>
+      <h3 align="center">
+        Masjid Al-Kautsar <br />Fakultas Sains dan Matematika Universitas
+        Diponegoro
+      </h3>
+      <p id="tanggal"></p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Waktu</th>
+            <th>Nama Petugas</th>
+            <th>Prodi</th>
+          </tr>
+        </thead>
+        <tbody id="jadwal-table"></tbody>
+      </table>
+
+      <div id="kotak-infaq"></div>
+      <div id="penanggung-jawab" class="penanggung-jawab"></div>
+      <button onclick="nextDay()">Hari Berikutnya</button>
+    </div>
+
+    <script>
+      const petugas = [
+        { nama: "Wahyu Eko Setyo Pribowo", prodi: "Informatika 24" },
+        { nama: "Wahyu Budi Utomo", prodi: "Fisika 22" },
+        { nama: "Salik Bahrudin", prodi: "Kimia 24" },
+        { nama: "Misbachul Munir", prodi: "Informatika 24" },
+        { nama: "Muhammad Syaroful Anam", prodi: "Fisika 24" },
+        { nama: "Ahmad Alifil Ma'luf", prodi: "Fisika 24" },
+        { nama: "Salman Farizi", prodi: "Matematika 23" },
+        { nama: "Bayu Nugroho", prodi: "Matematika 23" },
+        { nama: "Tanu Tanwirul Ramadhan", prodi: "Matematika 24" },
+        { nama: "Fakhrizain Nahla", prodi: "Biologi 25" },
+      ];
+
+      const petugasInfaqTambahan = [
+        ...petugas,
+        { nama: "Muhammad Iqbal", prodi: "Kimia 23" },
+      ];
+
+      const jadwalUrut = [
+        // Minggu 1
+        ["Senin", "Tanu Tanwirul Ramadhan", "Wahyu Budi Utomo"],
+        ["Selasa", "Misbachul Munir", "Fakhrizain Nahla"],
+        ["Rabu", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
+        ["Kamis", "Wahyu Eko Setyo Pribowo", "Salman Farizi"],
+        ["Jumat", "Misbachul Munir", "Fakhrizain Nahla"],
+
+        // Minggu 2
+        ["Senin", "Ahmad Alifil Ma'luf", "Fakhrizain Nahla"],
+        ["Selasa", "Muhammad Syaroful Anam", "Wahyu Budi Utomo"],
+        ["Rabu", "Salman Farizi", "Wahyu Eko Setyo Pribowo"],
+        ["Kamis", "Salik Bahrudin", "Wahyu Budi Utomo"],
+        ["Jumat", "Fakhrizain Nahla", "Wahyu Eko Setyo Pribowo"],
+
+        // Minggu 3
+        ["Senin", "Wahyu Eko Setyo Pribowo", "Fakhrizain Nahla"],
+        ["Selasa", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
+        ["Rabu", "Muhammad Syaroful Anam", "Salman Farizi"],
+        ["Kamis", "Misbachul Munir", "Wahyu Eko Setyo Pribowo"],
+        ["Jumat", "Salik Bahrudin", "Wahyu Budi Utomo"],
+
+        // Minggu 4
+        ["Senin", "Tanu Tanwirul Ramadhan", "Wahyu Budi Utomo"],
+        ["Selasa", "Misbachul Munir", "Fakhrizain Nahla"],
+        ["Rabu", "Salman Farizi", "Wahyu Budi Utomo"],
+        ["Kamis", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
+        ["Jumat", "Muhammad Syaroful Anam", "Fakhrizain Nahla"],
+
+        // Minggu 5
+        ["Senin", "Muhammad Syaroful Anam", "Salman Farizi"],
+        ["Selasa", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
+        ["Rabu", "Wahyu Eko Setyo Pribowo", "Fakhrizain Nahla"],
+        ["Kamis", "Ahmad Alifil Ma'luf", "Salik Bahrudin"],
+        ["Jumat", "Wahyu Budi Utomo", "Fakhrizain Nahla"],
+
+        // Minggu 6
+        ["Senin", "Wahyu Eko Setyo Pribowo", "Misbachul Munir"],
+        ["Selasa", "Salik Bahrudin", "Fakhrizain Nahla"],
+        ["Rabu", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
+        ["Kamis", "Tanu Tanwirul Ramadhan", "Wahyu Eko Setyo Pribowo"],
+        ["Jumat", "Salman Farizi", "Wahyu Budi Utomo"],
+      ];
+
+      let hariOffset = 0;
+
+      function renderSchedule() {
+        const tanggal = new Date();
+        tanggal.setDate(tanggal.getDate() + hariOffset);
+        const hari = tanggal.getDay(); // 0: Minggu, 6: Sabtu
+        const hariNama = [
+          "Minggu",
+          "Senin",
+          "Selasa",
+          "Rabu",
+          "Kamis",
+          "Jumat",
+          "Sabtu",
+        ][hari];
+
+        document.getElementById("tanggal").textContent =
+          tanggal.toLocaleDateString("id-ID", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+        const tbody = document.getElementById("jadwal-table");
+        const infaqDiv = document.getElementById("kotak-infaq");
+        const pjDiv = document.getElementById("penanggung-jawab");
+
+        tbody.innerHTML = "";
+        infaqDiv.innerHTML = "";
+        pjDiv.innerHTML = "";
+
+        if (hari === 0 || hari === 6) {
+          tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; font-style: italic;">Libur, tidak ada jadwal</td></tr>`;
+          return;
+        }
+
+        const hariData = jadwalUrut.find((j) => j[0] === hariNama);
+
+        if (hariData) {
+          const [_, dzuhur, ashar] = hariData;
+
+          if (dzuhur) {
+            const pet = petugas.find((p) => p.nama === dzuhur);
+            tbody.innerHTML += `<tr><td>Dzuhur</td><td>${pet.nama}</td><td>${pet.prodi}</td></tr>`;
+          }
+          if (ashar) {
+            const pet = petugas.find((p) => p.nama === ashar);
+            tbody.innerHTML += `<tr><td>Ashar</td><td>${pet.nama}</td><td>${pet.prodi}</td></tr>`;
+          }
+
+          if (hariNama === "Jumat") {
+            const available = petugasInfaqTambahan.filter(
+              (p) => p.nama !== dzuhur
+            );
+            const shuffled = available.sort(() => 0.5 - Math.random());
+
+            const petugasInfaq = shuffled.slice(0, 2);
+            const petugasPengumuman = shuffled[2];
+
+            infaqDiv.innerHTML = `
+    <h3>Petugas Kotak Infaq</h3>
+    <ul>
+      ${petugasInfaq
+        .map((p, i) => `<li>${i + 1}. ${p.nama} - ${p.prodi}</li>`)
+        .join("")}
+    </ul>
+    <p style="margin-top:10px;"><strong>Petugas Pengumuman:</strong><br>${
+      petugasPengumuman.nama
+    } - ${petugasPengumuman.prodi}</p>
+  `;
+          }
+
+          const penanggung = petugas[hariOffset % petugas.length];
+          pjDiv.textContent = `Penanggung Jawab: ${penanggung.nama} (${penanggung.prodi})`;
+        }
+      }
+
+      function nextDay() {
+        hariOffset++;
+        renderSchedule();
+      }
+      renderSchedule();
+    </script>
+  </body>
+</html>
