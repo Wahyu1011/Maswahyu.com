@@ -203,26 +203,7 @@
 
         tbody.innerHTML = "";
         infaqDiv.innerHTML = "";
-        pjDiv.innerHTML = "";
 
-        if (hari === 0 || hari === 6) {
-          tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; font-style: italic;">Libur, tidak ada jadwal</td></tr>`;
-          return;
-        }
-
-        const hariData = jadwalUrut.find((j) => j[0] === hariNama);
-
-        if (hariData) {
-          const [_, dzuhur, ashar] = hariData;
-
-          if (dzuhur) {
-            const pet = petugas.find((p) => p.nama === dzuhur);
-            tbody.innerHTML += `<tr><td>Dzuhur</td><td>${pet.nama}</td><td>${pet.prodi}</td></tr>`;
-          }
-          if (ashar) {
-            const pet = petugas.find((p) => p.nama === ashar);
-            tbody.innerHTML += `<tr><td>Ashar</td><td>${pet.nama}</td><td>${pet.prodi}</td></tr>`;
-          }
 
           if (hariNama === "Jumat") {
             const available = petugasInfaqTambahan.filter(
