@@ -2,260 +2,504 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jadwal Petugas Adzan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jadwal Muadzin Masjid Al-Kautsar FSM</title>
     <style>
+      :root {
+        --primary-color: #2c5f8b;
+        --secondary-color: #4a8bc9;
+        --accent-color: #f0c14b;
+        --light-color: #f9f9f9;
+        --dark-color: #333;
+        --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        --deep-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
       body {
-        font-family: "Segoe UI", sans-serif;
-        background: #f0f4f8;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
-        padding: 20px;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+        min-height: 100vh;
       }
+
       .container {
-        background: #fff;
-        padding: 30px;
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
         border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
+        box-shadow: var(--deep-shadow);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 8px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
       }
-      h1 {
-        margin-bottom: 10px;
-        color: #333;
+
+      h2 {
         text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        position: relative;
+        padding-bottom: 10px;
       }
-      #tanggal {
-        text-align: center;
-        color: #666;
-        font-weight: bold;
-        margin-bottom: 20px;
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        border-radius: 3px;
       }
+
       table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 1.5rem;
+        background-color: white;
+        box-shadow: var(--shadow);
+        border-radius: 8px;
+        overflow: hidden;
       }
+
       th,
       td {
+        padding: 1rem;
         text-align: left;
-        padding: 10px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       }
+
       th {
-        background-color: #e3f2fd;
-        color: #0d47a1;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
       }
-      .penanggung-jawab {
-        margin-top: 20px;
-        background: #e8f5e9;
-        padding: 10px;
-        border-radius: 8px;
-        color: #2e7d32;
-        font-weight: bold;
-        text-align: center;
+
+      th:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 60%;
+        width: 1px;
+        background-color: rgba(255, 255, 255, 0.3);
       }
-      button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        background: #0d47a1;
+
+      tr:hover {
+        background-color: rgba(74, 139, 201, 0.05);
+        transform: translateY(-1px);
+        transition: all 0.2s ease;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      .button {
+        display: inline-block;
+        margin: 1rem 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 6px;
         cursor: pointer;
+        font-weight: 600;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
       }
-      button:hover {
-        background: #1565c0;
+
+      .button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: all 0.5s ease;
       }
-      #kotak-infaq {
-        margin-top: 20px;
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .button:hover::before {
+        left: 100%;
+      }
+
+      .button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .button-container {
         text-align: center;
+        margin-top: 2rem;
       }
-      #kotak-infaq h3 {
-        color: #0d47a1;
+
+      .libur {
+        text-align: center;
+        padding: 2rem;
+        color: #777;
+        font-size: 1.2rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        margin: 1rem 0;
+        box-shadow: var(--shadow);
       }
-      #kotak-infaq ul {
-        padding: 0;
-        list-style: none;
+
+      /* 3D Card Effect for Table */
+      .table-container {
+        perspective: 1000px;
       }
-      #kotak-infaq li {
-        padding: 5px 0;
+
+      table {
+        transform-style: preserve-3d;
+        transform: rotateX(1deg);
+      }
+
+      th {
+        transform: translateZ(10px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        th,
+        td {
+          padding: 0.75rem;
+        }
+
+        .button {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      table {
+        animation: fadeIn 0.5s ease-out;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Jadwal Petugas Adzan</h1>
-      <h3 align="center">
-        Masjid Al-Kautsar <br />Fakultas Sains dan Matematika Universitas
-        Diponegoro
-      </h3>
-      <p id="tanggal"></p>
+      <h2 id="tanggal"></h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Waktu</th>
-            <th>Nama Petugas</th>
-            <th>Prodi</th>
-          </tr>
-        </thead>
-        <tbody id="jadwal-table"></tbody>
-      </table>
+      <div class="table-container">
+        <table id="jadwal-table">
+          <thead>
+            <tr>
+              <th>Waktu</th>
+              <th>Nama Petugas</th>
+              <th>Prodi</th>
+            </tr>
+          </thead>
+          <tbody id="jadwal-body"></tbody>
+        </table>
+      </div>
 
-      <div id="kotak-infaq"></div>
-      <div id="penanggung-jawab" class="penanggung-jawab"></div>
-      <button onclick="nextDay()">Hari Berikutnya</button>
+      <div id="libur" class="libur" style="display: none">
+        <i
+          class="fas fa-mosque"
+          style="font-size: 2rem; margin-bottom: 0.5rem"
+        ></i>
+        <div>Libur - Tidak Ada Jadwal</div>
+      </div>
+
+      <div class="button-container">
+        <button class="button" onclick="goToToday()">
+          <i class="fas fa-calendar-day"></i> Hari Ini
+        </button>
+        <button class="button" onclick="nextDay()">
+          <i class="fas fa-arrow-right"></i> Hari Berikut
+        </button>
+      </div>
     </div>
 
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
     <script>
-      const petugas = [
-        { nama: "Wahyu Eko Setyo Pribowo", prodi: "Informatika 24" },
-        { nama: "Wahyu Budi Utomo", prodi: "Fisika 22" },
-        { nama: "Salik Bahrudin", prodi: "Kimia 24" },
-        { nama: "Misbachul Munir", prodi: "Informatika 24" },
-        { nama: "Muhammad Syaroful Anam", prodi: "Fisika 24" },
-        { nama: "Ahmad Alifil Ma'luf", prodi: "Fisika 24" },
-        { nama: "Salman Farizi", prodi: "Matematika 23" },
-        { nama: "Bayu Nugroho", prodi: "Matematika 23" },
-        { nama: "Tanu Tanwirul Ramadhan", prodi: "Matematika 24" },
-        { nama: "Fakhrizain Nahla", prodi: "Biologi 25" },
+      // Jadwal Petugas Mingguan (Petugas 1)
+      const petugasMingguan = {
+        Senin: {
+          dzuhur: "Tanu Tanwirul Ramadhan",
+          ashar: "Fakhrizain Nahla",
+        },
+        Selasa: {
+          dzuhur: "Misbachul Munir",
+          ashar: "Wahyu Eko Setyo Pribowo",
+        },
+        Rabu: {
+          dzuhur: "Salik Bahrudin",
+          ashar: "Wahyu Budi Utomo",
+        },
+        Kamis: {
+          dzuhur: "Muhammad Iqbal Maulana",
+          ashar: "Salman Farizi",
+        },
+        Jumat: {
+          dzuhur: null,
+          ashar: "Wahyu Eko Setyo Pribowo",
+        },
+      };
+
+      // Jadwal Petugas Minggu ke-2 (Petugas 2)
+      const petugasMingguKe2 = {
+        Senin: {
+          dzuhur: "Ahmad Alifil Ma'luf",
+          ashar: "Wahyu Budi Utomo",
+        },
+        Selasa: {
+          dzuhur: "Muhammad Syaroful Anam",
+          ashar: "Fakhrizain Nahla",
+        },
+        Rabu: {
+          dzuhur: "Salman Farizi",
+          ashar: "Salik Bahrudin",
+        },
+        Kamis: {
+          dzuhur: "Fakhrizain Nahla",
+          ashar: "Muhammad Iqbal Maulana",
+        },
+        Jumat: {
+          dzuhur: null,
+          ashar: "Fakhrizain Nahla",
+        },
+      };
+
+      // Jadwal petugas Jumat Dzuhur bergantian setiap minggu
+      const petugasJumatDzuhur = [
+        { petugas1: "Wahyu Budi Utomo", petugas2: "Salik Bahrudin" },
+        { petugas1: "Wahyu Eko Setyo Pribowo", petugas2: "Fakhrizain Nahla" },
+        {
+          petugas1: "Tanu Tanwirul Ramadhan",
+          petugas2: "Muhammad Syaroful Anam",
+        },
+        { petugas1: "Misbachul Munir", petugas2: "Salman Farizi" },
+        { petugas1: "Muhammad Iqbal Maulana", petugas2: "Ahmad Alifil Ma'luf" },
       ];
 
-      const petugasInfaqTambahan = [
-        ...petugas,
-        { nama: "Muhammad Iqbal", prodi: "Kimia 23" },
+      // Data prodi petugas
+      const prodi = {
+        "Tanu Tanwirul Ramadhan": "Matematika 24",
+        "Ahmad Alifil Ma'luf": "Fisika 24",
+        "Misbachul Munir": "Informatika 24",
+        "Muhammad Syaroful Anam": "Matematika 24",
+        "Salik Bahrudin": "Kimia 22",
+        "Salman Farizi": "Fisika 23",
+        "Muhammad Iqbal Maulana": "Matematika 25",
+        "Fakhrizain Nahla": "Biologi 25",
+        "Wahyu Budi Utomo": "Fisika 22",
+        "Wahyu Eko Setyo Pribowo": "Informatika 24",
+      };
+
+      // Urutan hari
+      const days = [
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu",
       ];
 
-      const jadwalUrut = [
-        // Minggu 1
-        ["Senin", "Tanu Tanwirul Ramadhan", "Wahyu Budi Utomo"],
-        ["Selasa", "Misbachul Munir", "Fakhrizain Nahla"],
-        ["Rabu", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
-        ["Kamis", "Wahyu Eko Setyo Pribowo", "Salman Farizi"],
-        ["Jumat", "Misbachul Munir", "Fakhrizain Nahla"],
+      // Variabel untuk menyimpan tanggal saat ini dan indeks navigasi
+      let today = new Date();
+      let currentDate = new Date(today);
+      let currentIndex = 0;
 
-        // Minggu 2
-        ["Senin", "Ahmad Alifil Ma'luf", "Fakhrizain Nahla"],
-        ["Selasa", "Muhammad Syaroful Anam", "Wahyu Budi Utomo"],
-        ["Rabu", "Salman Farizi", "Wahyu Eko Setyo Pribowo"],
-        ["Kamis", "Salik Bahrudin", "Wahyu Budi Utomo"],
-        ["Jumat", "Fakhrizain Nahla", "Wahyu Eko Setyo Pribowo"],
+      // Fungsi untuk menginisialisasi tampilan pertama kali
+      function initialize() {
+        // Set currentDate ke hari ini
+        currentDate = new Date(today);
 
-        // Minggu 3
-        ["Senin", "Wahyu Eko Setyo Pribowo", "Fakhrizain Nahla"],
-        ["Selasa", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
-        ["Rabu", "Muhammad Syaroful Anam", "Salman Farizi"],
-        ["Kamis", "Misbachul Munir", "Wahyu Eko Setyo Pribowo"],
-        ["Jumat", "Salik Bahrudin", "Wahyu Budi Utomo"],
+        // Hitung hari dalam seminggu (0=Minggu, 1=Senin, ..., 6=Sabtu)
+        const dayOfWeek = today.getDay();
 
-        // Minggu 4
-        ["Senin", "Tanu Tanwirul Ramadhan", "Wahyu Budi Utomo"],
-        ["Selasa", "Misbachul Munir", "Fakhrizain Nahla"],
-        ["Rabu", "Salman Farizi", "Wahyu Budi Utomo"],
-        ["Kamis", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
-        ["Jumat", "Muhammad Syaroful Anam", "Fakhrizain Nahla"],
+        // Jika hari Minggu atau Sabtu, mulai dari Senin berikutnya
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+          const daysToAdd = dayOfWeek === 0 ? 1 : 2;
+          currentDate.setDate(today.getDate() + daysToAdd);
+        }
 
-        // Minggu 5
-        ["Senin", "Muhammad Syaroful Anam", "Salman Farizi"],
-        ["Selasa", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
-        ["Rabu", "Wahyu Eko Setyo Pribowo", "Fakhrizain Nahla"],
-        ["Kamis", "Ahmad Alifil Ma'luf", "Salik Bahrudin"],
-        ["Jumat", "Wahyu Budi Utomo", "Fakhrizain Nahla"],
+        updateTable();
+      }
 
-        // Minggu 6
-        ["Senin", "Wahyu Eko Setyo Pribowo", "Misbachul Munir"],
-        ["Selasa", "Salik Bahrudin", "Fakhrizain Nahla"],
-        ["Rabu", "Fakhrizain Nahla", "Wahyu Budi Utomo"],
-        ["Kamis", "Tanu Tanwirul Ramadhan", "Wahyu Eko Setyo Pribowo"],
-        ["Jumat", "Salman Farizi", "Wahyu Budi Utomo"],
-      ];
+      // Fungsi untuk memperbarui tabel
+      function updateTable() {
+        const hari = days[currentDate.getDay()];
+        const tanggal = currentDate.toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
 
-      let hariOffset = 0;
+        // Update tanggal di header
+        document.getElementById("tanggal").textContent = hari + ", " + tanggal;
 
-      function renderSchedule() {
-        const tanggal = new Date();
-        tanggal.setDate(tanggal.getDate() + hariOffset);
-        const hari = tanggal.getDay(); // 0: Minggu, 6: Sabtu
-        const hariNama = [
-          "Minggu",
-          "Senin",
-          "Selasa",
-          "Rabu",
-          "Kamis",
-          "Jumat",
-          "Sabtu",
-        ][hari];
-
-        document.getElementById("tanggal").textContent =
-          tanggal.toLocaleDateString("id-ID", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-
-        const tbody = document.getElementById("jadwal-table");
-        const infaqDiv = document.getElementById("kotak-infaq");
-        const pjDiv = document.getElementById("penanggung-jawab");
-
+        const tbody = document.getElementById("jadwal-body");
         tbody.innerHTML = "";
-        infaqDiv.innerHTML = "";
-        pjDiv.innerHTML = "";
+        document.getElementById("libur").style.display = "none";
 
-        if (hari === 0 || hari === 6) {
-          tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; font-style: italic;">Libur, tidak ada jadwal</td></tr>`;
+        if (hari === "Minggu" || hari === "Sabtu") {
+          // Hari libur
+          document.getElementById("libur").style.display = "block";
           return;
         }
 
-        const hariData = jadwalUrut.find((j) => j[0] === hariNama);
+        // Hitung minggu ke berapa sejak tanggal awal (16 Mei 2025)
+        const baseDate = new Date(2025, 4, 16); // 16 Mei 2025
+        const diffTime = currentDate - baseDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const mingguKe = Math.floor(diffDays / 7);
 
-        if (hariData) {
-          const [_, dzuhur, ashar] = hariData;
+        // Minggu ganjil = minggu ke-1 petugas 1, minggu genap = minggu ke-2 petugas 2
+        const jadwal = mingguKe % 2 === 0 ? petugasMingguan : petugasMingguKe2;
 
-          if (dzuhur) {
-            const pet = petugas.find((p) => p.nama === dzuhur);
-            tbody.innerHTML += `<tr><td>Dzuhur</td><td>${pet.nama}</td><td>${pet.prodi}</td></tr>`;
+        ["dzuhur", "ashar"].forEach((waktu) => {
+          if (hari === "Jumat" && waktu === "dzuhur") {
+            // Khusus Jumat Dzuhur, ambil petugas sesuai minggu ke berapa
+            const jumatIndex = mingguKe % petugasJumatDzuhur.length;
+            const petugas = petugasJumatDzuhur[jumatIndex];
+
+            // Tampilkan petugas 1
+            const row1 = document.createElement("tr");
+
+            const cellWaktu1 = document.createElement("td");
+            cellWaktu1.textContent = "Dzuhur";
+            row1.appendChild(cellWaktu1);
+
+            const cellNama1 = document.createElement("td");
+            cellNama1.textContent = petugas.petugas1;
+            row1.appendChild(cellNama1);
+
+            const cellProdi1 = document.createElement("td");
+            cellProdi1.textContent = prodi[petugas.petugas1] || "-";
+            row1.appendChild(cellProdi1);
+
+            tbody.appendChild(row1);
+
+            // Tampilkan petugas 2
+            const row2 = document.createElement("tr");
+
+            const cellWaktu2 = document.createElement("td");
+            cellWaktu2.textContent = "";
+            row2.appendChild(cellWaktu2);
+
+            const cellNama2 = document.createElement("td");
+            cellNama2.textContent = petugas.petugas2;
+            row2.appendChild(cellNama2);
+
+            const cellProdi2 = document.createElement("td");
+            cellProdi2.textContent = prodi[petugas.petugas2] || "-";
+            row2.appendChild(cellProdi2);
+
+            tbody.appendChild(row2);
+          } else {
+            const namaPetugas = jadwal[hari][waktu];
+            if (namaPetugas) {
+              const row = document.createElement("tr");
+
+              const cellWaktu = document.createElement("td");
+              cellWaktu.textContent =
+                waktu.charAt(0).toUpperCase() + waktu.slice(1);
+              row.appendChild(cellWaktu);
+
+              const cellNama = document.createElement("td");
+              cellNama.textContent = namaPetugas;
+              row.appendChild(cellNama);
+
+              const cellProdi = document.createElement("td");
+              cellProdi.textContent = prodi[namaPetugas] || "-";
+              row.appendChild(cellProdi);
+
+              tbody.appendChild(row);
+            }
           }
-          if (ashar) {
-            const pet = petugas.find((p) => p.nama === ashar);
-            tbody.innerHTML += `<tr><td>Ashar</td><td>${pet.nama}</td><td>${pet.prodi}</td></tr>`;
-          }
-
-          if (hariNama === "Jumat") {
-            const available = petugasInfaqTambahan.filter(
-              (p) => p.nama !== dzuhur
-            );
-            const shuffled = available.sort(() => 0.5 - Math.random());
-
-            const petugasInfaq = shuffled.slice(0, 2);
-            const petugasPengumuman = shuffled[2];
-
-            infaqDiv.innerHTML = `
-    <h3>Petugas Kotak Infaq</h3>
-    <ul>
-      ${petugasInfaq
-        .map((p, i) => `<li>${i + 1}. ${p.nama} - ${p.prodi}</li>`)
-        .join("")}
-    </ul>
-    <p style="margin-top:10px;"><strong>Petugas Pengumuman:</strong><br>${
-      petugasPengumuman.nama
-    } - ${petugasPengumuman.prodi}</p>
-  `;
-          }
-
-          const penanggung = petugas[hariOffset % petugas.length];
-          pjDiv.textContent = `Penanggung Jawab: ${penanggung.nama} (${penanggung.prodi})`;
-        }
+        });
       }
 
+      // Fungsi untuk pindah ke hari berikutnya
       function nextDay() {
-        hariOffset++;
-        renderSchedule();
+        currentDate.setDate(currentDate.getDate() + 1);
+        updateTable();
       }
-      renderSchedule();
+
+      // Fungsi untuk kembali ke hari ini
+      function goToToday() {
+        currentDate = new Date(today);
+        updateTable();
+      }
+
+      // Inisialisasi saat halaman dimuat
+      window.onload = initialize;
     </script>
   </body>
 </html>
