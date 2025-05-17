@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template Pengumuman Jum'at - Masjid Al-Kautsar FSM UNDIP</title>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header img {
+        max-width: 150px;
+      }
+      .content {
+        text-align: justify;
+      }
+      .bismillah {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #2b5e96;
+      }
+      .footer {
+        text-align: right;
+        margin-top: 30px;
+        font-style: italic;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #2b5e96;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #1e4b7b;
+      }
+      .announcement {
+        margin-top: 30px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+      }
+      .highlight {
+        background-color: #f0f7ff;
+        padding: 15px;
+        border-left: 4px solid #2b5e96;
+        margin: 15px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="takmir.png" alt="Logo Masjid Al-Kautsar" />
+        <h2>MASJID AL-KAUTSAR</h2>
+        <h3>Fakultas Sains dan Matematika UNDIP</h3>
+      </div>
+
+      <div class="form-group">
+        <label for="khotib">Nama Khotib:</label>
+        <input
+          type="text"
+          id="khotib"
+          placeholder="Contoh: Ustadz Drs. Danusiri, M.Ag"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="muadzin">Nama Muadzin:</label>
+        <input
+          type="text"
+          id="muadzin"
+          placeholder="Contoh: Wahyu Budi Utomo (Fisika 2022)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="infaq">Jumlah Infaq Minggu Lalu (Rp):</label>
+        <input type="text" id="infaq" placeholder="Contoh: 1.375.000" />
+      </div>
+
+      <button onclick="generateAnnouncement()">Buat Pengumuman</button>
+
+      <div id="announcement" class="announcement" style="display: none">
+        <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+
+        <div class="content">
+          <p>Assalamu'alaikum Wr. Wb.</p>
+
+          <p>
+            Kepada seluruh jama'ah yang InsyaAllah dirahmati Allah SWT. Sebelum
+            rangkaian ibadah shalat Jum'at dimulai, kami dari ketakmiran masjid
+            Al-Kautsar, Fakultas Sains dan Matematika UNDIP ingin menyampaikan
+            beberapa pengumuman :
+          </p>
+
+          <div class="highlight">
+            <ol>
+              <li>
+                Jama'ah yang shaf didepannya masih kosong, dimohon untuk segera
+                mengisi shaf-shaf tersebut.
+              </li>
+              <li>
+                Jama'ah yang membawa alat komunikasi atau handphone, dimohon
+                untuk sementara di non-aktifkan, agar tidak mengganggu
+                kekhusukan ibadah shalat jum'at.
+              </li>
+              <li>
+                Alhamdulilah... hasil infaq dan shadaqah jama'ah minggu kemarin,
+                terkumpul uang sebesar Rp
+                <span id="infaqDisplay"></span> rupiah, semoga amal ibadah
+                jama'ah di terima oleh Allah SWT.
+              </li>
+              <li>
+                Untuk Imam sekaligus Khotib pada ibadah Jum'at ini, InsyaAllah
+                beliau <span id="khotibDisplay"></span>. Dengan muadzinnya
+                adalah akhina <span id="muadzinDisplay"></span>.
+              </li>
+              <li>
+                Mohon untuk jamaah yang berada didekat kotak amal untuk
+                menggeser kotak amal ketika khotbah dimulai.
+              </li>
+            </ol>
+          </div>
+
+          <p>
+            Terimakasih, demikian pengumuman yang bisa kami sampaikan, kurang
+            lebihnya kami mohon maaf..
+          </p>
+        </div>
+
+        <div class="footer">
+          <p>WaBillahitaufiq wal hidayah</p>
+          <p>Wassalamu'alaikum Wr. Wb.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px">
+          <button onclick="printAnnouncement()">Cetak Pengumuman</button>
+          <button onclick="copyToClipboard()">Salin Teks</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function generateAnnouncement() {
+        const khotib = document.getElementById("khotib").value;
+        const muadzin = document.getElementById("muadzin").value;
+        const infaq = document.getElementById("infaq").value;
+
+        if (!khotib || !muadzin || !infaq) {
+          alert("Silakan lengkapi semua data terlebih dahulu!");
+          return;
+        }
+
+        document.getElementById("khotibDisplay").textContent = khotib;
+        document.getElementById("muadzinDisplay").textContent = muadzin;
+        document.getElementById("infaqDisplay").textContent = infaq;
+
+        document.getElementById("announcement").style.display = "block";
+      }
+
+      function printAnnouncement() {
+        const printContent = document.getElementById("announcement").innerHTML;
+        const originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+        location.reload();
+      }
+
+      function copyToClipboard() {
+        const announcementText =
+          document.getElementById("announcement").innerText;
+        navigator.clipboard
+          .writeText(announcementText)
+          .then(() => alert("Teks pengumuman telah disalin ke clipboard!"))
+          .catch((err) => alert("Gagal menyalin teks: " + err));
+      }
+    </script>
+  </body>
+</html>
