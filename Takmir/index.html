@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KETAKMIRAN - MADANI FSM</title>
+    <style>
+      /* Horizontal Menu with Dual Logo Style */
+      body {
+        background: linear-gradient(135deg, #4a8bc9, #6fc6f3);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        background: linear-gradient(145deg, #0d3a74, #1a5a9a);
+        border-radius: 20px;
+        padding: 30px;
+        width: auto;
+        max-width: 850px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 5px 0 #0a2a5a,
+          0 0 0 2px #ffffff20;
+        transform: perspective(500px) rotateX(5deg);
+      }
+
+      .logo-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .logo {
+        margin: 10px;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .logo-takmir img {
+        height: 120px; /* Diperbesar */
+        width: auto;
+        filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s ease;
+      }
+
+      .logo-undip img {
+        height: 100px;
+        width: auto;
+        filter: brightness(0) invert(1)
+          drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3)); /* Putih */
+        transition: transform 0.3s ease;
+      }
+
+      .logo img:hover {
+        transform: scale(1.05);
+      }
+
+      .logo p {
+        margin-top: 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin: 20px 0 10px;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        font-weight: 400;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .menu-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      a.item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #ffffff15, #ffffff05);
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        border: 1px solid #ffffff20;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 -2px 0 #00000020;
+        transition: all 0.3s ease;
+        min-width: 90px;
+        height: 90px;
+        text-align: center;
+      }
+
+      a.item:hover {
+        background: linear-gradient(145deg, #ffffff25, #ffffff15);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), inset 0 -2px 0 #00000020;
+      }
+
+      a.item span {
+        font-size: 1.8em;
+        margin-bottom: 8px;
+      }
+
+      .footer {
+        margin-top: 25px;
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          width: 95%;
+          padding: 25px 15px;
+        }
+
+        .logo-takmir img {
+          height: 100px;
+        }
+
+        .logo-undip img {
+          height: 80px;
+        }
+
+        h1 {
+          font-size: 1.7rem;
+        }
+
+        h2 {
+          font-size: 1.1rem;
+        }
+
+        a.item {
+          min-width: 80px;
+          height: 80px;
+          font-size: 0.85rem;
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo-container {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .logo {
+          margin: 15px 0;
+        }
+
+        .logo-takmir img {
+          height: 500px;
+        }
+
+        .logo-undip img {
+          height: 90px;
+        }
+
+        a.item {
+          min-width: 75px;
+          height: 75px;
+          font-size: 0.8rem;
+        }
+
+        a.item span {
+          font-size: 1.6em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo-container">
+        <div class="logo logo-undip">
+          <img src="undipresearch.png" alt="Logo Takmir" />
+          <p></p>
+        </div>
+        <div class="logo logo-takmir">
+          <img src="takmir.png" alt="Logo UNDIP" />
+          <p></p>
+        </div>
+      </div>
+
+      <h1>KETAKMIRAN <br />MASJID AL-KAUTSAR</h1>
+      <h2>KABINET HARMONI RABBANI 2025</h2>
+
+      <div class="menu-container">
+        <a class="item" href="halo.html" target="_blank">
+          <span>ℹ️</span>
+          Halo Takmir!
+        </a>
+        <a class="item" href="lapor.html" target="_blank">
+          <span>📄</span>
+          Lapor
+        </a>
+        <a class="item" href="https://wa.me/6289508918050" target="_blank">
+          <span>💬</span>
+          WhatsApp
+        </a>
+        <a class="item" href="/template-surat.html">
+          <span>📝</span>
+          Template
+        </a>
+        <a class="item" href="/lost-and-found.html" target="_blank">
+          <span>🔍</span>
+          Lost & Found
+        </a>
+        <a class="item" href="https://link-medsos.com" target="_blank">
+          <span>📢</span>
+          Media Partner
+        </a>
+        <a
+          class="item"
+          href="https://wahyu1011.github.io/Maswahyu.com/JadwalMuadzinFSM/"
+          target="_blank"
+        >
+          <span>🕌</span>
+          Jadwal Muadzin
+        </a>
+        <a class="item" href="/dana.html" target="_blank">
+          <span>💰</span>
+          INFOINFAQ
+        </a>
+      </div>
+
+      <div class="footer">
+        Masjid Al-Kautsar Fakultas Sains dan Matematika UNDIP © 2025
+      </div>
+    </div>
+  </body>
+</html>
