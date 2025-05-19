@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan Pengguna</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f0f2f5;
+        padding: 2rem;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      textarea {
+        width: 100%;
+        height: 150px;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: vertical;
+        margin-bottom: 1rem;
+      }
+
+      .button {
+        display: inline-block;
+        background-color: #4285f4;
+        color: #fff;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #2a65d5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Laporkan Sesuatu !</h1>
+      <p>
+        Tulis apa pun yang ingin kamu sampaikan. Kami akan membaca dengan penuh
+        perhatian 🌼
+      </p>
+
+      <textarea
+        id="laporan"
+        placeholder="Tulis laporanmu di sini..."
+      ></textarea>
+
+      <br />
+
+      <button class="button" onclick="kirimEmail()">Kirim via Email</button>
+    </div>
+
+    <script>
+      function kirimEmail() {
+        const isi = document.getElementById("laporan").value;
+        const emailTujuan = "wahyuekosetyopribowo@gmail.com";
+        const subjek = "Laporan dari Website";
+        const body = encodeURIComponent(isi);
+
+        const mailtoLink = `mailto:${emailTujuan}?subject=${encodeURIComponent(
+          subjek
+        )}&body=${body}`;
+        window.location.href = mailtoLink;
+      }
+    </script>
+  </body>
+</html>
