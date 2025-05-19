@@ -233,6 +233,39 @@
         color: #555;
       }
 
+      /* 3D Button for Jumat */
+      .btn-3d {
+        position: relative;
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        margin: 1rem 0;
+        color: white;
+        background: linear-gradient(135deg, #4caf50, #2e7d32);
+        border: none;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 4px 0 #1b5e20, 0 5px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.1s ease;
+      }
+
+      .btn-3d:active {
+        box-shadow: 0 2px 0 #1b5e20, 0 3px 5px rgba(0, 0, 0, 0.2);
+        transform: translateY(4px);
+      }
+
+      .btn-3d:hover {
+        background: linear-gradient(135deg, #43a047, #2e7d32);
+      }
+
+      .btn-container {
+        text-align: center;
+        margin: 0.5rem 0;
+      }
+
       /* Responsive Design */
       @media (max-width: 768px) {
         body {
@@ -287,7 +320,6 @@
       <!-- Countdown to Next Prayer -->
       <div class="countdown-container">
         <div class="countdown-title">Menuju Waktu Sholat Berikutnya</div>
-
         <div class="prayer-name" id="next-prayer-name">Memuat...</div>
         <div class="prayer-time" id="next-prayer-time"></div>
         <div class="countdown-timer" id="countdown-timer"></div>
@@ -304,6 +336,20 @@
           </thead>
           <tbody id="jadwal-body"></tbody>
         </table>
+      </div>
+
+      <!-- 3D Button for Jumat (hidden by default) -->
+      <div
+        id="jumat-button-container"
+        class="btn-container"
+        style="display: none"
+      >
+        <a
+          href="https://wahyu1011.github.io/Maswahyu.com/Takmir/templatePengumuman"
+          class="btn-3d"
+        >
+          <i class="fas fa-bullhorn"></i> Template Pengumuman
+        </a>
       </div>
 
       <div id="libur" class="libur" style="display: none">
@@ -640,6 +686,10 @@
 
         // Update tanggal di header
         document.getElementById("tanggal").textContent = hari + ", " + tanggal;
+
+        // Tampilkan atau sembunyikan button Jumat
+        const jumatButton = document.getElementById("jumat-button-container");
+        jumatButton.style.display = hari === "Jumat" ? "block" : "none";
 
         const tbody = document.getElementById("jadwal-body");
         tbody.innerHTML = "";
