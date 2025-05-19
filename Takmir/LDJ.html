@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Partner LDJ FSM</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #2c5f8b;
+        --secondary: #4a8bc9;
+        --accent: #f0c14b;
+        --light: #f9f9f9;
+        --dark: #333;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+      }
+
+      .header {
+        text-align: center;
+        padding: 50px 0 30px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        margin-bottom: 40px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      }
+
+      .header h1 {
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      /* 3D Card Style */
+      .partner-container {
+        perspective: 1000px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .partner-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform-style: preserve-3d;
+        transition: all 0.5s ease;
+        position: relative;
+        overflow: hidden;
+        border: none;
+      }
+
+      .partner-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .partner-card:hover {
+        transform: translateY(-10px) rotateX(5deg);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .prodi-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+      }
+
+      .prodi-item {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .prodi-item:hover {
+        transform: translateY(-5px) translateZ(10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .prodi-logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 15px;
+        background: var(--light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 3px solid white;
+      }
+
+      .prodi-logo img {
+        max-width: 70%;
+        max-height: 70%;
+        object-fit: contain;
+      }
+
+      .prodi-name {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+      }
+
+      .prodi-ldj {
+        font-size: 0.9rem;
+        color: var(--secondary);
+        font-weight: 500;
+      }
+
+      .footer {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 30px 0;
+        margin-top: 50px;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .prodi-list {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 15px;
+        }
+
+        .header {
+          padding: 30px 0 20px;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1>MEDIA PARTNER LDJ FSM</h1>
+        <p>
+          Daftar Media Partner LDJ dari Berbagai Prodi <br />Fakultas Sains dan
+          Matematika
+        </p>
+      </div>
+    </div>
+
+    <div class="container partner-container">
+      <div class="partner-card">
+        <h2 class="text-center mb-4" style="color: var(--primary)">
+          Dari Berbagai Program Studi
+        </h2>
+
+        <div class="prodi-list">
+          <!-- Prodi 1 -->
+          <div class="prodi-item">
+            <div class="prodi-logo">
+              <img
+                src="https://via.placeholder.com/100?text=DIGIT"
+                alt="DIGIT"
+              />
+            </div>
+            <div class="prodi-name">DIGIT</div>
+            <div class="prodi-ldj">LDJ Informatika</div>
+          </div>
+
+          <!-- Prodi 2 -->
+          <div class="prodi-item">
+            <div class="prodi-logo">
+              <img
+                src="https://via.placeholder.com/100?text=KASIFA"
+                alt="KASIFA"
+              />
+            </div>
+            <div class="prodi-name">KASIFA</div>
+            <div class="prodi-ldj">LDJ Fisika</div>
+          </div>
+
+          <!-- Prodi 3 -->
+          <div class="prodi-item">
+            <div class="prodi-logo">
+              <img
+                src="https://via.placeholder.com/100?text=KIMIA"
+                alt="KIMIA"
+              />
+            </div>
+            <div class="prodi-name">KSIKAMU</div>
+            <div class="prodi-ldj">LDJ Kimia</div>
+          </div>
+
+          <!-- Prodi 4 -->
+          <div class="prodi-item">
+            <div class="prodi-logo">
+              <img
+                src="https://via.placeholder.com/100?text=FISIKA"
+                alt="MATEMATIKA"
+              />
+            </div>
+            <div class="prodi-name">KESIMA</div>
+            <div class="prodi-ldj">LDJ MATEMATIKA</div>
+          </div>
+
+          <!-- Prodi 5 -->
+          <div class="prodi-item">
+            <div class="prodi-logo">
+              <img
+                src="https://via.placeholder.com/100?text=BIOLOGI"
+                alt="BIOLOGI"
+              />
+            </div>
+            <div class="prodi-name">FOSTIBI</div>
+            <div class="prodi-ldj">LDJ Biologi</div>
+          </div>
+
+          <!-- Prodi 6 -->
+          <div class="prodi-item">
+            <div class="prodi-logo">
+              <img src="https://via.placeholder.com/100?text=STAT" alt="STAT" />
+            </div>
+            <div class="prodi-name">NUANSA</div>
+            <div class="prodi-ldj">LDJ Statistika</div>
+          </div>
+
+          <!-- Tambahkan prodi lain di sini -->
+          <!--
+                <div class="prodi-item">
+                    <div class="prodi-logo">
+                        <img src="https://via.placeholder.com/100?text=PRODI" alt="PRODI">
+                    </div>
+                    <div class="prodi-name">NAMA PRODI</div>
+                    <div class="prodi-ldj">LDJ Prodi</div>
+                </div>
+                -->
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p>&copy; 2023 Media Partner LDJ FSM. All Rights Reserved.</p>
+        <p>Fakultas Sains dan Matematika Universitas Diponegoro</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Animasi saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        const prodiItems = document.querySelectorAll(".prodi-item");
+
+        prodiItems.forEach((item, index) => {
+          // Delay muncul bertahap
+          item.style.opacity = "0";
+          item.style.transform = "translateY(20px)";
+
+          setTimeout(() => {
+            item.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+          }, 100 * index);
+        });
+      });
+    </script>
+  </body>
+</html>
