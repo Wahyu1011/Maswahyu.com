@@ -266,6 +266,42 @@
         margin: 0.5rem 0;
       }
 
+      /* Rules Section */
+      .rules-container {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: var(--shadow);
+      }
+
+      .rules-title {
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .rules-list {
+        padding-left: 1.5rem;
+      }
+
+      .rules-list li {
+        margin-bottom: 0.5rem;
+        color: #555;
+      }
+
+      .coordinator-info {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      .coordinator-info strong {
+        color: var(--primary-color);
+      }
+
       /* Responsive Design */
       @media (max-width: 768px) {
         body {
@@ -308,7 +344,8 @@
       }
 
       table,
-      .countdown-container {
+      .countdown-container,
+      .rules-container {
         animation: fadeIn 0.5s ease-out;
       }
     </style>
@@ -323,6 +360,41 @@
         <div class="prayer-name" id="next-prayer-name">Memuat...</div>
         <div class="prayer-time" id="next-prayer-time"></div>
         <div class="countdown-timer" id="countdown-timer"></div>
+      </div>
+
+      <!-- Rules Section -->
+      <div class="rules-container" id="daily-rules">
+        <div class="rules-title">Ketentuan Petugas Adzan Dzuhur & Ashar</div>
+        <ul class="rules-list">
+          <li>Petugas wajib hadir minimal 5 menit sebelum adzan untuk persiapan.</li>
+          <li>Petugas 1 dan 2 saling berkoordinasi saat pelaksanaan.</li>
+          <li>Terdapat 2 nama setiap harinya (Petugas 1 & 2), dan tugas adzan dilakukan bergantian sesuai kesepakatan antar petugas.</li>
+          <li>Silakan saling berkoordinasi setiap harinya, siapa yang siap untuk mengumandangkan adzan.</li>
+          <li>Jika salah satu petugas berhalangan, maka petugas yang satunya yang harus bertugas.</li>
+          <li>Jika kedua petugas berhalangan, WAJIB mencari pengganti sendiri dan lapor ke koordinator.</li>
+          <li>Tampil rapi dan menjaga sikap selama bertugas.</li>
+          <li>Setelah bertugas, tetap ikut sholat berjamaah.</li>
+        </ul>
+        <div class="coordinator-info">
+          <strong>Koordinator:</strong><br>
+          - Wahyu Eko Setyo Pribowo (085712602367)<br>
+          - Muhammad Syaroful Anam (089530834636)<br>
+          Jika ada pertanyaan atau perubahan, bisa langsung hubungi beliau.
+        </div>
+      </div>
+
+      <div class="rules-container" id="friday-rules" style="display: none;">
+        <div class="rules-title">Petugas Sholat Jumat</div>
+        <ul class="rules-list">
+          <li>Diharapkan kepada petugas sholat Jum'at untuk hadir lebih awal sebelum jumatan untuk mempersiapkan keperluan kegiatan jumatan seperti menyiapkan kotak amal dan lain lain.</li>
+          <li>Petugas 1: Adzan</li>
+          <li>Petugas 2: Membacakan pengumuman</li>
+          <li>Setelah sholat Jumat, kedua petugas bertugas menghitung kotak amal bersama.</li>
+          <li>Jangan lupa, tetap koordinasi jika berhalangan hadir, dan lapor ke koordinator.</li>
+        </ul>
+        <div class="coordinator-info">
+          Semoga Allah mudahkan dan berkahi amanah ini. Terima kasih.
+        </div>
       </div>
 
       <div class="table-container">
@@ -687,9 +759,20 @@
         // Update tanggal di header
         document.getElementById("tanggal").textContent = hari + ", " + tanggal;
 
-        // Tampilkan atau sembunyikan button Jumat
+        // Tampilkan atau sembunyikan button Jumat dan rules
         const jumatButton = document.getElementById("jumat-button-container");
-        jumatButton.style.display = hari === "Jumat" ? "block" : "none";
+        const dailyRules = document.getElementById("daily-rules");
+        const fridayRules = document.getElementById("friday-rules");
+        
+        if (hari === "Jumat") {
+          jumatButton.style.display = "block";
+          dailyRules.style.display = "none";
+          fridayRules.style.display = "block";
+        } else {
+          jumatButton.style.display = "none";
+          dailyRules.style.display = "block";
+          fridayRules.style.display = "none";
+        }
 
         const tbody = document.getElementById("jadwal-body");
         tbody.innerHTML = "";
@@ -709,6 +792,7 @@
 
         // Minggu ganjil = minggu ke-1 petugas 1, minggu genap = minggu ke-2 petugas 2
         const jadwal = mingguKe % 2 === 0 ? petugasMingguan : petugasMingguKe2;
+        const jadwalLawan = mingguKe % 2 === 0 ? petugasMingguKe2 : petugasMingguan;
 
         ["dzuhur", "ashar"].forEach((waktu) => {
           if (hari === "Jumat" && waktu === "dzuhur") {
@@ -720,7 +804,7 @@
             const row1 = document.createElement("tr");
 
             const cellWaktu1 = document.createElement("td");
-            cellWaktu1.textContent = "Dzuhur";
+            cellWaktu1.textContent = "Dzuhur (Adzan)";
             row1.appendChild(cellWaktu1);
 
             const cellNama1 = document.createElement("td");
@@ -737,7 +821,7 @@
             const row2 = document.createElement("tr");
 
             const cellWaktu2 = document.createElement("td");
-            cellWaktu2.textContent = "";
+            cellWaktu2.textContent = "Dzuhur (Pengumuman)";
             row2.appendChild(cellWaktu2);
 
             const cellNama2 = document.createElement("td");
@@ -750,24 +834,44 @@
 
             tbody.appendChild(row2);
           } else {
-            const namaPetugas = jadwal[hari][waktu];
-            if (namaPetugas) {
-              const row = document.createElement("tr");
+            const namaPetugas1 = jadwal[hari][waktu];
+            const namaPetugas2 = jadwalLawan[hari][waktu];
+            
+            if (namaPetugas1) {
+              // Tampilkan petugas 1
+              const row1 = document.createElement("tr");
 
-              const cellWaktu = document.createElement("td");
-              cellWaktu.textContent =
-                waktu.charAt(0).toUpperCase() + waktu.slice(1);
-              row.appendChild(cellWaktu);
+              const cellWaktu1 = document.createElement("td");
+              cellWaktu1.textContent =
+                waktu.charAt(0).toUpperCase() + waktu.slice(1) + " (Petugas 1)";
+              row1.appendChild(cellWaktu1);
 
-              const cellNama = document.createElement("td");
-              cellNama.textContent = namaPetugas;
-              row.appendChild(cellNama);
+              const cellNama1 = document.createElement("td");
+              cellNama1.textContent = namaPetugas1;
+              row1.appendChild(cellNama1);
 
-              const cellProdi = document.createElement("td");
-              cellProdi.textContent = prodi[namaPetugas] || "-";
-              row.appendChild(cellProdi);
+              const cellProdi1 = document.createElement("td");
+              cellProdi1.textContent = prodi[namaPetugas1] || "-";
+              row1.appendChild(cellProdi1);
 
-              tbody.appendChild(row);
+              tbody.appendChild(row1);
+
+              // Tampilkan petugas 2
+              const row2 = document.createElement("tr");
+
+              const cellWaktu2 = document.createElement("td");
+              cellWaktu2.textContent = waktu.charAt(0).toUpperCase() + waktu.slice(1) + " (Petugas 2)";
+              row2.appendChild(cellWaktu2);
+
+              const cellNama2 = document.createElement("td");
+              cellNama2.textContent = namaPetugas2;
+              row2.appendChild(cellNama2);
+
+              const cellProdi2 = document.createElement("td");
+              cellProdi2.textContent = prodi[namaPetugas2] || "-";
+              row2.appendChild(cellProdi2);
+
+              tbody.appendChild(row2);
             }
           }
         });
