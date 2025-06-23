@@ -2,170 +2,269 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Banjari Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banjari</title>
     <style>
       body {
-        background-color: #1e1e1e;
-        color: white;
-        font-family: sans-serif;
-        text-align: center;
-        padding: 20px;
+        background-color: darkslategrey;
       }
       .container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
       }
       .ellipse {
         width: 3cm;
         height: 3cm;
         background-color: greenyellow;
         border-radius: 50%;
+        margin: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-family: Arial, sans-serif;
         font-size: 0.5cm;
         color: black;
         cursor: pointer;
-        transition: 0.3s;
+        text-align: center;
+        transition: background-color 0.2s;
       }
-      .ellipse.active {
-        background-color: dodgerblue;
+      .active {
+        background-color: blue !important;
         color: white;
-      }
-      #nowPlaying {
-        margin: 15px 0;
-        font-size: 1.1em;
-      }
-      #progressBar {
-        width: 80%;
-        height: 10px;
-        background: #555;
-        border-radius: 5px;
-        margin: 10px auto;
-        position: relative;
-      }
-      #progress {
-        width: 0%;
-        height: 100%;
-        background: lime;
-        border-radius: 5px;
-      }
-      #controls {
-        margin: 15px 0;
-      }
-      input[type="range"] {
-        width: 200px;
       }
     </style>
   </head>
   <body>
-    <h2>Banjari Player</h2>
-
-    <div id="nowPlaying">Belum ada audio diputar</div>
-
     <div class="container">
-      <div class="ellipse" data-audio="audio1" data-name="Awalan (Q)" data-key="q">Awalan</div>
-      <div class="ellipse" data-audio="audio2" data-name="Kaidah1 (W)" data-key="w">Kaidah1</div>
-      <div class="ellipse" data-audio="audio3" data-name="OFF (E)" data-key="e">OFF</div>
-      <div class="ellipse" data-audio="audio4" data-name="Getrak (R)" data-key="r">Getrak</div>
-      <!-- Tambah tombol lain sesuai kebutuhan -->
+      <div class="ellipse" data-audio="audio1" data-key="q">Awalan (Q)</div>
+      <div class="ellipse" data-audio="audio2" data-key="w">Kaidah1 (W)</div>
+      <div class="ellipse" data-audio="audio3" data-key="e">OFF (E)</div>
+      <div class="ellipse" data-audio="audio4" data-key="r">Getrak (R)</div>
+      <div class="ellipse" data-audio="audio5" data-key="t">Naik (T)</div>
+      <div class="ellipse" data-audio="audio6" data-key="y">Kaidah3 (Y)</div>
+      <div class="ellipse" data-audio="audio7" data-key="u">Kaidah4 (U)</div>
+      <div class="ellipse" data-audio="audio8" data-key="i">Kaidah4 (I)</div>
+      <div class="ellipse" data-audio="audio9" data-key="o">Kaidah4 (O)</div>
+      <div class="ellipse" data-audio="audio10" data-key="p">Kaidah4 (P)</div>
+      <div class="ellipse" data-audio="audio11" data-key="a">4 3xD (A)</div>
+      <div class="ellipse" data-audio="audio12" data-key="s">Kaidah5 (S)</div>
+      <div class="ellipse" data-audio="audio13" data-key="d">Turun (D)</div>
+      <div class="ellipse" data-audio="audio14" data-key="f">
+        Naik diulang (F)
+      </div>
     </div>
 
-    <div id="progressBar"><div id="progress"></div></div>
+    <audio id="audio1" loop>
+      <source src="audio1.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio2" loop>
+      <source src="audio2.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio3" loop>
+      <source src="audio3.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio4" loop>
+      <source src="audio4.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio5" loop>
+      <source src="audio5.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio6" loop>
+      <source src="audio6.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio7" loop>
+      <source src="audio7.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio8" loop>
+      <source src="audio8.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio9" loop>
+      <source src="audio9.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio10" loop>
+      <source src="audio10.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio11" loop>
+      <source src="audio11.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio12" loop>
+      <source src="audio12.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio13" loop>
+      <source src="audio13.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audio14" loop>
+      <source src="audio14.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
 
-    <div id="controls">
-      <label>Volume: <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" /></label><br><br>
-      <button onclick="decreaseTempo()">- Tempo</button>
-      <span id="tempoDisplay">100%</span>
-      <button onclick="increaseTempo()">+ Tempo</button>
-      <button onclick="resetTempo()">Reset</button>
-      <button onclick="stopCurrentAudio()">Stop</button>
+    <div style="text-align: center; margin: 20px">
+      <button id="decreaseTempo" style="padding: 10px; font-size: 16px">
+        -
+      </button>
+      <span
+        id="tempoDisplay"
+        style="margin: 0 15px; font-size: 18px; color: white"
+        >100%</span
+      >
+      <button id="increaseTempo" style="padding: 10px; font-size: 16px">
+        +
+      </button>
+      <button
+        id="resetTempo"
+        style="padding: 10px; font-size: 16px; margin-left: 20px"
+      >
+        Reset
+      </button>
     </div>
-
-    <audio id="audio1" src="audio1.mp3" preload="auto"></audio>
-    <audio id="audio2" src="audio2.mp3" preload="auto"></audio>
-    <audio id="audio3" src="audio3.mp3" preload="auto"></audio>
-    <audio id="audio4" src="audio4.mp3" preload="auto"></audio>
 
     <script>
       let currentAudio = null;
-      let currentTempo = 1;
-
+      let fadeInInterval = null;
+      let volumeInterval = null;
+      let fadeStep = 0.05;
+      let targetVolume = 0.8;
+      let currentTempo = 1; // default 1x (100%)
+      
       function updateTempoDisplay() {
         document.getElementById("tempoDisplay").textContent = Math.round(currentTempo * 100) + "%";
       }
-
+      
       function stopCurrentAudio() {
         if (currentAudio) {
           currentAudio.pause();
           currentAudio.currentTime = 0;
+          clearInterval(volumeInterval);
           currentAudio = null;
         }
-        document.getElementById("nowPlaying").textContent = "Belum ada audio diputar";
-        document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
-        document.getElementById("progress").style.width = "0%";
       }
-
-      function playAudio(audioId, name, button) {
-        stopCurrentAudio();
-        const audio = document.getElementById(audioId);
+      
+      function fadeIn(audio) {
+        clearInterval(fadeInInterval);
+        clearInterval(volumeInterval);
+        audio.volume = 0;
         audio.playbackRate = currentTempo;
-        audio.volume = document.getElementById("volumeSlider").value;
-        audio.play();
-        currentAudio = audio;
-
-        document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
-        button.classList.add("active");
-        document.getElementById("nowPlaying").textContent = `Now Playing: ${name}`;
-
-        audio.ontimeupdate = () => {
-          const progress = (audio.currentTime / audio.duration) * 100;
-          document.getElementById("progress").style.width = progress + "%";
-        };
-
-        audio.onended = () => stopCurrentAudio();
+        audio.play().catch((e) => console.error(e));
+        fadeInInterval = setInterval(() => {
+          if (audio.volume < targetVolume) {
+            audio.volume = Math.min(audio.volume + fadeStep, targetVolume);
+          } else {
+            clearInterval(fadeInInterval);
+            startVolumeDynamics(audio);
+          }
+        }, 50);
       }
-
+      
+      function startVolumeDynamics(audio) {
+        volumeInterval = setInterval(() => {
+          if (!audio.paused) {
+            let randomVariation = (Math.random() * 0.3) - 0.15;
+            let newVolume = targetVolume + randomVariation;
+            audio.volume = Math.max(0.1, Math.min(newVolume, 1));
+          }
+        }, 300);
+      }
+      
+      function playAudio(audioElement) {
+        stopCurrentAudio();
+        currentAudio = audioElement;
+      
+        if (audioElement.id === "audio1" || audioElement.id === "audio7") {
+          clearInterval(volumeInterval);
+          audioElement.volume = targetVolume;
+          audioElement.playbackRate = currentTempo;
+          audioElement.play().catch((e) => console.error(e));
+          startVolumeDynamics(audioElement);
+        } else {
+          fadeIn(audioElement);
+        }
+      }
+      
       function increaseTempo() {
-        if (currentTempo < 2) currentTempo += 0.1;
-        if (currentAudio) currentAudio.playbackRate = currentTempo;
-        updateTempoDisplay();
+        if (currentTempo < 2) {
+          currentTempo += 0.1;
+          currentTempo = Math.min(currentTempo, 2);
+          if (currentAudio) currentAudio.playbackRate = currentTempo;
+          updateTempoDisplay();
+        }
       }
-
+      
       function decreaseTempo() {
-        if (currentTempo > 0.5) currentTempo -= 0.1;
-        if (currentAudio) currentAudio.playbackRate = currentTempo;
-        updateTempoDisplay();
+        if (currentTempo > 0.5) {
+          currentTempo -= 0.1;
+          currentTempo = Math.max(currentTempo, 0.5);
+          if (currentAudio) currentAudio.playbackRate = currentTempo;
+          updateTempoDisplay();
+        }
       }
-
-      function resetTempo() {
+      
+      document.getElementById("increaseTempo").addEventListener("click", increaseTempo);
+      document.getElementById("decreaseTempo").addEventListener("click", decreaseTempo);
+      document.getElementById("resetTempo").addEventListener("click", function () {
         currentTempo = 1;
         if (currentAudio) currentAudio.playbackRate = currentTempo;
         updateTempoDisplay();
-      }
-
-      document.getElementById("volumeSlider").addEventListener("input", function () {
-        if (currentAudio) currentAudio.volume = this.value;
       });
-
-      document.querySelectorAll(".ellipse").forEach((el) => {
-        el.addEventListener("click", () => {
-          playAudio(el.getAttribute("data-audio"), el.getAttribute("data-name"), el);
+      
+      // klik ellipse buat play
+      document.querySelectorAll(".ellipse").forEach((ellipse) => {
+        ellipse.addEventListener("click", function () {
+          const audioId = this.getAttribute("data-audio");
+          const audioElement = document.getElementById(audioId);
+          playAudio(audioElement);
         });
       });
-
-      document.addEventListener("keydown", (e) => {
-        const key = e.key.toLowerCase();
-        const btn = document.querySelector(`.ellipse[data-key="${key}"]`);
-        if (btn) btn.click();
-        if (key === "arrowright") increaseTempo();
-        if (key === "arrowleft") decreaseTempo();
+      
+      // keyboard event
+      document.addEventListener("keydown", function (event) {
+        const key = event.key.toLowerCase();
+      
+        if (key === "arrowright") {
+          // tekan panah kanan buat tambah tempo
+          increaseTempo();
+        } else if (key === "arrowleft") {
+          // tekan panah kiri buat kurangi tempo
+          decreaseTempo();
+        } else {
+          const ellipse = document.querySelector(`.ellipse[data-key="${key}"]`);
+          if (ellipse) {
+            document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
+            ellipse.classList.add("active");
+            ellipse.click();
+          }
+        }
       });
-
+      
+      // auto play audio2 setelah audio4
+      document.getElementById("audio4").addEventListener("ended", function () {
+        const audio2 = document.getElementById("audio2");
+        playAudio(audio2);
+      
+        document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
+        const ellipse = document.querySelector('.ellipse[data-audio="audio2"]');
+        ellipse.classList.add("active");
+      });
+      
+      // pas pertama buka halaman
       updateTempoDisplay();
+      </script>
+      
+      
     </script>
   </body>
 </html>
+
