@@ -133,135 +133,85 @@
     </div>
 
     <script>
-      let currentAudio = null;
-      let fadeInInterval = null;
-      let volumeInterval = null;
-      let fadeStep = 0.05;
-      let targetVolume = 0.8;
-      let currentTempo = 1; // default 1x (100%)
-      
-      function updateTempoDisplay() {
-        document.getElementById("tempoDisplay").textContent = Math.round(currentTempo * 100) + "%";
-      }
-      
-      function stopCurrentAudio() {
-        if (currentAudio) {
-          currentAudio.pause();
-          currentAudio.currentTime = 0;
-          clearInterval(volumeInterval);
-          currentAudio = null;
-        }
-      }
-      
-      function fadeIn(audio) {
-        clearInterval(fadeInInterval);
-        clearInterval(volumeInterval);
-        audio.volume = 0;
-        audio.playbackRate = currentTempo;
-        audio.play().catch((e) => console.error(e));
-        fadeInInterval = setInterval(() => {
-          if (audio.volume < targetVolume) {
-            audio.volume = Math.min(audio.volume + fadeStep, targetVolume);
-          } else {
-            clearInterval(fadeInInterval);
-            startVolumeDynamics(audio);
-          }
-        }, 50);
-      }
-      
-      function startVolumeDynamics(audio) {
-        volumeInterval = setInterval(() => {
-          if (!audio.paused) {
-            let randomVariation = (Math.random() * 0.3) - 0.15;
-            let newVolume = targetVolume + randomVariation;
-            audio.volume = Math.max(0.1, Math.min(newVolume, 1));
-          }
-        }, 300);
-      }
-      
-      function playAudio(audioElement) {
-        stopCurrentAudio();
-        currentAudio = audioElement;
-      
-        if (audioElement.id === "audio1" || audioElement.id === "audio7") {
-          clearInterval(volumeInterval);
-          audioElement.volume = targetVolume;
-          audioElement.playbackRate = currentTempo;
-          audioElement.play().catch((e) => console.error(e));
-          startVolumeDynamics(audioElement);
-        } else {
-          fadeIn(audioElement);
-        }
-      }
-      
-      function increaseTempo() {
-        if (currentTempo < 2) {
-          currentTempo += 0.1;
-          currentTempo = Math.min(currentTempo, 2);
-          if (currentAudio) currentAudio.playbackRate = currentTempo;
-          updateTempoDisplay();
-        }
-      }
-      
-      function decreaseTempo() {
-        if (currentTempo > 0.5) {
-          currentTempo -= 0.1;
-          currentTempo = Math.max(currentTempo, 0.5);
-          if (currentAudio) currentAudio.playbackRate = currentTempo;
-          updateTempoDisplay();
-        }
-      }
-      
-      document.getElementById("increaseTempo").addEventListener("click", increaseTempo);
-      document.getElementById("decreaseTempo").addEventListener("click", decreaseTempo);
-      document.getElementById("resetTempo").addEventListener("click", function () {
-        currentTempo = 1;
-        if (currentAudio) currentAudio.playbackRate = currentTempo;
-        updateTempoDisplay();
-      });
-      
-      // klik ellipse buat play
-      document.querySelectorAll(".ellipse").forEach((ellipse) => {
-        ellipse.addEventListener("click", function () {
-          const audioId = this.getAttribute("data-audio");
-          const audioElement = document.getElementById(audioId);
-          playAudio(audioElement);
-        });
-      });
-      
-      // keyboard event
-      document.addEventListener("keydown", function (event) {
-        const key = event.key.toLowerCase();
-      
-        if (key === "arrowright") {
-          // tekan panah kanan buat tambah tempo
-          increaseTempo();
-        } else if (key === "arrowleft") {
-          // tekan panah kiri buat kurangi tempo
-          decreaseTempo();
-        } else {
-          const ellipse = document.querySelector(`.ellipse[data-key="${key}"]`);
-          if (ellipse) {
-            document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
-            ellipse.classList.add("active");
-            ellipse.click();
-          }
-        }
-      });
-      
-      // auto play audio2 setelah audio4
-      document.getElementById("audio4").addEventListener("ended", function () {
-        const audio2 = document.getElementById("audio2");
-        playAudio(audio2);
-      
-        document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
-        const ellipse = document.querySelector('.ellipse[data-audio="audio2"]');
-        ellipse.classList.add("active");
-      });
-      
-      // pas pertama buka halaman
+  let currentAudio = null;
+  let currentTempo = 1;
+  const targetVolume = 0.8;
+
+  function updateTempoDisplay() {
+    document.getElementById("tempoDisplay").textContent = Math.round(currentTempo * 100) + "%";
+  }
+
+  function stopCurrentAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
+  }
+
+  function playAudio(audioElement) {
+    stopCurrentAudio();
+    currentAudio = audioElement;
+    audioElement.volume = targetVolume;
+    audioElement.playbackRate = currentTempo;
+    audioElement.play().catch((e) => console.error(e));
+  }
+
+  function increaseTempo() {
+    if (currentTempo < 2) {
+      currentTempo = Math.min(currentTempo + 0.1, 2);
+      if (currentAudio) currentAudio.playbackRate = currentTempo;
       updateTempoDisplay();
-      </script>
+    }
+  }
+
+  function decreaseTempo() {
+    if (currentTempo > 0.5) {
+      currentTempo = Math.max(currentTempo - 0.1, 0.5);
+      if (currentAudio) currentAudio.playbackRate = currentTempo;
+      updateTempoDisplay();
+    }
+  }
+
+  document.getElementById("increaseTempo").addEventListener("click", increaseTempo);
+  document.getElementById("decreaseTempo").addEventListener("click", decreaseTempo);
+  document.getElementById("resetTempo").addEventListener("click", () => {
+    currentTempo = 1;
+    if (currentAudio) currentAudio.playbackRate = currentTempo;
+    updateTempoDisplay();
+  });
+
+  document.querySelectorAll(".ellipse").forEach((ellipse) => {
+    ellipse.addEventListener("click", function () {
+      const audioId = this.getAttribute("data-audio");
+      const audioElement = document.getElementById(audioId);
+      document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
+      this.classList.add("active");
+      playAudio(audioElement);
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    if (key === "arrowright") increaseTempo();
+    else if (key === "arrowleft") decreaseTempo();
+    else {
+      const ellipse = document.querySelector(`.ellipse[data-key="${key}"]`);
+      if (ellipse) ellipse.click();
+    }
+  });
+
+  document.getElementById("audio4").addEventListener("ended", function () {
+    const audio2 = document.getElementById("audio2");
+    const ellipse = document.querySelector('.ellipse[data-audio="audio2"]');
+    document.querySelectorAll(".ellipse").forEach((e) => e.classList.remove("active"));
+    ellipse.classList.add("active");
+    playAudio(audio2);
+  });
+
+  updateTempoDisplay();
+</script>
+
       
       
     </script>
