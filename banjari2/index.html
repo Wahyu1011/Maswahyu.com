@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Step Sequencer Pola</title>
+    <style>
+      body {
+        background: #1c1c1c;
+        color: white;
+        font-family: sans-serif;
+        padding: 30px;
+      }
+      .pola {
+        margin-bottom: 40px;
+        border: 1px solid #444;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .pola h2 {
+        margin-bottom: 10px;
+      }
+      .track {
+        margin-bottom: 10px;
+      }
+      .track-name {
+        margin-bottom: 4px;
+        font-weight: bold;
+      }
+      .steps {
+        display: flex;
+        gap: 4px;
+      }
+      .step {
+        width: 20px;
+        height: 20px;
+        background: #444;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+      .step.active {
+        background: #1abc9c;
+      }
+      .pola button {
+        margin-top: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+        background: #2ecc71;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 16px;
+        margin: 30px 0;
+        padding: 0 10px;
+        justify-items: center;
+      }
+
+      .btn3d {
+        background: #1e1e2f;
+        color: #ffffff;
+        border: none;
+        padding: 16px 20px;
+        border-radius: 14px;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 4px 4px 8px #0e0e17, -4px -4px 8px #2e2e45;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .btn3d:hover {
+        background: #2d2d45;
+      }
+
+      .btn3d.active-btn {
+        box-shadow: 0 4px 8px rgba(214, 225, 5, 0.7); /* Merah menyala */
+        border: 2px solid #ff0000;
+        background-color: #330000;
+      }
+      #offButton {
+        background-color: red;
+        color: white;
+        box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.6);
+        transition: all 0.3s ease;
+      }
+
+      #offButton.glow-green {
+        background-color: green;
+        color: white;
+        box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6);
+        transition: all 0.3s ease;
+      }
+
+      #offButton.glow-red {
+        background-color: red;
+        color: white;
+        box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.6);
+        transition: all 0.3s ease;
+      }
+
+      #offButton.active {
+        background-color: crimson;
+        color: white;
+        box-shadow: 0 0 10px crimson;
+      }
+
+      .pattern-btn.active {
+        background-color: darkgreen;
+        color: white;
+        box-shadow: 0 0 8px limegreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="text-align: right; margin-bottom: 20px">
+      <button id="offButton" class="glow-red">OFF</button>
+    </div>
+
+    <h1>🎶 BANJARI PATTERN</h1>
+    <label for="tempo">🕒 Tempo: <span id="tempo-value">100</span> BPM</label>
+    <input type="range" id="tempo" min="60" max="1000" value="380" step="1" />
+
+    <!-- UI SEQUENCER 3D -->
+    <div class="button-grid">
+      <button class="btn3d" data-pola="pola1" onclick="startSequencer('pola1')">
+        Start Awal
+      </button>
+      <button class="btn3d" data-pola="pola2" onclick="startSequencer('pola2')">
+        Start Dasar
+      </button>
+      <button class="btn3d" data-pola="pola3" onclick="startSequencer('pola3')">
+        Dasaran
+      </button>
+      <button class="btn3d" data-pola="pola4" onclick="startSequencer('pola4')">
+        Tengahan
+      </button>
+      <button class="btn3d" data-pola="pola5" onclick="startSequencer('pola5')">
+        Naik
+      </button>
+      <button class="btn3d" data-pola="pola6" onclick="startSequencer('pola6')">
+        Tarik
+      </button>
+      <button class="btn3d" data-pola="pola7" onclick="startSequencer('pola7')">
+        Tarik #2
+      </button>
+      <button class="btn3d" data-pola="pola8" onclick="startSequencer('pola8')">
+        Jeda
+      </button>
+      <button class="btn3d" data-pola="pola9" onclick="startSequencer('pola9')">
+        Tutup
+      </button>
+      <button
+        class="btn3d"
+        data-pola="pola10"
+        onclick="startSequencer('pola10')"
+      >
+        Dung
+      </button>
+    </div>
+
+    <!-- POLA 1 -->
+    <div class="pola" id="pola1">
+      <h2>Start Awal</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola1')">▶️</button>
+    </div>
+
+    <!-- POLA 2 -->
+    <div class="pola" id="pola2">
+      <h2>Start Dasar</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola2')">▶️</button>
+    </div>
+    <!-- POLA 3 -->
+    <div class="pola" id="pola3">
+      <h2>Dasaran</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola3')">▶️</button>
+    </div>
+
+    <!-- POLA 4 -->
+    <div class="pola" id="pola4">
+      <h2>Tengahan</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola4')">▶️</button>
+    </div>
+    <!-- POLA 5 -->
+    <div class="pola" id="pola5">
+      <h2>Naik</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola5')">▶️</button>
+    </div>
+
+    <!-- POLA 6 -->
+    <div class="pola" id="pola6">
+      <h2>Tarik</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola6')">▶️</button>
+    </div>
+
+    <!-- POLA 7 -->
+    <div class="pola" id="pola7">
+      <h2>Tarik#2</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+
+      <button onclick="startSequencer('pola7')">▶️</button>
+    </div>
+
+    <!-- POLA 8 -->
+    <div class="pola" id="pola8">
+      <h2>Jeda</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola8')">▶️</button>
+    </div>
+    <!-- POLA 9 -->
+    <div class="pola" id="pola9">
+      <h2>Tutup</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola9')">▶️</button>
+    </div>
+
+    <!-- POLA 10 -->
+    <div class="pola" id="pola10">
+      <h2>Dung</h2>
+      <div class="track" data-audio="audio0">
+        <div class="track-name">Bass Duk</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio1">
+        <div class="track-name">Bass Dem</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio2">
+        <div class="track-name">Bass Der</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio3">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio4">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio5">
+        <div class="track-name">Hadrah Dung</div>
+        <div class="steps"></div>
+      </div>
+      <div class="track" data-audio="audio6">
+        <div class="track-name">Hadrah Tak</div>
+        <div class="steps"></div>
+      </div>
+      <button onclick="startSequencer('pola10')">▶️</button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="audio0" src="Bass Duk.wav"></audio>
+    <audio id="audio1" src="Bass Dem.wav"></audio>
+    <audio id="audio2" src="Bass Der.wav"></audio>
+    <audio id="audio3" src="Hadrah Dung.wav"></audio>
+    <audio id="audio4" src="Hadrah Tak.wav"></audio>
+
+    <audio id="audio5" src="Hadrah Dung.wav"></audio>
+    <audio id="audio6" src="Hadrah Tak.wav"></audio>
+
+    <script>
+      let currentGlobalStep = 0;
+      let currentPlayingPattern = null;
+
+      const patterns = {
+        pola1: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio6: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+        },
+        pola2: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+          audio6: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+        },
+        pola3: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+          audio6: [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+        },
+        pola4: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio6: [0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1],
+        },
+        pola5: {
+          audio0: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 1, 0, 1, 0,
+          ],
+          audio1: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 1, 0, 0, 0, 0, 0, 0,
+          ],
+          audio2: [
+            1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+
+          audio3: [
+            1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1,
+            0, 1, 0, 0, 1, 1, 0, 1, 0,
+          ],
+          audio4: [
+            0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio5: [
+            1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0,
+            1, 1, 0, 1, 0, 1, 1, 0, 1,
+          ],
+          audio6: [
+            0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+        },
+        pola6: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+          audio6: [0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0],
+        },
+        pola7: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+          audio6: [0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0],
+        },
+        pola8: {
+          audio0: [
+            0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 1, 0, 1, 0, 0, 0,
+          ],
+          audio1: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio2: [
+            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+
+          audio3: [
+            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 1, 0, 0, 0, 0, 0,
+          ],
+          audio4: [
+            0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0,
+            1, 1, 0, 0, 1, 0, 0, 0, 0,
+          ],
+          audio5: [
+            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+            0, 0, 1, 0, 0, 0, 0, 0, 0,
+          ],
+          audio6: [
+            0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1,
+            1, 0, 0, 0, 0, 1, 0, 1, 1,
+          ],
+        },
+        pola9: {
+          audio0: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio1: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio2: [
+            1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+
+          audio3: [
+            1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio4: [
+            0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio5: [
+            1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+          audio6: [
+            0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ],
+        },
+        pola10: {
+          audio0: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio2: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+          audio3: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio5: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          audio6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        },
+      };
+
+      const stepCounts = {
+        pola1: 16,
+        pola2: 16,
+        pola3: 16,
+        pola4: 16,
+        pola5: 32,
+        pola6: 16,
+        pola7: 16,
+        pola8: 32,
+        pola9: 32,
+        pola10: 16,
+      };
+      let timers = {};
+
+      // 🧹 Fungsi untuk menghentikan semua pola lain
+      function stopAllSequencers() {
+        for (const id in timers) {
+          clearInterval(timers[id]);
+        }
+        // reset semua step highlight
+        document.querySelectorAll(".step").forEach((step) => {
+          step.classList.remove("active");
+        });
+
+        function setOnOffState(isOn) {
+          const btn = document.getElementById("onOffButton");
+          if (!btn) return;
+
+          const label = isOn ? "🟢 ON" : "🔇 OFF";
+          btn.classList.toggle("active", isOn);
+          btn.innerHTML = label;
+        }
+      }
+
+      const tempoSlider = document.getElementById("tempo");
+      const tempoValue = document.getElementById("tempo-value");
+      tempoValue.textContent = tempoSlider.value;
+
+      function startSequencer(polaId) {
+        stopAllSequencers(); // Stop yang lama
+
+        const bpm = Math.min(parseInt(tempoSlider.value), 1000);
+        const interval = (60 / bpm) * 1000;
+        const stepCount = stepCounts[polaId];
+        const pola = document.getElementById(polaId);
+
+        // Gunakan currentGlobalStep yang telah berjalan
+        const alwaysStartFromZero = [
+          ,
+          "pola1",
+          "pola",
+          "pola",
+          "pola",
+          "pola",
+          "pola",
+          "pola",
+        ];
+        let currentStep = alwaysStartFromZero.includes(polaId)
+          ? 0
+          : currentGlobalStep % stepCount;
+
+        currentPlayingPattern = polaId;
+
+        timers[polaId] = setInterval(() => {
+          pola.querySelectorAll(".track").forEach((track) => {
+            const audioId = track.getAttribute("data-audio");
+            const steps = track.querySelectorAll(".step");
+            const pattern = patterns[polaId][audioId];
+
+            steps.forEach((step) => step.classList.remove("active"));
+
+            if (pattern[currentStep] === 1) {
+              const audio = document.getElementById(audioId);
+              audio.currentTime = 0;
+              audio.play();
+            }
+
+            steps[currentStep].classList.add("active");
+          });
+
+          currentStep = (currentStep + 1) % stepCount;
+          currentGlobalStep = currentGlobalStep + 1; // Tetap bertambah
+        }, interval);
+      }
+      window.addEventListener("message", (event) => {
+        if (event.data?.action === "start" && event.data?.polaId) {
+          startSequencer(event.data.polaId);
+        }
+      });
+
+      // Bangun UI steps untuk semua pola
+      document.querySelectorAll(".pola").forEach((polaDiv) => {
+        const polaId = polaDiv.id;
+        polaDiv.querySelectorAll(".track").forEach((track) => {
+          const audioId = track.getAttribute("data-audio");
+          const container = track.querySelector(".steps");
+          const pattern = patterns[polaId][audioId] || [];
+
+          const stepsToCreate = stepCounts[polaId] || 16;
+
+          for (let i = 0; i < stepsToCreate; i++) {
+            const box = document.createElement("div");
+            box.className = "step";
+            box.dataset.step = i;
+            container.appendChild(box);
+          }
+        });
+      });
+
+      // Fungsi untuk klik tombol
+      function klikTombol(tombol) {
+        if (tombol) tombol.click();
+      }
+
+      // Deteksi keyboard ditekan
+      document.addEventListener("keydown", (e) => {
+        const key = e.key.toLowerCase();
+        switch (key) {
+          case "q":
+            startSequencer("pola1", currentGlobalStep);
+            break;
+          case "w":
+            startSequencer("pola2", currentGlobalStep);
+            break;
+          case "e":
+            startSequencer("pola3", currentGlobalStep);
+            break;
+          case "r":
+            startSequencer("pola4", currentGlobalStep);
+            break;
+          case "t":
+            startSequencer("pola5", currentGlobalStep);
+            break;
+          case "y":
+            startSequencer("pola6", currentGlobalStep);
+            break;
+          case "u":
+            startSequencer("pola7", currentGlobalStep);
+            break;
+          case "i":
+            startSequencer("pola8", currentGlobalStep);
+            break;
+          case "o":
+            startSequencer("pola9", currentGlobalStep);
+            break;
+          case "p":
+            startSequencer("pola10", currentGlobalStep);
+            break;
+          case " ":
+            stopAllSequencers(); // pakai spasi buat stop semua
+            break;
+        }
+      });
+
+      tempoSlider.addEventListener("input", () => {
+        tempoValue.textContent = tempoSlider.value;
+
+        if (currentPlayingPattern) {
+          clearInterval(timers[currentPlayingPattern]);
+          startSequencer(currentPlayingPattern); // Tetap lanjut di pola aktif
+        }
+      });
+
+      document.querySelectorAll(".btn3d").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          // hapus aktif dari semua tombol
+          document
+            .querySelectorAll(".btn3d")
+            .forEach((b) => b.classList.remove("active-btn"));
+          // kasih class aktif ke tombol yang ditekan
+          this.classList.add("active-btn");
+          document.getElementById("offButton").classList.remove("active");
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        const key = e.key.toLowerCase();
+        const keyMap = {
+          q: "pola1",
+          w: "pola2",
+          e: "pola3",
+          r: "pola4",
+          t: "pola5",
+          y: "pola6",
+          u: "pola7",
+          i: "pola8",
+          o: "pola9",
+          p: "pola10",
+        };
+
+        if (key in keyMap) {
+          const polaId = keyMap[key];
+          startSequencer(polaId);
+
+          // aktifkan tombol yang sesuai
+          document
+            .querySelectorAll(".btn3d")
+            .forEach((b) => b.classList.remove("active-btn"));
+          const targetBtn = document.querySelector(
+            `.btn3d[data-pola='${polaId}']`
+          );
+          if (targetBtn) {
+            targetBtn.classList.add("active-btn");
+          }
+          document.getElementById("offButton").classList.remove("active");
+        }
+      });
+
+      function turnOffAll() {
+        stopAllSequencers(); // Berhentiin semua loop audio
+
+        // Hapus semua efek aktif dari tombol pola
+        document.querySelectorAll(".btn3d").forEach((btn) => {
+          btn.classList.remove("active-btn");
+        });
+
+        document.querySelectorAll("audio").forEach((audio) => {
+          audio.pause();
+          audio.currentTime = 0;
+        });
+
+        // Aktifkan efek menyala merah pada tombol OFF
+        const offBtn = document.getElementById("offButton");
+        offBtn.textContent = "OFF";
+        offBtn.style.backgroundColor = "red";
+        offBtn.style.color = "white";
+        offBtn.classList.add("glow-red");
+
+        // Tambahan: hilangkan efek active dari tombol pola lain
+        document.querySelectorAll(".pattern-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+      }
+      document.querySelectorAll(".pattern-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          // Reset semua tombol pattern dan tombol OFF
+          document
+            .querySelectorAll(".pattern-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document.getElementById("offButton").classList.remove("active");
+
+          // Aktifkan tombol yang diklik
+          btn.classList.add("active");
+
+          // Jalankan sequencer sesuai pola yang diklik
+          const pola = btn.getAttribute("data-pola");
+          playPattern(pola); // Fungsi ini kamu sudah punya ya~
+        });
+      });
+
+      const offBtn = document.getElementById("offButton");
+
+      // Fungsi untuk mematikan semua dan set OFF
+      function turnOffAll() {
+        stopAllSequencers();
+
+        document.querySelectorAll(".btn3d").forEach((btn) => {
+          btn.classList.remove("active-btn");
+        });
+
+        // Ganti OFF, warna merah, glow merah
+        offBtn.textContent = "OFF";
+        offBtn.style.backgroundColor = "red";
+        offBtn.classList.remove("glow-green");
+        offBtn.classList.add("glow-red");
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          turnOffAll();
+        } else {
+          // Aktifkan ON, warna hijau, glow hijau
+          offBtn.textContent = "ON";
+          offBtn.style.backgroundColor = "green";
+          offBtn.classList.remove("glow-red");
+          offBtn.classList.add("glow-green");
+        }
+      });
+
+      offBtn.addEventListener("click", function () {
+        turnOffAll();
+      });
+
+      document
+        .getElementById("offButton")
+        .addEventListener("click", turnOffAll);
+    </script>
+  </body>
+</html>
