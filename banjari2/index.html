@@ -114,6 +114,51 @@
         color: white;
         box-shadow: 0 0 8px limegreen;
       }
+      @media (max-width: 600px) {
+        body {
+          padding: 16px;
+          font-size: 14px;
+        }
+
+        .pola {
+          padding: 16px;
+          margin-bottom: 24px;
+        }
+
+        .pola h2 {
+          font-size: 16px;
+        }
+
+        .track-name {
+          font-size: 13px;
+        }
+
+        .step {
+          width: 16px;
+          height: 16px;
+        }
+
+        .btn3d {
+          padding: 12px 14px;
+          font-size: 13px;
+          border-radius: 10px;
+        }
+
+        .button-grid {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+          gap: 10px;
+          padding: 0;
+        }
+
+        #offButton {
+          font-size: 13px;
+          padding: 10px 14px;
+        }
+
+        input[type="range"] {
+          width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -507,7 +552,6 @@
     <audio id="audio2" src="Bass Der.wav"></audio>
     <audio id="audio3" src="Hadrah Dung.wav"></audio>
     <audio id="audio4" src="Hadrah Tak.wav"></audio>
-
     <audio id="audio5" src="Hadrah Dung.wav"></audio>
     <audio id="audio6" src="Hadrah Tak.wav"></audio>
 
