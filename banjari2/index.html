@@ -139,9 +139,18 @@
         }
 
         .btn3d {
-          padding: 12px 14px;
-          font-size: 13px;
-          border-radius: 10px;
+          background: #1e1e2f;
+          color: #ffffff;
+          border: none;
+          padding: 18px 24px;
+          border-radius: 16px;
+          font-weight: bold;
+          font-size: 16px;
+          cursor: pointer;
+          box-shadow: 4px 4px 8px #0e0e17, -4px -4px 8px #2e2e45;
+          transition: all 0.2s ease-in-out;
+          width: 100%; /* biar full kolom di grid */
+          max-width: 160px; /* tapi jangan terlalu besar */
         }
 
         .button-grid {
@@ -157,6 +166,15 @@
 
         input[type="range"] {
           width: 100%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .btn3d {
+          font-size: 16px;
+          padding: 20px;
+          border-radius: 18px;
+          max-width: 100%;
         }
       }
     </style>
