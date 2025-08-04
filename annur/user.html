@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informasi Keuangan - Musholla Annur</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #f1f8e9, #e0f7fa);
+        margin: 0;
+        padding: 20px;
+        color: #2c3e50;
+      }
+
+      h1 {
+        text-align: center;
+        color: #388e3c;
+        margin-bottom: 10px;
+      }
+
+      .summary {
+        margin: 20px auto;
+        background-color: #ffffffcc;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        font-size: 18px;
+        max-width: 600px;
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        border: 1px solid #e0e0e0;
+        padding: 14px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #26a69a;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      tr:nth-child(even) td {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover td {
+        background-color: #e0f2f1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Informasi Keuangan Musholla Annur</h1>
+
+    <div class="summary">
+      <strong>Total pemasukan:</strong> <span id="total">Rp. 0</span>
+    </div>
+
+    <table id="data">
+      <!-- Tabel akan di-load dari localStorage -->
+    </table>
+
+    <script>
+      const table = document.getElementById("data");
+
+      function loadTable() {
+        const savedData = localStorage.getItem("tableData");
+        if (savedData) {
+          table.innerHTML = savedData;
+          bersihkanTombol();
+          updateTotal();
+        } else {
+          table.innerHTML =
+            "<tr><td colspan='100%'>Data belum tersedia. Silakan hubungi admin.</td></tr>";
+        }
+      }
+
+      function bersihkanTombol() {
+        const buttons = table.querySelectorAll(".delete-btn");
+        buttons.forEach((btn) => btn.remove());
+      }
+
+      function updateTotal() {
+        let total = 0;
+        const rows = table.querySelectorAll("tbody tr");
+        rows.forEach((row) => {
+          for (let i = 2; i < row.cells.length; i++) {
+            const nilai = row.cells[i].textContent.trim().replace("x", "");
+            if (nilai && !isNaN(nilai)) {
+              total += parseInt(nilai);
+            }
+          }
+        });
+        document.getElementById("total").textContent =
+          "Rp. " + total.toLocaleString("id-ID");
+      }
+
+      loadTable();
+    </script>
+  </body>
+</html>
