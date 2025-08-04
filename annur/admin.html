@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keuangan Musholla Annur</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+        margin: 0;
+        padding: 20px;
+        color: #2c3e50;
+      }
+      h1 {
+        text-align: center;
+        color: #27ae60;
+        margin-bottom: 5px;
+      }
+      .summary {
+        margin: 20px auto;
+        background-color: #ffffffcc;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        font-size: 18px;
+        max-width: 600px;
+        text-align: center;
+      }
+      .controls {
+        max-width: 800px;
+        margin: 20px auto;
+        text-align: center;
+        background: #ffffffdd;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .controls select,
+      .controls input,
+      .controls button {
+        padding: 8px 12px;
+        margin: 5px;
+        font-size: 16px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #e0e0e0;
+        padding: 14px;
+        text-align: center;
+        position: relative;
+      }
+      th {
+        background-color: #26a69a;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+      }
+      tr:nth-child(even) td {
+        background-color: #f9f9f9;
+      }
+      tr:hover td {
+        background-color: #e0f2f1;
+      }
+      .delete-btn {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 12px;
+        padding: 2px 5px;
+        cursor: pointer;
+        display: none;
+      }
+      td:hover .delete-btn {
+        display: block;
+      }
+      .login-form {
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        animation: fadeIn 0.6s ease;
+      }
+
+      .login-form h2 {
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .login-form input {
+        margin: 10px 0;
+        padding: 10px;
+        width: 85%;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        outline: none;
+        transition: border 0.3s;
+      }
+
+      .login-form input:focus {
+        border-color: #26a69a;
+      }
+
+      .login-form button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #26a69a;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .login-form button:hover {
+        background-color: #2bbbad;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-form">
+      <h2>🔐 Login</h2>
+      <input
+        type="text"
+        id="username"
+        placeholder="Username"
+        autocomplete="off"
+      />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <p id="loginError" style="color: crimson; display: none">
+        ❌ Username atau password salah
+      </p>
+    </div>
+
+    <!-- Keuangan Musholla Page -->
+    <div id="mainContent" style="display: none">
+      <h1>Catatan Keuangan Musholla Annur</h1>
+
+      <div class="summary">
+        <strong>Total pemasukan:</strong> <span id="total">Rp. 0</span>
+      </div>
+
+      <div class="controls">
+        <label for="nama">Pilih Nama:</label>
+        <select id="nama"></select>
+        <label for="tanggal">Pilih Tanggal:</label>
+        <input type="date" id="tanggal" />
+        <br />
+        <button onclick="isi(5000)">5k</button>
+        <button onclick="isi(10000)">10k</button>
+        <button onclick="isi(15000)">15k</button>
+        <button onclick="isi(20000)">20k</button>
+        <br />
+        <input
+          type="number"
+          id="jumlahLain"
+          placeholder="Isi nominal lain (Rp)"
+        />
+        <button onclick="isiLain()">Input</button>
+      </div>
+
+      <table id="data">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Bu Henny</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Bu Irma</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Bu Budi</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Bu Mus</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Mbak Abel</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Bu Hery</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Uti</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Bu Sop</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Bu Azizah</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Pak Kyai</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>Pak Roni</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Pak Jumono</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>Pak Budi</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>Mas Eko</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      // Predefined username and password
+      const correctUsername = "annur";
+      const correctPassword = "syaifulamar";
+
+      function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const loginError = document.getElementById("loginError");
+
+        if (username === correctUsername && password === correctPassword) {
+          // Hide login form and show the main content
+          document.getElementById("loginPage").style.display = "none";
+          document.getElementById("mainContent").style.display = "block";
+        } else {
+          loginError.style.display = "block";
+        }
+      }
+
+      // Rest of the functions here
+      const table = document.getElementById("data");
+      const namaSelect = document.getElementById("nama");
+
+      if (localStorage.getItem("tableData")) {
+        table.innerHTML = localStorage.getItem("tableData");
+      }
+
+      function saveTable() {
+        localStorage.setItem("tableData", table.innerHTML);
+      }
+
+      function populateNama() {
+        namaSelect.innerHTML = "";
+        const rows = document.querySelectorAll("#data tbody tr");
+        rows.forEach((row, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.text = row.cells[1].textContent;
+          namaSelect.appendChild(option);
+        });
+      }
+
+      function isi(jumlah) {
+        inputUang(jumlah);
+      }
+
+      function isiLain() {
+        const val = parseInt(document.getElementById("jumlahLain").value);
+        if (!isNaN(val)) {
+          inputUang(val);
+        }
+      }
+
+      function inputUang(jumlah) {
+        const index = parseInt(namaSelect.value);
+        const tanggal = document.getElementById("tanggal").value;
+        if (!tanggal) {
+          alert("Silakan pilih tanggal terlebih dahulu.");
+          return;
+        }
+
+        const thead = document.querySelector("#data thead tr");
+        let colIndex = -1;
+        for (let i = 2; i < thead.cells.length; i++) {
+          if (thead.cells[i].getAttribute("data-date") === tanggal) {
+            colIndex = i;
+            break;
+          }
+        }
+
+        if (colIndex === -1) {
+          const newTh = document.createElement("th");
+          newTh.setAttribute("data-date", tanggal);
+          newTh.innerHTML =
+            new Date(tanggal).toLocaleDateString("id-ID") +
+            "<br><span style='font-weight:normal'>(Rp)</span>";
+          thead.appendChild(newTh);
+
+          const rows = document.querySelectorAll("#data tbody tr");
+          rows.forEach((row) => {
+            const newTd = document.createElement("td");
+            newTd.innerHTML = "";
+            row.appendChild(newTd);
+          });
+
+          colIndex = thead.cells.length - 1;
+        }
+
+        const rows = document.querySelectorAll("#data tbody tr");
+        const cell = rows[index].cells[colIndex];
+        cell.innerHTML =
+          jumlah +
+          '<button class="delete-btn" onclick="hapusLangsung(this)">x</button>';
+        updateTotal();
+        saveTable();
+      }
+
+      function hapusKolomJikaKosong() {
+        const thead = document.querySelector("#data thead tr");
+        const rows = document.querySelectorAll("#data tbody tr");
+
+        for (let col = thead.cells.length - 1; col >= 2; col--) {
+          let kosongSemua = true;
+
+          rows.forEach((row) => {
+            const cell = row.cells[col];
+            const value = cell.textContent.replace("x", "").trim(); // buang 'x'
+            if (value !== "") kosongSemua = false;
+          });
+
+          if (kosongSemua) {
+            // Hapus header
+            thead.deleteCell(col);
+            // Hapus semua sel di baris yang sesuai
+            rows.forEach((row) => row.deleteCell(col));
+          }
+        }
+      }
+
+      function hapusLangsung(btn) {
+        btn.parentElement.innerHTML = "";
+        updateTotal();
+        hapusKolomJikaKosong(); // ini penting banget biar cek kosong
+        saveTable();
+      }
+
+      function updateTotal() {
+        let total = 0;
+        const rows = document.querySelectorAll("#data tbody tr");
+        rows.forEach((row) => {
+          for (let i = 2; i < row.cells.length; i++) {
+            const cell = row.cells[i];
+            const nilai = cell.textContent.trim().replace("x", "");
+            if (nilai !== "") {
+              total += parseInt(nilai);
+            }
+          }
+        });
+        document.getElementById("total").textContent =
+          "Rp. " + total.toLocaleString("id-ID");
+      }
+
+      updateTotal();
+      populateNama();
+
+      async function hashPassword(text) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(text);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      async function login() {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const loginError = document.getElementById("loginError");
+
+        const inputHash = await hashPassword(password);
+        const storedUsername = "annur";
+        const storedPasswordHash =
+          "0b9743e14e8a5627dae52f81642644368dfd75fd85e265ab06345dce28a6cd06";
+
+        if (username === storedUsername && inputHash === storedPasswordHash) {
+          document.getElementById("loginPage").style.display = "none";
+          document.getElementById("mainContent").style.display = "block";
+        } else {
+          loginError.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>
