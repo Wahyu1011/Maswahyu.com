@@ -99,20 +99,34 @@
     </div>
 
     <table id="data">
-      <!-- Tabel akan diisi dari localStorage -->
+      <thead></thead>
+      <tbody></tbody>
+      <tfoot id="tableFoot"></tfoot>
     </table>
 
     <p class="footer">📌 Data ini bersumber dari Admin.</p>
 
     <script>
       const table = document.getElementById("data");
+      const tfoot = document.getElementById("tableFoot");
 
       function loadTable() {
         const savedData = localStorage.getItem("tableData");
         if (savedData) {
-          table.innerHTML = savedData;
+          const temp = document.createElement("div");
+          temp.innerHTML = savedData;
+
+          const newThead = temp.querySelector("thead");
+          const newTbody = temp.querySelector("tbody");
+
+          if (newThead && newTbody) {
+            table.querySelector("thead").innerHTML = newThead.innerHTML;
+            table.querySelector("tbody").innerHTML = newTbody.innerHTML;
+          }
+
           bersihkanTombol();
           updateTotal();
+          updateRekapanVertikal(); // panggil ini setelah data benar-benar ada
         } else {
           table.innerHTML =
             "<tr><td colspan='100%'>Data belum tersedia. Silakan hubungi admin.</td></tr>";
@@ -139,53 +153,110 @@
           "Rp. " + total.toLocaleString("id-ID");
       }
 
-      loadTable();
-    </script>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-      import {
-        getDatabase,
-        ref,
-        get,
-        child,
-      } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+      function updateRekapanVertikal() {
+        const rows = table.querySelectorAll("tbody tr");
+        const header = table.querySelector("thead tr");
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyCuSe6S91ZzV7PMV9EeUW3bRaAf_P8QkZo",
-        authDomain: "maswahyu-86655.firebaseapp.com",
-        databaseURL: "https://maswahyu-86655-default-rtdb.firebaseio.com",
-        projectId: "maswahyu-86655",
-        storageBucket: "maswahyu-86655.appspot.com",
-        messagingSenderId: "343863883612",
-        appId: "1:343863883612:web:283d349edb0e251bf2f399",
-      };
+        if (!header) return;
+        tfoot.innerHTML = "";
 
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
+        const row = document.createElement("tr");
+        row.innerHTML = "<td colspan='2'><strong>Total per Minggu</strong></td>";
 
-      // Fungsi untuk ambil data dari Firebase
-      async function loadFromFirebase() {
-        try {
-          const snapshot = await get(child(ref(db), "keuangan/tabel"));
-          if (snapshot.exists()) {
-            const htmlTable = snapshot.val().html;
-            document.getElementById("data").innerHTML = htmlTable;
-            bersihkanTombol();
-            updateTotal();
-            console.log("✅ Data berhasil dimuat dari Firebase.");
-          } else {
-            table.innerHTML =
-              "<tr><td colspan='100%'>Data belum tersedia di Firebase.</td></tr>";
-          }
-        } catch (error) {
-          console.error("❌ Gagal mengambil data dari Firebase:", error);
-          table.innerHTML =
-            "<tr><td colspan='100%'>Gagal mengambil data. Silakan coba lagi.</td></tr>";
+        for (let col = 2; col < header.cells.length; col++) {
+          let total = 0;
+          rows.forEach((r) => {
+            const cell = r.cells[col];
+            if (!cell) return;
+            const nilai = cell.textContent.replace("x", "").trim();
+            if (nilai && !isNaN(nilai)) {
+              total += parseInt(nilai);
+            }
+          });
+
+          const td = document.createElement("td");
+          td.style.fontWeight = "bold";
+          td.style.color = "#00796b";
+          td.textContent = "Rp " + total.toLocaleString("id-ID");
+          row.appendChild(td);
         }
+
+        tfoot.appendChild(row);
       }
 
-      // Load saat halaman dibuka
-      loadFromFirebase();
+      loadTable();
+    </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import {
+    getDatabase,
+    ref,
+    get,
+    child,
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCuSe6S91ZzV7PMV9EeUW3bRaAf_P8QkZo",
+    authDomain: "maswahyu-86655.firebaseapp.com",
+    databaseURL: "https://maswahyu-86655-default-rtdb.firebaseio.com",
+    projectId: "maswahyu-86655",
+    storageBucket: "maswahyu-86655.appspot.com",
+    messagingSenderId: "343863883612",
+    appId: "1:343863883612:web:283d349edb0e251bf2f399",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  async function loadFromFirebase() {
+  try {
+    const snapshot = await get(child(ref(db), "keuangan/tabel"));
+    if (snapshot.exists()) {
+      const htmlTable = snapshot.val().html;
+
+      const temp = document.createElement("div");
+      temp.innerHTML = `<table>${htmlTable}</table>`; // dibungkus biar bisa diakses
+
+      const newThead = temp.querySelector("thead");
+      const newTbody = temp.querySelector("tbody");
+
+      if (newThead && newTbody) {
+        table.querySelector("thead").innerHTML = newThead.innerHTML;
+        table.querySelector("tbody").innerHTML = newTbody.innerHTML;
+      } else {
+        console.error("❌ Gagal parsing <thead> atau <tbody>");
+        return;
+      }
+
+      // ⛔️ Tambahkan jika tfoot belum ada
+      if (!table.querySelector("tfoot")) {
+        const tfootBaru = document.createElement("tfoot");
+        tfootBaru.id = "tableFoot";
+        table.appendChild(tfootBaru);
+      }
+
+      bersihkanTombol();
+      updateTotal();
+      updateRekapanVertikal();
+      console.log("✅ Data berhasil dimuat dan diproses.");
+    } else {
+      table.innerHTML =
+        "<tr><td colspan='100%'>Data belum tersedia di Firebase.</td></tr>";
+    }
+  } catch (error) {
+    console.error("❌ Gagal mengambil data dari Firebase:", error);
+    table.innerHTML =
+      "<tr><td colspan='100%'>Gagal mengambil data. Silakan coba lagi.</td></tr>";
+  }
+}
+
+
+  // 🌟 INI YANG PENTING
+  loadFromFirebase();
+</script>
+
+
     </script>
   </body>
 </html>
