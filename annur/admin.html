@@ -261,24 +261,6 @@
     </div>
 
     <script>
-      // Predefined username and password
-      const correctUsername = "annur";
-      const correctPassword = "syaifulamar";
-
-      function login() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const loginError = document.getElementById("loginError");
-
-        if (username === correctUsername && password === correctPassword) {
-          // Hide login form and show the main content
-          document.getElementById("loginPage").style.display = "none";
-          document.getElementById("mainContent").style.display = "block";
-        } else {
-          loginError.style.display = "block";
-        }
-      }
-
       // Rest of the functions here
       const table = document.getElementById("data");
       const namaSelect = document.getElementById("nama");
@@ -496,5 +478,6 @@
 
   </body>
 </html>
+
 
 
