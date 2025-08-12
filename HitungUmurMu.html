@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Penghitung Umur</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .hasil {
+      margin-top: 20px;
+      font-weight: bold;
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    /* Animasi kedip merah */
+    .warning-blink {
+      animation: blink 1s infinite;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+    }
+
+    @keyframes blink {
+      0%, 100% { background-color: #ffd4d; }
+      50% { background-color: #ff000; }
+    }
+  </style>
+</head>
+<body>
+  <h2>Berapa Umurmu? 🎉</h2>
+
+  <label for="tglLahir">Masukkan Tanggal Lahir:</label>
+  <input type="date" id="tglLahir" onchange="aktifkanWarning()">
+
+  <button id="btnHitung" onclick="hitungUmur()">Hitung Umur</button>
+
+  <div class="hasil" id="hasilUmur"></div>
+  <div class="hasil" id="hasilCountdown"></div>
+
+  <script>
+    let tombolSudahDiklik = false;
+
+    function aktifkanWarning() {
+      tombolSudahDiklik = false;
+      const tgl = document.getElementById('tglLahir').value;
+      const tombol = document.getElementById('btnHitung');
+      if (tgl) {
+        tombol.classList.add('warning-blink');
+      }
+    }
+
+    function hitungUmur() {
+      tombolSudahDiklik = true;
+      const tglLahir = new Date(document.getElementById('tglLahir').value);
+      const hariIni = new Date();
+      const tombol = document.getElementById('btnHitung');
+
+      // Hilangkan efek warning
+      tombol.classList.remove('warning-blink');
+
+      if (isNaN(tglLahir)) {
+        document.getElementById('hasilUmur').innerText = 'Tanggal lahir belum diisi 😅';
+        document.getElementById('hasilCountdown').innerText = '';
+        return;
+      }
+
+      // Hitung umur
+      let tahun = hariIni.getFullYear() - tglLahir.getFullYear();
+      let bulan = hariIni.getMonth() - tglLahir.getMonth();
+      let hari = hariIni.getDate() - tglLahir.getDate();
+
+      if (hari < 0) {
+        bulan--;
+        hari += new Date(hariIni.getFullYear(), hariIni.getMonth(), 0).getDate();
+      }
+
+      if (bulan < 0) {
+        tahun--;
+        bulan += 12;
+      }
+
+      document.getElementById('hasilUmur').innerText =
+        `Umurmu sekarang adalah ${tahun} tahun, ${bulan} bulan, dan ${hari} hari 🎂`;
+
+      // Hitung countdown ke ulang tahun berikutnya
+      let ulangTahunBerikut = new Date(hariIni.getFullYear(), tglLahir.getMonth(), tglLahir.getDate());
+
+      if (ulangTahunBerikut < hariIni) {
+        ulangTahunBerikut.setFullYear(hariIni.getFullYear() + 1);
+      }
+
+      const bedaMs = ulangTahunBerikut - hariIni;
+      const bedaHari = Math.ceil(bedaMs / (1000 * 60 * 60 * 24));
+
+      document.getElementById('hasilCountdown').innerText =
+        bedaHari === 0
+          ? 'Hari ini ulang tahun kamu! 🎉🥳 Selamat ulang tahun yaa~'
+          : `Ulang tahun kamu tinggal ${bedaHari} hari lagi 🎈✨`;
+    }
+  </script>
+</body>
+</html>
