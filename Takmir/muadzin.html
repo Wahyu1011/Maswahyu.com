@@ -448,81 +448,87 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
 
-    <script>
-      // Jadwal Petugas Mingguan (Petugas 1)
-      const petugasMingguan = {
-        Senin: {
-          dzuhur: "Tanu Tanwirul Ramadhan",
-          ashar: "Fakhrizain Nahla",
-        },
-        Selasa: {
-          dzuhur: "Misbachul Munir",
-          ashar: "Wahyu Eko Setyo Pribowo",
-        },
-        Rabu: {
-          dzuhur: "Ahmad Alifil Ma'luf",
-          ashar: "Wahyu Budi Utomo",
-        },
-        Kamis: {
-          dzuhur: "Muhammad Iqbal Maulana",
-          ashar: "Salman Farizi",
-        },
-        Jumat: {
-          dzuhur: null,
-          ashar: "Wahyu Eko Setyo Pribowo",
-        },
-      };
+              <script>
+  // Jadwal Petugas Mingguan (Petugas 1)
+  const petugasMingguan = {
+    Senin: {
+      dzuhur: "Ahmad Alifil Ma'luf",
+      ashar: "Salik Bahrudin",
+    },
+    Selasa: {
+      dzuhur: "Tanu Tanwirul Ramadhan",
+      ashar: "Salman Farizi",
+    },
+    Rabu: {
+      dzuhur: "Wahyu Budi Utomo",
+      ashar: "Wahyu Budi Utomo",
+    },
+    Kamis: {
+      dzuhur: "Fakhrizain Nahla",
+      ashar: "Muhammad Iqbal Maulana",
+    },
+    Jumat: {
+      dzuhur: null,
+      ashar: "Wahyu Eko Setyo Pribowo",
+    },
+  };
 
-      // Jadwal Petugas Minggu ke-2 (Petugas 2)
-      const petugasMingguKe2 = {
-        Senin: {
-          dzuhur: "Tanu Tanwirul Ramadhan",
-          ashar: "Wahyu Budi Utomo",
-        },
-        Selasa: {
-          dzuhur: "Muhammad Syaroful Anam",
-          ashar: "Fakhrizain Nahla",
-        },
-        Rabu: {
-          dzuhur: "Salman Farizi",
-          ashar: "Salik Bahrudin",
-        },
-        Kamis: {
-          dzuhur: "Fakhrizain Nahla",
-          ashar: "Muhammad Iqbal Maulana",
-        },
-        Jumat: {
-          dzuhur: null,
-          ashar: "Fakhrizain Nahla",
-        },
-      };
+  // Jadwal Petugas Mingguan (Petugas 2)
+  const petugasMingguKe2 = {
+    Senin: {
+      dzuhur: "Muhammad Syaroful Anam",
+      ashar: "Wahyu Eko Setyo Pribowo",
+    },
+    Selasa: {
+      dzuhur: "Wahyu Eko Setyo Pribowo",
+      ashar: "Muhammad Syaroful Anam",
+    },
+    Rabu: {
+      dzuhur: "Misbachul Munir",
+      ashar: "Salik Bahrudin",
+    },
+    Kamis: {
+      dzuhur: "Muhammad Iqbal Maulana",
+      ashar: "Fakhrizain Nahla",
+    },
+    Jumat: {
+      dzuhur: null,
+      ashar: "Fakhrizain Nahla",
+    },
+  };
 
-      // Jadwal petugas Jumat Dzuhur bergantian setiap minggu
-      const petugasJumatDzuhur = [
-        { petugas1: "Wahyu Budi Utomo", petugas2: "Salik Bahrudin" },
-        { petugas1: "Wahyu Eko Setyo Pribowo", petugas2: "Fakhrizain Nahla" },
-        {
-          petugas1: "Tanu Tanwirul Ramadhan",
-          petugas2: "Muhammad Syaroful Anam",
-        },
-        { petugas1: "Misbachul Munir", petugas2: "Salman Farizi" },
-        { petugas1: "Muhammad Iqbal Maulana", petugas2: "Ahmad Alifil Ma'luf" },
-      ];
+  // Jadwal Petugas Jumat Bulan 1
+  const petugasJumatBulan1 = [
+    { adzan: "Fakhrizain Nahla", pengumuman: "Salik Bahrudin" },
+    { adzan: "Wahyu Budi Utomo", pengumuman: "Bayu Nugroho" },
+    { adzan: "Fuad Hasan Basri", pengumuman: "Misbachul Munir" },
+    { adzan: "Muhammad Syaroful Anam", pengumuman: "Ahmad Alifil Ma'luf" },
+  ];
 
-      // Data prodi petugas
-      const prodi = {
-        "Tanu Tanwirul Ramadhan": "Matematika 24",
-        "Ahmad Alifil Ma'luf": "Fisika 24",
-        "Misbachul Munir": "Informatika 24",
-        "Muhammad Syaroful Anam": "Fisika 24",
-        "Salik Bahrudin": "Kimia 24",
-        "Salman Farizi": "Matematika 23",
-        "Muhammad Iqbal Maulana": "Matematika 25",
-        "Fakhrizain Nahla": "Biologi 25",
-        "Wahyu Budi Utomo": "Fisika 22",
-        "Wahyu Eko Setyo Pribowo": "Informatika 24",
-      };
+  // Jadwal Petugas Jumat Bulan 2
+  const petugasJumatBulan2 = [
+    { adzan: "Wahyu Eko Setyo Pribowo", pengumuman: "Muhammad Syaroful Anam" },
+    { adzan: "Salik Bahrudin", pengumuman: "Salman Farizi" },
+    { adzan: "Ahmad Alifil Ma'luf", pengumuman: "Wahyu Eko Setyo Pribowo" },
+    { adzan: "Muhammad Iqbal Maulana", pengumuman: "Misbachul Munir" },
+  ];
 
+  // Data prodi petugas (biar sama kayak sebelumnya, tinggal update kalau ada yg baru)
+  const prodi = {
+    "Ahmad Alifil Ma'luf": "Fisika 24",
+    "Tanu Tanwirul Ramadhan": "Matematika 24",
+    "Wahyu Budi Utomo": "Fisika 22",
+    "Fakhrizain Nahla": "Biologi 25",
+    "Muhammad Syaroful Anam": "Fisika 24",
+    "Misbachul Munir": "Informatika 24",
+    "Salik Bahrudin": "Kimia 24",
+    "Salman Farizi": "Matematika 23",
+    "Muhammad Iqbal Maulana": "Matematika 25",
+    "Wahyu Eko Setyo Pribowo": "Informatika 24",
+    "Fuad Hasan Basri": "Fisika S2",   // isi sesuai data
+    "Bayu Nugroho": "Matematika 23",       // isi sesuai data
+  };
+    
       // Urutan sholat untuk menentukan sholat berikutnya
       const prayerOrder = ["subuh", "dzuhur", "ashar", "maghrib", "isya"];
 
