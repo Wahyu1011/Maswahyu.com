@@ -895,8 +895,109 @@
         updateTable();
       }
 
-      // Inisialisasi saat halaman dimuat
-      window.onload = initialize;
-    </script>
+      <script>
+
+  // Fungsi untuk menampilkan jadwal sesuai hari
+  function renderJadwal(date) {
+    const dayName = days[date.getDay()];
+    const tanggal = date.toLocaleDateString("id-ID", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    document.getElementById("tanggal").textContent = tanggal;
+
+    const jadwalBody = document.getElementById("jadwal-body");
+    jadwalBody.innerHTML = "";
+
+    const libur = document.getElementById("libur");
+    const fridayRules = document.getElementById("friday-rules");
+    const dailyRules = document.getElementById("daily-rules");
+    const jumatBtn = document.getElementById("jumat-button-container");
+
+    libur.style.display = "none";
+    fridayRules.style.display = "none";
+    dailyRules.style.display = "none";
+    jumatBtn.style.display = "none";
+
+    if (dayName === "Jumat") {
+      // Tentukan minggu ke berapa dalam bulan
+      const mingguKe = Math.ceil(date.getDate() / 7);
+
+      // Pilih array petugas sesuai bulan ganjil/genap
+      const bulan = date.getMonth() + 1;
+      const isBulanGanjil = bulan % 2 === 1;
+      const dataJumat = isBulanGanjil
+        ? petugasJumatBulan1
+        : petugasJumatBulan2;
+
+      const petugasHariIni = dataJumat[(mingguKe - 1) % dataJumat.length];
+
+      if (petugasHariIni) {
+        const row1 = `
+          <tr>
+            <td>Adzan</td>
+            <td>${petugasHariIni.adzan}</td>
+            <td>${prodi[petugasHariIni.adzan] || "-"}</td>
+          </tr>`;
+        const row2 = `
+          <tr>
+            <td>Pengumuman</td>
+            <td>${petugasHariIni.pengumuman}</td>
+            <td>${prodi[petugasHariIni.pengumuman] || "-"}</td>
+          </tr>`;
+        jadwalBody.innerHTML = row1 + row2;
+
+        fridayRules.style.display = "block";
+        jumatBtn.style.display = "block";
+      } else {
+        libur.style.display = "block";
+      }
+    } else {
+      // Tampilkan jadwal harian (Dzuhur & Ashar)
+      const petugas1 = petugasMingguan[dayName];
+      const petugas2 = petugasMingguKe2[dayName];
+
+      if (petugas1 && petugas2) {
+        const row1 = `
+          <tr>
+            <td>Dzuhur</td>
+            <td>${petugas1.dzuhur} & ${petugas2.dzuhur}</td>
+            <td>${prodi[petugas1.dzuhur] || "-"} & ${prodi[petugas2.dzuhur] || "-"}</td>
+          </tr>`;
+        const row2 = `
+          <tr>
+            <td>Ashar</td>
+            <td>${petugas1.ashar} & ${petugas2.ashar}</td>
+            <td>${prodi[petugas1.ashar] || "-"} & ${prodi[petugas2.ashar] || "-"}</td>
+          </tr>`;
+        jadwalBody.innerHTML = row1 + row2;
+
+        dailyRules.style.display = "block";
+      } else {
+        libur.style.display = "block";
+      }
+    }
+  }
+
+  // Navigasi Hari
+  function goToToday() {
+    currentDate = new Date();
+    renderJadwal(currentDate);
+  }
+
+  function nextDay() {
+    currentDate.setDate(currentDate.getDate() + 1);
+    renderJadwal(currentDate);
+  }
+
+  // Inisialisasi
+  window.onload = () => {
+    fetchPrayerTimes();
+    renderJadwal(currentDate);
+  };
+</script>
   </body>
 </html>
