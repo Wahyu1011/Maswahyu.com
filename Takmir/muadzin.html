@@ -366,31 +366,55 @@
       <div class="rules-container" id="daily-rules">
         <div class="rules-title">Ketentuan Petugas Adzan Dzuhur & Ashar</div>
         <ul class="rules-list">
-          <li>Petugas wajib hadir minimal 5 menit sebelum adzan untuk persiapan.</li>
+          <li>
+            Petugas wajib hadir minimal 5 menit sebelum adzan untuk persiapan.
+          </li>
           <li>Petugas 1 dan 2 saling berkoordinasi saat pelaksanaan.</li>
-          <li>Terdapat 2 nama setiap harinya (Petugas 1 & 2), dan tugas adzan dilakukan bergantian sesuai kesepakatan antar petugas.</li>
-          <li>Silakan saling berkoordinasi setiap harinya, siapa yang siap untuk mengumandangkan adzan.</li>
-          <li>Jika salah satu petugas berhalangan, maka petugas yang satunya yang harus bertugas.</li>
-          <li>Jika kedua petugas berhalangan, WAJIB mencari pengganti sendiri dan lapor ke koordinator.</li>
+          <li>
+            Terdapat 2 nama setiap harinya (Petugas 1 & 2), dan tugas adzan
+            dilakukan bergantian sesuai kesepakatan antar petugas.
+          </li>
+          <li>
+            Silakan saling berkoordinasi setiap harinya, siapa yang siap untuk
+            mengumandangkan adzan.
+          </li>
+          <li>
+            Jika salah satu petugas berhalangan, maka petugas yang satunya yang
+            harus bertugas.
+          </li>
+          <li>
+            Jika kedua petugas berhalangan, WAJIB mencari pengganti sendiri dan
+            lapor ke koordinator.
+          </li>
           <li>Tampil rapi dan menjaga sikap selama bertugas.</li>
           <li>Setelah bertugas, tetap ikut sholat berjamaah.</li>
         </ul>
         <div class="coordinator-info">
-          <strong>Koordinator:</strong><br>
-          - Wahyu Eko Setyo Pribowo (085712602367)<br>
-          - Muhammad Syaroful Anam (089530834636)<br>
+          <strong>Koordinator:</strong><br />
+          - Wahyu Eko Setyo Pribowo (085712602367)<br />
+          - Muhammad Syaroful Anam (089530834636)<br />
           Jika ada pertanyaan atau perubahan, bisa langsung hubungi beliau.
         </div>
       </div>
 
-      <div class="rules-container" id="friday-rules" style="display: none;">
+      <div class="rules-container" id="friday-rules" style="display: none">
         <div class="rules-title">Petugas Sholat Jumat</div>
         <ul class="rules-list">
-          <li>Diharapkan kepada petugas sholat Jum'at untuk hadir lebih awal sebelum jumatan untuk mempersiapkan keperluan kegiatan jumatan seperti menyiapkan kotak amal dan lain lain.</li>
+          <li>
+            Diharapkan kepada petugas sholat Jum'at untuk hadir lebih awal
+            sebelum jumatan untuk mempersiapkan keperluan kegiatan jumatan
+            seperti menyiapkan kotak amal dan lain lain.
+          </li>
           <li>Petugas 1: Adzan</li>
           <li>Petugas 2: Membacakan pengumuman</li>
-          <li>Setelah sholat Jumat, kedua petugas bertugas menghitung kotak amal bersama.</li>
-          <li>Jangan lupa, tetap koordinasi jika berhalangan hadir, dan lapor ke koordinator.</li>
+          <li>
+            Setelah sholat Jumat, kedua petugas bertugas menghitung kotak amal
+            bersama.
+          </li>
+          <li>
+            Jangan lupa, tetap koordinasi jika berhalangan hadir, dan lapor ke
+            koordinator.
+          </li>
         </ul>
         <div class="coordinator-info">
           Semoga Allah mudahkan dan berkahi amanah ini. Terima kasih.
@@ -452,20 +476,20 @@
       // Jadwal Petugas Mingguan (Petugas 1)
       const petugasMingguan = {
         Senin: {
-          dzuhur: "Tanu Tanwirul Ramadhan",
-          ashar: "Fakhrizain Nahla",
+          dzuhur: "Ahmad Alifil Ma'luf",
+          ashar: "Salik Bahrudin",
         },
         Selasa: {
-          dzuhur: "Misbachul Munir",
-          ashar: "Wahyu Eko Setyo Pribowo",
+          dzuhur: "Tanu Tanwirul Ramadhan",
+          ashar: "Salman Farizi",
         },
         Rabu: {
-          dzuhur: "Ahmad Alifil Ma'luf",
+          dzuhur: "Wahyu Budi Utomo",
           ashar: "Wahyu Budi Utomo",
         },
         Kamis: {
-          dzuhur: "Muhammad Iqbal Maulana",
-          ashar: "Salman Farizi",
+          dzuhur: "Fakhrizain Nahla",
+          ashar: "Muhammad Iqbal Maulana",
         },
         Jumat: {
           dzuhur: null,
@@ -476,20 +500,20 @@
       // Jadwal Petugas Minggu ke-2 (Petugas 2)
       const petugasMingguKe2 = {
         Senin: {
-          dzuhur: "Tanu Tanwirul Ramadhan",
-          ashar: "Wahyu Budi Utomo",
+          dzuhur: "Muhammad Syaroful Anam",
+          ashar: "Wahyu Eko Setyo Pribowo",
         },
         Selasa: {
-          dzuhur: "Muhammad Syaroful Anam",
-          ashar: "Fakhrizain Nahla",
+          dzuhur: "Wahyu Eko Setyo Pribowo",
+          ashar: "Muhammad Syaroful Anam",
         },
         Rabu: {
-          dzuhur: "Salman Farizi",
+          dzuhur: "Misbachul Munir",
           ashar: "Salik Bahrudin",
         },
         Kamis: {
-          dzuhur: "Fakhrizain Nahla",
-          ashar: "Muhammad Iqbal Maulana",
+          dzuhur: "Muhammad Iqbal Maulana",
+          ashar: "Fakhrizain Nahla",
         },
         Jumat: {
           dzuhur: null,
@@ -499,14 +523,25 @@
 
       // Jadwal petugas Jumat Dzuhur bergantian setiap minggu
       const petugasJumatDzuhur = [
-        { petugas1: "Wahyu Budi Utomo", petugas2: "Salik Bahrudin" },
-        { petugas1: "Wahyu Eko Setyo Pribowo", petugas2: "Fakhrizain Nahla" },
+        { petugas1: "Wahyu Budi Utomo", petugas2: "Bayu Nugroho" },
+        { petugas1: "Fuad Hasan Basri", petugas2: "Misbachul Munir" },
         {
-          petugas1: "Tanu Tanwirul Ramadhan",
+          petugas1: "Fakhrizain Nahla",
+          petugas2: "Salik Bahrudin",
+        },
+        { petugas1: "Muhammad Syaroful Anam", petugas2: "Ahmad Alifil Ma'luf" },
+        {
+          petugas1: "Wahyu Eko Setyo Pribowo",
           petugas2: "Muhammad Syaroful Anam",
         },
-        { petugas1: "Misbachul Munir", petugas2: "Salman Farizi" },
-        { petugas1: "Muhammad Iqbal Maulana", petugas2: "Ahmad Alifil Ma'luf" },
+
+        { petugas1: "Salik Bahrudin", petugas2: "Salman Farizi" },
+        {
+          petugas1: "Ahmad Alifil Ma'luf",
+          petugas2: "Wahyu Eko Setyo Pribowo",
+        },
+
+        { petugas1: "Muhammad Iqbal Maulana", petugas2: "Misbachul Munir" },
       ];
 
       // Data prodi petugas
@@ -521,6 +556,8 @@
         "Fakhrizain Nahla": "Biologi 25",
         "Wahyu Budi Utomo": "Fisika 22",
         "Wahyu Eko Setyo Pribowo": "Informatika 24",
+        "Fuad Hasan Basri": "Fisika 19",
+        "Bayu Nugroho": "Fisika 23",
       };
 
       // Urutan sholat untuk menentukan sholat berikutnya
@@ -580,7 +617,7 @@
           const exampleTimes = {
             subuh: "04:30",
             dzuhur: "11:37",
-            ashar: "14:58",
+            ashar: "15:02",
             maghrib: "17:31",
             isya: "18:43",
           };
@@ -763,7 +800,7 @@
         const jumatButton = document.getElementById("jumat-button-container");
         const dailyRules = document.getElementById("daily-rules");
         const fridayRules = document.getElementById("friday-rules");
-        
+
         if (hari === "Jumat") {
           jumatButton.style.display = "block";
           dailyRules.style.display = "none";
@@ -792,7 +829,8 @@
 
         // Minggu ganjil = minggu ke-1 petugas 1, minggu genap = minggu ke-2 petugas 2
         const jadwal = mingguKe % 2 === 0 ? petugasMingguan : petugasMingguKe2;
-        const jadwalLawan = mingguKe % 2 === 0 ? petugasMingguKe2 : petugasMingguan;
+        const jadwalLawan =
+          mingguKe % 2 === 0 ? petugasMingguKe2 : petugasMingguan;
 
         ["dzuhur", "ashar"].forEach((waktu) => {
           if (hari === "Jumat" && waktu === "dzuhur") {
@@ -836,7 +874,7 @@
           } else {
             const namaPetugas1 = jadwal[hari][waktu];
             const namaPetugas2 = jadwalLawan[hari][waktu];
-            
+
             if (namaPetugas1) {
               // Tampilkan petugas 1
               const row1 = document.createElement("tr");
@@ -860,7 +898,8 @@
               const row2 = document.createElement("tr");
 
               const cellWaktu2 = document.createElement("td");
-              cellWaktu2.textContent = waktu.charAt(0).toUpperCase() + waktu.slice(1) + " (Petugas 2)";
+              cellWaktu2.textContent =
+                waktu.charAt(0).toUpperCase() + waktu.slice(1) + " (Petugas 2)";
               row2.appendChild(cellWaktu2);
 
               const cellNama2 = document.createElement("td");
