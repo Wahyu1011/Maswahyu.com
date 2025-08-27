@@ -448,87 +448,81 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
 
-              <script>
-  // Jadwal Petugas Mingguan (Petugas 1)
-  const petugasMingguan = {
-    Senin: {
-      dzuhur: "Ahmad Alifil Ma'luf",
-      ashar: "Salik Bahrudin",
-    },
-    Selasa: {
-      dzuhur: "Tanu Tanwirul Ramadhan",
-      ashar: "Salman Farizi",
-    },
-    Rabu: {
-      dzuhur: "Wahyu Budi Utomo",
-      ashar: "Wahyu Budi Utomo",
-    },
-    Kamis: {
-      dzuhur: "Fakhrizain Nahla",
-      ashar: "Muhammad Iqbal Maulana",
-    },
-    Jumat: {
-      dzuhur: null,
-      ashar: "Wahyu Eko Setyo Pribowo",
-    },
-  };
+    <script>
+      // Jadwal Petugas Mingguan (Petugas 1)
+      const petugasMingguan = {
+        Senin: {
+          dzuhur: "Tanu Tanwirul Ramadhan",
+          ashar: "Fakhrizain Nahla",
+        },
+        Selasa: {
+          dzuhur: "Misbachul Munir",
+          ashar: "Wahyu Eko Setyo Pribowo",
+        },
+        Rabu: {
+          dzuhur: "Ahmad Alifil Ma'luf",
+          ashar: "Wahyu Budi Utomo",
+        },
+        Kamis: {
+          dzuhur: "Muhammad Iqbal Maulana",
+          ashar: "Salman Farizi",
+        },
+        Jumat: {
+          dzuhur: null,
+          ashar: "Wahyu Eko Setyo Pribowo",
+        },
+      };
 
-  // Jadwal Petugas Mingguan (Petugas 2)
-  const petugasMingguKe2 = {
-    Senin: {
-      dzuhur: "Muhammad Syaroful Anam",
-      ashar: "Wahyu Eko Setyo Pribowo",
-    },
-    Selasa: {
-      dzuhur: "Wahyu Eko Setyo Pribowo",
-      ashar: "Muhammad Syaroful Anam",
-    },
-    Rabu: {
-      dzuhur: "Misbachul Munir",
-      ashar: "Salik Bahrudin",
-    },
-    Kamis: {
-      dzuhur: "Muhammad Iqbal Maulana",
-      ashar: "Fakhrizain Nahla",
-    },
-    Jumat: {
-      dzuhur: null,
-      ashar: "Fakhrizain Nahla",
-    },
-  };
+      // Jadwal Petugas Minggu ke-2 (Petugas 2)
+      const petugasMingguKe2 = {
+        Senin: {
+          dzuhur: "Tanu Tanwirul Ramadhan",
+          ashar: "Wahyu Budi Utomo",
+        },
+        Selasa: {
+          dzuhur: "Muhammad Syaroful Anam",
+          ashar: "Fakhrizain Nahla",
+        },
+        Rabu: {
+          dzuhur: "Salman Farizi",
+          ashar: "Salik Bahrudin",
+        },
+        Kamis: {
+          dzuhur: "Fakhrizain Nahla",
+          ashar: "Muhammad Iqbal Maulana",
+        },
+        Jumat: {
+          dzuhur: null,
+          ashar: "Fakhrizain Nahla",
+        },
+      };
 
-  // Jadwal Petugas Jumat Bulan 1
-  const petugasJumatBulan1 = [
-    { adzan: "Fakhrizain Nahla", pengumuman: "Salik Bahrudin" },
-    { adzan: "Wahyu Budi Utomo", pengumuman: "Bayu Nugroho" },
-    { adzan: "Fuad Hasan Basri", pengumuman: "Misbachul Munir" },
-    { adzan: "Muhammad Syaroful Anam", pengumuman: "Ahmad Alifil Ma'luf" },
-  ];
+      // Jadwal petugas Jumat Dzuhur bergantian setiap minggu
+      const petugasJumatDzuhur = [
+        { petugas1: "Wahyu Budi Utomo", petugas2: "Salik Bahrudin" },
+        { petugas1: "Wahyu Eko Setyo Pribowo", petugas2: "Fakhrizain Nahla" },
+        {
+          petugas1: "Tanu Tanwirul Ramadhan",
+          petugas2: "Muhammad Syaroful Anam",
+        },
+        { petugas1: "Misbachul Munir", petugas2: "Salman Farizi" },
+        { petugas1: "Muhammad Iqbal Maulana", petugas2: "Ahmad Alifil Ma'luf" },
+      ];
 
-  // Jadwal Petugas Jumat Bulan 2
-  const petugasJumatBulan2 = [
-    { adzan: "Wahyu Eko Setyo Pribowo", pengumuman: "Muhammad Syaroful Anam" },
-    { adzan: "Salik Bahrudin", pengumuman: "Salman Farizi" },
-    { adzan: "Ahmad Alifil Ma'luf", pengumuman: "Wahyu Eko Setyo Pribowo" },
-    { adzan: "Muhammad Iqbal Maulana", pengumuman: "Misbachul Munir" },
-  ];
+      // Data prodi petugas
+      const prodi = {
+        "Tanu Tanwirul Ramadhan": "Matematika 24",
+        "Ahmad Alifil Ma'luf": "Fisika 24",
+        "Misbachul Munir": "Informatika 24",
+        "Muhammad Syaroful Anam": "Fisika 24",
+        "Salik Bahrudin": "Kimia 24",
+        "Salman Farizi": "Matematika 23",
+        "Muhammad Iqbal Maulana": "Matematika 25",
+        "Fakhrizain Nahla": "Biologi 25",
+        "Wahyu Budi Utomo": "Fisika 22",
+        "Wahyu Eko Setyo Pribowo": "Informatika 24",
+      };
 
-  // Data prodi petugas (biar sama kayak sebelumnya, tinggal update kalau ada yg baru)
-  const prodi = {
-    "Ahmad Alifil Ma'luf": "Fisika 24",
-    "Tanu Tanwirul Ramadhan": "Matematika 24",
-    "Wahyu Budi Utomo": "Fisika 22",
-    "Fakhrizain Nahla": "Biologi 25",
-    "Muhammad Syaroful Anam": "Fisika 24",
-    "Misbachul Munir": "Informatika 24",
-    "Salik Bahrudin": "Kimia 24",
-    "Salman Farizi": "Matematika 23",
-    "Muhammad Iqbal Maulana": "Matematika 25",
-    "Wahyu Eko Setyo Pribowo": "Informatika 24",
-    "Fuad Hasan Basri": "Fisika S2",   // isi sesuai data
-    "Bayu Nugroho": "Matematika 23",       // isi sesuai data
-  };
-    
       // Urutan sholat untuk menentukan sholat berikutnya
       const prayerOrder = ["subuh", "dzuhur", "ashar", "maghrib", "isya"];
 
@@ -895,109 +889,8 @@
         updateTable();
       }
 
-      <script>
-
-  // Fungsi untuk menampilkan jadwal sesuai hari
-  function renderJadwal(date) {
-    const dayName = days[date.getDay()];
-    const tanggal = date.toLocaleDateString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-
-    document.getElementById("tanggal").textContent = tanggal;
-
-    const jadwalBody = document.getElementById("jadwal-body");
-    jadwalBody.innerHTML = "";
-
-    const libur = document.getElementById("libur");
-    const fridayRules = document.getElementById("friday-rules");
-    const dailyRules = document.getElementById("daily-rules");
-    const jumatBtn = document.getElementById("jumat-button-container");
-
-    libur.style.display = "none";
-    fridayRules.style.display = "none";
-    dailyRules.style.display = "none";
-    jumatBtn.style.display = "none";
-
-    if (dayName === "Jumat") {
-      // Tentukan minggu ke berapa dalam bulan
-      const mingguKe = Math.ceil(date.getDate() / 7);
-
-      // Pilih array petugas sesuai bulan ganjil/genap
-      const bulan = date.getMonth() + 1;
-      const isBulanGanjil = bulan % 2 === 1;
-      const dataJumat = isBulanGanjil
-        ? petugasJumatBulan1
-        : petugasJumatBulan2;
-
-      const petugasHariIni = dataJumat[(mingguKe - 1) % dataJumat.length];
-
-      if (petugasHariIni) {
-        const row1 = `
-          <tr>
-            <td>Adzan</td>
-            <td>${petugasHariIni.adzan}</td>
-            <td>${prodi[petugasHariIni.adzan] || "-"}</td>
-          </tr>`;
-        const row2 = `
-          <tr>
-            <td>Pengumuman</td>
-            <td>${petugasHariIni.pengumuman}</td>
-            <td>${prodi[petugasHariIni.pengumuman] || "-"}</td>
-          </tr>`;
-        jadwalBody.innerHTML = row1 + row2;
-
-        fridayRules.style.display = "block";
-        jumatBtn.style.display = "block";
-      } else {
-        libur.style.display = "block";
-      }
-    } else {
-      // Tampilkan jadwal harian (Dzuhur & Ashar)
-      const petugas1 = petugasMingguan[dayName];
-      const petugas2 = petugasMingguKe2[dayName];
-
-      if (petugas1 && petugas2) {
-        const row1 = `
-          <tr>
-            <td>Dzuhur</td>
-            <td>${petugas1.dzuhur} & ${petugas2.dzuhur}</td>
-            <td>${prodi[petugas1.dzuhur] || "-"} & ${prodi[petugas2.dzuhur] || "-"}</td>
-          </tr>`;
-        const row2 = `
-          <tr>
-            <td>Ashar</td>
-            <td>${petugas1.ashar} & ${petugas2.ashar}</td>
-            <td>${prodi[petugas1.ashar] || "-"} & ${prodi[petugas2.ashar] || "-"}</td>
-          </tr>`;
-        jadwalBody.innerHTML = row1 + row2;
-
-        dailyRules.style.display = "block";
-      } else {
-        libur.style.display = "block";
-      }
-    }
-  }
-
-  // Navigasi Hari
-  function goToToday() {
-    currentDate = new Date();
-    renderJadwal(currentDate);
-  }
-
-  function nextDay() {
-    currentDate.setDate(currentDate.getDate() + 1);
-    renderJadwal(currentDate);
-  }
-
-  // Inisialisasi
-  window.onload = () => {
-    fetchPrayerTimes();
-    renderJadwal(currentDate);
-  };
-</script>
+      // Inisialisasi saat halaman dimuat
+      window.onload = initialize;
+    </script>
   </body>
 </html>
