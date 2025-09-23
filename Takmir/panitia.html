@@ -158,11 +158,25 @@
           tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${now}</td>`;
           tbody.appendChild(tr);
 
-          // ✅ Getar kalau berhasil masuk ke data
-          if (navigator.vibrate) {
-            navigator.vibrate(200);
-          }
+          // ✅ Bunyi beep kalau berhasil masuk
+          beep();
         }
+      }
+
+      function beep() {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+
+        oscillator.type = "sine"; // bisa diganti "square" / "triangle"
+        oscillator.frequency.setValueAtTime(800, ctx.currentTime); // frekuensi 800Hz
+        gainNode.gain.setValueAtTime(0.1, ctx.currentTime); // volume kecil
+
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        oscillator.start();
+        oscillator.stop(ctx.currentTime + 0.2); // durasi 0.2 detik
       }
 
       document.getElementById("export").onclick = () => {
