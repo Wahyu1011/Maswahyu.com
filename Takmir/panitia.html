@@ -90,117 +90,101 @@
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <script>
-    let stream = null, scanning = false;
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const tbody = document.querySelector("#attendanceTable tbody");
-    let attendance = {};
+  let stream = null, scanning = false;
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  const tbody = document.querySelector("#attendanceTable tbody");
+  let attendance = {};
 
-    document.getElementById("start").onclick = async () => {
-      if (scanning) return;
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" }
-        });
-        video.srcObject = stream;
-        scanning = true;
-        scanLoop();
-      } catch (e) {
-        alert("Gagal akses kamera: " + e.message);
-      }
-    };
+  // simpan counter global
+  let countPutra = 0, countPutri = 0;
 
-    document.getElementById("stop").onclick = () => {
-      scanning = false;
-      if (stream) {
-        stream.getTracks().forEach((t) => t.stop());
-        stream = null;
-      }
-    };
-
-    function scanLoop() {
-      if (!scanning) return;
-      if (video.videoWidth) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const code = jsQR(img.data, img.width, img.height);
-        if (code) handleScan(code.data);
-      }
-      requestAnimationFrame(scanLoop);
-    }
-
-    function handleScan(data) {
-      let payload;
-      try {
-        payload = JSON.parse(data);
-      } catch (e) {
-        payload = { nama: data, prodi: "", fakultas: "", gender: "" };
-      }
-      const { nama, prodi, fakultas, gender } = payload;
-      const now = new Date().toLocaleString();
-
-      if (!attendance[nama]) {
-        attendance[nama] = { prodi, fakultas, gender, time: now };
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${gender}</td><td>${now}</td>`;
-        tbody.appendChild(tr);
-
-     let countPutra = 0, countPutri = 0;
-
-function handleScan(data) {
-  let payload;
-  try {
-    payload = JSON.parse(data);
-  } catch (e) {
-    payload = { nama: data, prodi: "", fakultas: "", gender: "" };
-  }
-  const { nama, prodi, fakultas, gender } = payload;
-  const now = new Date().toLocaleString();
-
-  if (!attendance[nama]) {
-    attendance[nama] = { prodi, fakultas, gender, time: now };
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${gender}</td><td>${now}</td>`;
-    tbody.appendChild(tr);
-
-    // hitung total putra/putri
-    if (gender === "Putra") {
-      countPutra++;
-      document.getElementById("countPutra").textContent = countPutra;
-    } else if (gender === "Putri") {
-      countPutri++;
-      document.getElementById("countPutri").textContent = countPutri;
-    }
-
-    // 🔊 Beep sound
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(800, ctx.currentTime);
-    osc.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.2);
-  }
-}
-
-
-    document.getElementById("export").onclick = () => {
-      const rows = [["Nama", "Prodi", "Fakultas", "Jenis Kelamin", "Timestamp"]];
-      Object.entries(attendance).forEach(([nama, data]) => {
-        rows.push([`"${nama}"`, data.prodi, data.fakultas, data.gender, data.time]);
+  document.getElementById("start").onclick = async () => {
+    if (scanning) return;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }
       });
-      const csv = rows.map((r) => r.join(",")).join("\n");
-      const blob = new Blob([csv], { type: "text/csv" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "kehadiran.csv";
-      a.click();
-    };
-  </script>
+      video.srcObject = stream;
+      scanning = true;
+      scanLoop();
+    } catch (e) {
+      alert("Gagal akses kamera: " + e.message);
+    }
+  };
+
+  document.getElementById("stop").onclick = () => {
+    scanning = false;
+    if (stream) {
+      stream.getTracks().forEach((t) => t.stop());
+      stream = null;
+    }
+  };
+
+  function scanLoop() {
+    if (!scanning) return;
+    if (video.videoWidth) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(img.data, img.width, img.height);
+      if (code) handleScan(code.data);
+    }
+    requestAnimationFrame(scanLoop);
+  }
+
+  function handleScan(data) {
+    let payload;
+    try {
+      payload = JSON.parse(data);
+    } catch (e) {
+      payload = { nama: data, prodi: "", fakultas: "", gender: "" };
+    }
+    const { nama, prodi, fakultas, gender } = payload;
+    const now = new Date().toLocaleString();
+
+    if (!attendance[nama]) {
+      attendance[nama] = { prodi, fakultas, gender, time: now };
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${gender}</td><td>${now}</td>`;
+      tbody.appendChild(tr);
+
+      // hitung total putra/putri
+      if (gender === "Putra") {
+        countPutra++;
+        document.getElementById("countPutra").textContent = countPutra;
+      } else if (gender === "Putri") {
+        countPutri++;
+        document.getElementById("countPutri").textContent = countPutri;
+      }
+
+      // 🔊 Beep sound
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.2);
+    }
+  }
+
+  document.getElementById("export").onclick = () => {
+    const rows = [["Nama", "Prodi", "Fakultas", "Jenis Kelamin", "Timestamp"]];
+    Object.entries(attendance).forEach(([nama, data]) => {
+      rows.push([`"${nama}"`, data.prodi, data.fakultas, data.gender, data.time]);
+    });
+    const csv = rows.map((r) => r.join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "kehadiran.csv";
+    a.click();
+  };
+</script>
+
 </body>
 </html>
