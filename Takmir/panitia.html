@@ -83,6 +83,11 @@
       </thead>
       <tbody></tbody>
     </table>
+
+    <h3>Statistik Kehadiran</h3>
+<p>Total Putra: <span id="countPutra">0</span></p>
+<p>Total Putri: <span id="countPutri">0</span></p>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
@@ -145,16 +150,44 @@
         tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${gender}</td><td>${now}</td>`;
         tbody.appendChild(tr);
 
-        // 🔊 Beep sound
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(800, ctx.currentTime);
-        osc.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.2);
-      }
+     let countPutra = 0, countPutri = 0;
+
+function handleScan(data) {
+  let payload;
+  try {
+    payload = JSON.parse(data);
+  } catch (e) {
+    payload = { nama: data, prodi: "", fakultas: "", gender: "" };
+  }
+  const { nama, prodi, fakultas, gender } = payload;
+  const now = new Date().toLocaleString();
+
+  if (!attendance[nama]) {
+    attendance[nama] = { prodi, fakultas, gender, time: now };
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${gender}</td><td>${now}</td>`;
+    tbody.appendChild(tr);
+
+    // hitung total putra/putri
+    if (gender === "Putra") {
+      countPutra++;
+      document.getElementById("countPutra").textContent = countPutra;
+    } else if (gender === "Putri") {
+      countPutri++;
+      document.getElementById("countPutri").textContent = countPutri;
     }
+
+    // 🔊 Beep sound
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(800, ctx.currentTime);
+    osc.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.2);
+  }
+}
+
 
     document.getElementById("export").onclick = () => {
       const rows = [["Nama", "Prodi", "Fakultas", "Jenis Kelamin", "Timestamp"]];
