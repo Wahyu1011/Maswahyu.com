@@ -1,87 +1,128 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Generate QR Kehadiran</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: #f0f2f5;
-        margin: 0;
-      }
-      .card {
-        background: #fff;
-        padding: 20px 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        width: 100%;
-        max-width: 400px;
-      }
-      h2 {
-        margin-top: 0;
-        color: #333;
-      }
-      input {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 1rem;
-      }
-      button {
-        padding: 10px 16px;
-        width: 100%;
-        margin-top: 10px;
-        background: #4caf50;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        font-size: 1rem;
-        cursor: pointer;
-      }
-      button:hover {
-        background: #45a049;
-      }
-      #qrcode {
-        margin-top: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h2>Generate QR Kehadiran</h2>
-      <input id="nama" type="text" placeholder="Nama Lengkap" />
-      <input id="prodi" type="text" placeholder="Program Studi" />
-      <input id="fakultas" type="text" placeholder="Fakultas" />
-      <button onclick="buatQr()">Generate QR</button>
-      <div id="qrcode"></div>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Generate QR Kehadiran</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .gender-btns {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .gender-btns button {
+      flex: 1;
+      margin: 5px;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #e0e0e0;
+      transition: background 0.2s;
+    }
+    .gender-btns button.active {
+      background: #4caf50;
+      color: #fff;
+    }
+    button#generate {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #qrcode {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Form Kehadiran Jamaah</h2>
+    <input type="text" id="nama" placeholder="Nama Lengkap" required />
+    <input type="text" id="prodi" placeholder="Prodi" required />
+    <input type="text" id="fakultas" placeholder="Fakultas" required />
+
+    <div class="gender-btns">
+      <button type="button" id="putra">Putra</button>
+      <button type="button" id="putri">Putri</button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script>
-      function buatQr() {
-        const nama = document.getElementById("nama").value.trim();
-        const prodi = document.getElementById("prodi").value.trim();
-        const fakultas = document.getElementById("fakultas").value.trim();
-        if (!nama || !prodi || !fakultas) {
-          alert("Lengkapi semua field.");
-          return;
-        }
-        const data = { nama, prodi, fakultas };
-        document.getElementById("qrcode").innerHTML = "";
-        new QRCode(document.getElementById("qrcode"), {
-          text: JSON.stringify(data),
-          width: 200,
-          height: 200,
-        });
+    <button id="generate">Generate QR</button>
+    <div id="qrcode"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    let gender = "";
+
+    document.getElementById("putra").onclick = () => {
+      gender = "Putra";
+      setActive("putra");
+    };
+    document.getElementById("putri").onclick = () => {
+      gender = "Putri";
+      setActive("putri");
+    };
+
+    function setActive(id) {
+      document.getElementById("putra").classList.remove("active");
+      document.getElementById("putri").classList.remove("active");
+      document.getElementById(id).classList.add("active");
+    }
+
+    document.getElementById("generate").onclick = () => {
+      const nama = document.getElementById("nama").value.trim();
+      const prodi = document.getElementById("prodi").value.trim();
+      const fakultas = document.getElementById("fakultas").value.trim();
+
+      if (!nama || !prodi || !fakultas || !gender) {
+        alert("Lengkapi semua data dan pilih jenis kelamin!");
+        return;
       }
-    </script>
-  </body>
+
+      const data = { nama, prodi, fakultas, gender };
+      const qrDiv = document.getElementById("qrcode");
+      qrDiv.innerHTML = "";
+      QRCode.toCanvas(JSON.stringify(data), { width: 250 }, function (err, canvas) {
+        if (err) console.error(err);
+        qrDiv.appendChild(canvas);
+      });
+    };
+  </script>
+</body>
 </html>
+
