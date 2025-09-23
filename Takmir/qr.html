@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Generate QR Kehadiran</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #f0f2f5;
+        margin: 0;
+      }
+      .card {
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+      }
+      h2 {
+        margin-top: 0;
+        color: #333;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+      button {
+        padding: 10px 16px;
+        width: 100%;
+        margin-top: 10px;
+        background: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      #qrcode {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Generate QR Kehadiran</h2>
+      <input id="nama" type="text" placeholder="Nama Lengkap" />
+      <input id="prodi" type="text" placeholder="Program Studi" />
+      <input id="fakultas" type="text" placeholder="Fakultas" />
+      <button onclick="buatQr()">Generate QR</button>
+      <div id="qrcode"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+      function buatQr() {
+        const nama = document.getElementById("nama").value.trim();
+        const prodi = document.getElementById("prodi").value.trim();
+        const fakultas = document.getElementById("fakultas").value.trim();
+        if (!nama || !prodi || !fakultas) {
+          alert("Lengkapi semua field.");
+          return;
+        }
+        const data = { nama, prodi, fakultas };
+        document.getElementById("qrcode").innerHTML = "";
+        new QRCode(document.getElementById("qrcode"), {
+          text: JSON.stringify(data),
+          width: 200,
+          height: 200,
+        });
+      }
+    </script>
+  </body>
+</html>
