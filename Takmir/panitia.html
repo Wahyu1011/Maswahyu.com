@@ -170,6 +170,32 @@
         a.download = "kehadiran.csv";
         a.click();
       };
+
+      function handleScan(data){
+  let payload;
+  try { 
+    payload = JSON.parse(data);
+  } catch(e) { 
+    payload = {nama:data, prodi:'', fakultas:''};
+  }
+
+  const {nama, prodi, fakultas} = payload;
+  const now = new Date().toLocaleString();
+
+  if(!attendance[nama]){
+    attendance[nama] = {prodi, fakultas, time:now};
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${now}</td>`;
+    tbody.appendChild(tr);
+
+    // 🔔 Kasih getar (jika device support)
+    if(navigator.vibrate){
+      navigator.vibrate(200); // getar 200 ms
+    }
+  }
+}
+
     </script>
   </body>
 </html>
