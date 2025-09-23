@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Scanner Kehadiran</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 900px;
+        margin: auto;
+      }
+      h2 {
+        color: #333;
+      }
+      video {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background: #4caf50;
+        color: #fff;
+      }
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+      button {
+        margin: 5px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+      #start {
+        background: #4caf50;
+        color: #fff;
+      }
+      #stop {
+        background: #f44336;
+        color: #fff;
+      }
+      #export {
+        background: #2196f3;
+        color: #fff;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Scanner Kehadiran Rutinan Kamis</h2>
+      <div>
+        <button id="start">Start Scanner</button>
+        <button id="stop">Stop</button>
+        <button id="export">Export CSV</button>
+      </div>
+      <video id="video" autoplay muted playsinline></video>
+      <canvas id="canvas" style="display: none"></canvas>
+
+      <h3>Daftar Hadir</h3>
+      <table id="attendanceTable">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Prodi</th>
+            <th>Fakultas</th>
+            <th>Waktu Hadir</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script>
+      let stream = null,
+        scanning = false;
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const tbody = document.querySelector("#attendanceTable tbody");
+      let attendance = {};
+
+      document.getElementById("start").onclick = async () => {
+        if (scanning) return;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" },
+          });
+          video.srcObject = stream;
+          scanning = true;
+          scanLoop();
+        } catch (e) {
+          alert("Gagal akses kamera: " + e.message);
+        }
+      };
+
+      document.getElementById("stop").onclick = () => {
+        scanning = false;
+        if (stream) {
+          stream.getTracks().forEach((t) => t.stop());
+          stream = null;
+        }
+      };
+
+      function scanLoop() {
+        if (!scanning) return;
+        if (video.videoWidth) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(img.data, img.width, img.height);
+          if (code) handleScan(code.data);
+        }
+        requestAnimationFrame(scanLoop);
+      }
+
+      function handleScan(data) {
+        let payload;
+        try {
+          payload = JSON.parse(data);
+        } catch (e) {
+          payload = { nama: data, prodi: "", fakultas: "" };
+        }
+        const { nama, prodi, fakultas } = payload;
+        const now = new Date().toLocaleString();
+        if (!attendance[nama]) {
+          attendance[nama] = { prodi, fakultas, time: now };
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${nama}</td><td>${prodi}</td><td>${fakultas}</td><td>${now}</td>`;
+          tbody.appendChild(tr);
+        }
+      }
+
+      document.getElementById("export").onclick = () => {
+        const rows = [["Nama", "Prodi", "Fakultas", "Timestamp"]];
+        Object.entries(attendance).forEach(([nama, data]) => {
+          rows.push([`"${nama}"`, data.prodi, data.fakultas, data.time]);
+        });
+        const csv = rows.map((r) => r.join(",")).join("\n");
+        const blob = new Blob([csv], { type: "text/csv" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "kehadiran.csv";
+        a.click();
+      };
+    </script>
+  </body>
+</html>
