@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simpan Link</title>
-</head>
-<body>
-  <h2>Simpan Link Ngrok</h2>
-  <input type="text" id="linkInput" placeholder="Tempel link ngrok disini" style="width: 80%;" />
-  <button onclick="saveLink()">Simpan</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simpan Link</title>
+    <script type="module">
+      // Import SDK Firebase
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-  <script>
-    function saveLink(){
-      const link = document.getElementById("linkInput").value.trim();
-      if(link){
-        localStorage.setItem("ngrokLink", link);
-        alert("✅ Link tersimpan!");
-      } else {
-        alert("⚠️ Masukkan link dulu!");
-      }
-    }
-  </script>
-</body>
+      // TODO: ganti config ini dengan punyamu
+      const firebaseConfig = {
+        apiKey: "AIzaSyAOiSUjiVWKakL7WbahmvQQp82J6GQ8DSg",
+        authDomain: "link-forward-d1a72.firebaseapp.com",
+        databaseURL: "https://link-forward-d1a72-default-rtdb.firebaseio.com",
+        projectId: "link-forward-d1a72",
+        storageBucket: "link-forward-d1a72.firebasestorage.app",
+        messagingSenderId: "717414867502",
+        appId: "1:717414867502:web:8098377107fd0ee470f5bf",
+        measurementId: "G-KWZ6Y2T0SB",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      window.saveLink = function () {
+        const link = document.getElementById("linkInput").value.trim();
+        if (link) {
+          set(ref(db, "ngrokLink"), { url: link })
+            .then(() => alert("✅ Link tersimpan di Firebase!"))
+            .catch((err) => alert("❌ Error: " + err));
+        } else {
+          alert("⚠️ Masukkan link dulu!");
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <h2>Simpan Link Ngrok</h2>
+    <input
+      type="text"
+      id="linkInput"
+      placeholder="Tempel link ngrok disini"
+      style="width: 80%"
+    />
+    <button onclick="saveLink()">Simpan</button>
+  </body>
 </html>
