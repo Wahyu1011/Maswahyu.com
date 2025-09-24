@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Penerus Link</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Penerus Link</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+      background: #0f1724;
+      color: #eee;
+    }
+    .box {
+      text-align: center;
+      padding: 30px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      max-width: 400px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      color: #04121c;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    #currentLink {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #aaa;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Penerus Link</h2>
+    <p>Klik tombol di bawah untuk membuka link ngrok yang sudah disimpan.</p>
+    <button id="visitBtn">Visit site</button>
+    <div id="currentLink"></div>
+  </div>
 
-    <!-- CSS dari bit.ly -->
-    <link rel="stylesheet" href="http://bit.ly/maswahyusites" />
+  <script>
+    const savedLink = localStorage.getItem("ngrokLink");
+    const currentLink = document.getElementById("currentLink");
 
-    <style>
-      body {
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        font-family: sans-serif;
-        background: #0f1724;
-        color: #eee;
-      }
-      .box {
-        text-align: center;
-        padding: 30px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.05);
-        max-width: 400px;
-      }
-      button {
-        margin-top: 15px;
-        padding: 10px 20px;
-        border: 0;
-        border-radius: 8px;
-        background: linear-gradient(90deg, #38bdf8, #3b82f6);
-        color: #04121c;
-        font-weight: bold;
-        cursor: pointer;
-      }
-      button:hover {
-        opacity: 0.9;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <h2>Halo Guys!!!!</h2>
-      <p>Habis ini klik <b>Visit site</b>, terus allow semua permission.</p>
-      <button id="visitBtn">Masuk Aja Yuk</button>
-    </div>
+    if(savedLink){
+      currentLink.textContent = "🔗 Link tersimpan: " + savedLink;
+    } else {
+      currentLink.textContent = "⚠️ Belum ada link tersimpan. Buka input.html dulu.";
+    }
 
-    <script>
-      document.getElementById("visitBtn").addEventListener("click", () => {
-        window.location.href = "https://644783a116e8.ngrok-free.app/";
-      });
-    </script>
-  </body>
+    document.getElementById("visitBtn").addEventListener("click", () => {
+      if(savedLink){
+        window.location.href = savedLink;
+      } else {
+        alert("⚠️ Belum ada link tersimpan.");
+      }
+    });
+  </script>
+</body>
 </html>
