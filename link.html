@@ -4,52 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Penerus Link</title>
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      font-family: sans-serif;
-      background: #0f1724;
-      color: #eee;
-    }
-    .box {
-      text-align: center;
-      padding: 30px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      max-width: 400px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: 0;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #38bdf8, #3b82f6);
-      color: #04121c;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-  </style>
 </head>
 <body>
-  <div class="box">
-    <h2>Penerus Link</h2>
-    <button id="visitBtn">Visit site</button>
-  </div>
+  <h2>Penerus Link</h2>
+  <button id="visitBtn">Visit site</button>
 
   <script>
     document.getElementById("visitBtn").addEventListener("click", () => {
       const savedLink = localStorage.getItem("ngrokLink");
       if(savedLink){
-        window.location.href = savedLink;
+        window.location.href = savedLink; // langsung ke link ngrok
       } else {
-        alert("⚠️ Belum ada link tersimpan. Simpan dulu lewat input.html.");
+        alert("⚠️ Belum ada link tersimpan. Buka input.html dulu.");
       }
     });
   </script>
