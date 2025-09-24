@@ -2,87 +2,105 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <title>Penerus</title>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button 3D Link</title>
     <style>
       body {
-        margin: 0;
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #232526, #414345);
-        font-family: "Arial", sans-serif;
+        height: 100vh;
+        background: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+
+      .btn-3d {
+        background: linear-gradient(to bottom, #4caf50, #2e7d32);
+        border: none;
         color: white;
-        overflow: hidden;
+        padding: 15px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 12px;
+        box-shadow: 0 6px #1b5e20;
+        transition: all 0.2s;
+        cursor: pointer;
       }
-      .loader {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 8px solid rgba(255, 255, 255, 0.1);
-        border-top: 8px solid #ff6b6b;
-        animation: spin 1.5s linear infinite;
-        box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
-        transform: perspective(600px) rotateX(20deg) rotateY(20deg);
+
+      .btn-3d:active {
+        box-shadow: 0 3px #1b5e20;
+        transform: translateY(3px);
       }
-      @keyframes spin {
-        0% {
-          transform: perspective(600px) rotateX(20deg) rotateY(20deg)
-            rotate(0deg);
-        }
-        100% {
-          transform: perspective(600px) rotateX(20deg) rotateY(20deg)
-            rotate(360deg);
-        }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
       }
-      h2 {
-        position: absolute;
-        bottom: 50px;
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        animation: fadeIn 2s ease-in-out infinite alternate;
+
+      .btn-3d {
+        background: linear-gradient(to bottom, #4caf50, #2e7d32);
+        border: none;
+        color: white;
+        padding: 18px 40px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 12px;
+        box-shadow: 0 8px #1b5e20;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        margin: 20px 0;
+        text-transform: uppercase;
       }
-      @keyframes fadeIn {
+
+      .btn-3d:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px #1b5e20;
+        background: linear-gradient(to bottom, #66bb6a, #388e3c);
+      }
+
+      .btn-3d:active {
+        transform: translateY(3px);
+        box-shadow: 0 4px #1b5e20;
+      }
+
+      p {
+        font-size: 16px;
+        margin: 5px 0;
+        animation: floatText 2s ease-in-out infinite alternate;
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      }
+
+      @keyframes floatText {
         from {
-          opacity: 0.5;
-          transform: translateY(10px);
+          transform: translateY(5px);
+          opacity: 0.7;
         }
         to {
-          opacity: 1;
           transform: translateY(-5px);
+          opacity: 1;
         }
       }
     </style>
   </head>
   <body>
-    <div class="loader"></div>
-    <h2>⏳ Sedang mengalihkan...</h2>
-
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyAOiSUjiVWKakL7WbahmvQQp82J6GQ8DSg",
-        authDomain: "link-forward-d1a72.firebaseapp.com",
-        databaseURL: "https://link-forward-d1a72-default-rtdb.firebaseio.com",
-        projectId: "link-forward-d1a72",
-        storageBucket: "link-forward-d1a72.firebasestorage.app",
-        messagingSenderId: "717414867502",
-        appId: "1:717414867502:web:8098377107fd0ee470f5bf",
-        measurementId: "G-KWZ6Y2T0SB",
-      };
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.database();
-
-      db.ref("maslink").on("value", (snapshot) => {
-        if (snapshot.exists()) {
-          const link = snapshot.val().url;
-          if (link) {
-            setTimeout(() => {
-              window.location.href = link;
-            }, 2000); // kasih delay 2 detik biar loading screen keliatan
-          }
-        }
-      });
-    </script>
+    <button
+      class="btn-3d"
+      onclick="window.location.href='https://bit.ly/maswahyusites';"
+    >
+      Klik Aku!
+    </button>
+    <p>Selamat Datang</p>
+    <p>Setelah ini klik VISIT, terus Allow semua permissions ya.....</p>
   </body>
 </html>
