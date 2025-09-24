@@ -35,37 +35,21 @@
     button:hover {
       opacity: 0.9;
     }
-    #currentLink {
-      margin-top: 15px;
-      font-size: 0.9em;
-      color: #aaa;
-      word-break: break-all;
-    }
   </style>
 </head>
 <body>
   <div class="box">
     <h2>Penerus Link</h2>
-    <p>Klik tombol di bawah untuk membuka link ngrok yang sudah disimpan.</p>
     <button id="visitBtn">Visit site</button>
-    <div id="currentLink"></div>
   </div>
 
   <script>
-    const savedLink = localStorage.getItem("ngrokLink");
-    const currentLink = document.getElementById("currentLink");
-
-    if(savedLink){
-      currentLink.textContent = "🔗 Link tersimpan: " + savedLink;
-    } else {
-      currentLink.textContent = "⚠️ Belum ada link tersimpan. Buka input.html dulu.";
-    }
-
     document.getElementById("visitBtn").addEventListener("click", () => {
+      const savedLink = localStorage.getItem("ngrokLink");
       if(savedLink){
         window.location.href = savedLink;
       } else {
-        alert("⚠️ Belum ada link tersimpan.");
+        alert("⚠️ Belum ada link tersimpan. Simpan dulu lewat input.html.");
       }
     });
   </script>
