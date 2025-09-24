@@ -1,76 +1,88 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Penerus</title>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #232526, #414345);
-      font-family: 'Arial', sans-serif;
-      color: white;
-      overflow: hidden;
-    }
-    .loader {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 8px solid rgba(255,255,255,0.1);
-      border-top: 8px solid #ff6b6b;
-      animation: spin 1.5s linear infinite;
-      box-shadow: 0 0 30px rgba(255,107,107,0.6);
-      transform: perspective(600px) rotateX(20deg) rotateY(20deg);
-    }
-    @keyframes spin {
-      0% { transform: perspective(600px) rotateX(20deg) rotateY(20deg) rotate(0deg); }
-      100% { transform: perspective(600px) rotateX(20deg) rotateY(20deg) rotate(360deg); }
-    }
-    h2 {
-      position: absolute;
-      bottom: 50px;
-      text-shadow: 0 0 10px rgba(0,0,0,0.5);
-      animation: fadeIn 2s ease-in-out infinite alternate;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0.5; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(-5px); }
-    }
-  </style>
-</head>
-<body>
-  <div class="loader"></div>
-  <h2>⏳ Sedang mengalihkan...</h2>
-
-  <script>
-    const firebaseConfig = {
-  apiKey: "AIzaSyAOiSUjiVWKakL7WbahmvQQp82J6GQ8DSg",
-  authDomain: "link-forward-d1a72.firebaseapp.com",
-  databaseURL: "https://link-forward-d1a72-default-rtdb.firebaseio.com",
-  projectId: "link-forward-d1a72",
-  storageBucket: "link-forward-d1a72.firebasestorage.app",
-  messagingSenderId: "717414867502",
-  appId: "1:717414867502:web:8098377107fd0ee470f5bf",
-  measurementId: "G-KWZ6Y2T0SB"
-};
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    db.ref("maslink").on("value", (snapshot) => {
-      if(snapshot.exists()) {
-        const link = snapshot.val().url;
-        if(link) {
-          setTimeout(() => {
-            window.location.href = link;
-          }, 2000); // kasih delay 2 detik biar loading screen keliatan
+  <head>
+    <meta charset="UTF-8" />
+    <title>Penerus</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #232526, #414345);
+        font-family: "Arial", sans-serif;
+        color: white;
+        overflow: hidden;
+      }
+      .loader {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 8px solid rgba(255, 255, 255, 0.1);
+        border-top: 8px solid #ff6b6b;
+        animation: spin 1.5s linear infinite;
+        box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
+        transform: perspective(600px) rotateX(20deg) rotateY(20deg);
+      }
+      @keyframes spin {
+        0% {
+          transform: perspective(600px) rotateX(20deg) rotateY(20deg)
+            rotate(0deg);
+        }
+        100% {
+          transform: perspective(600px) rotateX(20deg) rotateY(20deg)
+            rotate(360deg);
         }
       }
-    });
-  </script>
-</body>
+      h2 {
+        position: absolute;
+        bottom: 50px;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 2s ease-in-out infinite alternate;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0.5;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(-5px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader"></div>
+    <h2>⏳ Sedang mengalihkan...</h2>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAOiSUjiVWKakL7WbahmvQQp82J6GQ8DSg",
+        authDomain: "link-forward-d1a72.firebaseapp.com",
+        databaseURL: "https://link-forward-d1a72-default-rtdb.firebaseio.com",
+        projectId: "link-forward-d1a72",
+        storageBucket: "link-forward-d1a72.firebasestorage.app",
+        messagingSenderId: "717414867502",
+        appId: "1:717414867502:web:8098377107fd0ee470f5bf",
+        measurementId: "G-KWZ6Y2T0SB",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+
+      db.ref("maslink").on("value", (snapshot) => {
+        if (snapshot.exists()) {
+          const link = snapshot.val().url;
+          if (link) {
+            setTimeout(() => {
+              window.location.href = link;
+            }, 2000); // kasih delay 2 detik biar loading screen keliatan
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
