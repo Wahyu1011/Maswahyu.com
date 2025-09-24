@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Input Link Ngrok</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      background: #0f1724;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      margin-bottom: 15px;
+      background: #1a2335;
+      color: #eee;
+    }
+    button {
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      color: #04121c;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    small {
+      display: block;
+      margin-top: 10px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Simpan Link Ngrok</h2>
+    <input type="url" id="ngrokLink" placeholder="https://xxx.ngrok-free.app" />
+    <button onclick="simpan()">Simpan</button>
+    <small id="lastSaved"></small>
+  </div>
+
+  <script>
+    const lastSaved = document.getElementById("lastSaved");
+    const savedLink = localStorage.getItem("ngrokLink");
+
+    if(savedLink){
+      lastSaved.textContent = "Link terakhir tersimpan: " + savedLink;
+    }
+
+    function simpan() {
+      const link = document.getElementById("ngrokLink").value.trim();
+      if(link){
+        localStorage.setItem("ngrokLink", link);
+        alert("✅ Link tersimpan! Sekarang buka halaman penerus.");
+        lastSaved.textContent = "Link terakhir tersimpan: " + link;
+      } else {
+        alert("⚠️ Isi dulu link ngroknya.");
+      }
+    }
+  </script>
+</body>
+</html>
