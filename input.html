@@ -1,53 +1,82 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simpan Link</title>
-    <script type="module">
-      // Import SDK Firebase
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-      import {
-        getDatabase,
-        ref,
-        set,
-      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+<head>
+  <meta charset="UTF-8">
+  <title>Masukin Link</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    body {
+      margin: 0; 
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      transform: rotateY(10deg) rotateX(5deg);
+      transition: transform 0.4s ease;
+    }
+    .card:hover {
+      transform: rotateY(0) rotateX(0);
+    }
+    input, button {
+      padding: 12px;
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
+    input {
+      background: #f1f1f1;
+    }
+    button {
+      background: #ff6b6b;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff4757;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🚀 Simpan Link</h2>
+    <input id="linkInput" type="text" placeholder="Masukkan link...">
+    <button onclick="simpanLink()">Simpan</button>
+    <p id="status"></p>
+  </div>
 
-      // TODO: ganti config ini dengan punyamu
-      const firebaseConfig = {
-        apiKey: "AIzaSyAOiSUjiVWKakL7WbahmvQQp82J6GQ8DSg",
-        authDomain: "link-forward-d1a72.firebaseapp.com",
-        databaseURL: "https://link-forward-d1a72-default-rtdb.firebaseio.com",
-        projectId: "link-forward-d1a72",
-        storageBucket: "link-forward-d1a72.firebasestorage.app",
-        messagingSenderId: "717414867502",
-        appId: "1:717414867502:web:8098377107fd0ee470f5bf",
-        measurementId: "G-KWZ6Y2T0SB",
-      };
+  <script>
+    const firebaseConfig = {
+      apiKey: "ISI_APIKEY",
+      authDomain: "ISI_PROJECT.firebaseapp.com",
+      databaseURL: "https://ISI_PROJECT.firebaseio.com",
+      projectId: "ISI_PROJECT",
+      storageBucket: "ISI_PROJECT.appspot.com",
+      messagingSenderId: "ISI_SENDER",
+      appId: "ISI_APPID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-
-      window.saveLink = function () {
-        const link = document.getElementById("linkInput").value.trim();
-        if (link) {
-          set(ref(db, "ngrokLink"), { url: link })
-            .then(() => alert("✅ Link tersimpan di Firebase!"))
-            .catch((err) => alert("❌ Error: " + err));
-        } else {
-          alert("⚠️ Masukkan link dulu!");
-        }
-      };
-    </script>
-  </head>
-  <body>
-    <h2>Simpan Link Ngrok</h2>
-    <input
-      type="text"
-      id="linkInput"
-      placeholder="Tempel link ngrok disini"
-      style="width: 80%"
-    />
-    <button onclick="saveLink()">Simpan</button>
-  </body>
+    function simpanLink() {
+      const link = document.getElementById("linkInput").value;
+      db.ref("maslink").set({url: link});
+      document.getElementById("status").innerText = "✅ Link tersimpan!";
+    }
+  </script>
+</body>
 </html>
