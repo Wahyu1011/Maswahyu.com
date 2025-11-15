@@ -102,15 +102,7 @@
         border-radius: 15px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         text-align: center;
-        animation: fadeIn 0.6s ease;
       }
-
-      .login-form h2 {
-        margin-bottom: 20px;
-        font-weight: 600;
-        color: #2c3e50;
-      }
-
       .login-form input {
         margin: 10px 0;
         padding: 10px;
@@ -118,14 +110,7 @@
         font-size: 16px;
         border-radius: 6px;
         border: 1px solid #ccc;
-        outline: none;
-        transition: border 0.3s;
       }
-
-      .login-form input:focus {
-        border-color: #26a69a;
-      }
-
       .login-form button {
         margin-top: 10px;
         padding: 10px 20px;
@@ -135,22 +120,6 @@
         color: white;
         border-radius: 6px;
         cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .login-form button:hover {
-        background-color: #2bbbad;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
       }
     </style>
   </head>
@@ -158,12 +127,7 @@
     <!-- Login Page -->
     <div id="loginPage" class="login-form">
       <h2>🔐 Login</h2>
-      <input
-        type="text"
-        id="username"
-        placeholder="Username"
-        autocomplete="off"
-      />
+      <input type="text" id="username" placeholder="Username" />
       <input type="password" id="password" placeholder="Password" />
       <button onclick="login()">Login</button>
       <p id="loginError" style="color: crimson; display: none">
@@ -171,31 +135,28 @@
       </p>
     </div>
 
-    <!-- Keuangan Musholla Page -->
+    <!-- Main Page -->
     <div id="mainContent" style="display: none">
       <h1>💰 Keuangan Musholla Annur</h1>
       <p class="subtitle">Uang Jama'ah Ahad Pagi</p>
-      
+
       <div class="summary">
-        <strong>Total pemasukan:</strong> <span id="total">Rp. 0</span>
+        <strong>Total pemasukan:</strong> <span id="total">Rp. 0</span><br />
+        <small>(Termasuk saldo awal Rp 480.000)</small>
       </div>
 
       <div class="controls">
         <label for="nama">Pilih Nama:</label>
         <select id="nama"></select>
         <label for="tanggal">Pilih Tanggal:</label>
-        <input type="date" id="tanggal" />
-        <br />
+        <input type="date" id="tanggal" /><br />
+
         <button onclick="isi(5000)">5k</button>
         <button onclick="isi(10000)">10k</button>
         <button onclick="isi(15000)">15k</button>
-        <button onclick="isi(20000)">20k</button>
-        <br />
-        <input
-          type="number"
-          id="jumlahLain"
-          placeholder="Isi nominal lain (Rp)"
-        />
+        <button onclick="isi(20000)">20k</button><br />
+
+        <input type="number" id="jumlahLain" placeholder="Isi nominal lain (Rp)" />
         <button onclick="isiLain()">Input</button>
       </div>
 
@@ -207,77 +168,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Bu Henny</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Bu Irma</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Bu Budi</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Bu Mus</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Mbak Abel</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Bu Hery</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Uti</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Bu Sop</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>Bu Azizah</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>Pak Kyai</td>
-          </tr>
-          <tr>
-            <td>11</td>
-            <td>Pak Roni</td>
-          </tr>
-          <tr>
-            <td>12</td>
-            <td>Pak Jumono</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>Pak Budi</td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td>Mas Eko</td>
-          </tr>
+          <tr><td>1</td><td>Bu Henny</td></tr>
+          <tr><td>2</td><td>Bu Irma</td></tr>
+          <tr><td>3</td><td>Bu Budi</td></tr>
+          <tr><td>4</td><td>Bu Mus</td></tr>
+          <tr><td>5</td><td>Mbak Abel</td></tr>
+          <tr><td>6</td><td>Bu Hery</td></tr>
+          <tr><td>7</td><td>Uti</td></tr>
+          <tr><td>8</td><td>Bu Sop</td></tr>
+          <tr><td>9</td><td>Bu Azizah</td></tr>
+          <tr><td>10</td><td>Pak Kyai</td></tr>
+          <tr><td>11</td><td>Pak Roni</td></tr>
+          <tr><td>12</td><td>Pak Jumono</td></tr>
+          <tr><td>13</td><td>Pak Budi</td></tr>
+          <tr><td>14</td><td>Mas Eko</td></tr>
         </tbody>
       </table>
     </div>
 
     <script>
-      // Rest of the functions here
+      let saldoAwal = 480000;
+
+      // TABLE MANAGEMENT
       const table = document.getElementById("data");
       const namaSelect = document.getElementById("nama");
 
-      if (localStorage.getItem("tableData")) {
-        table.innerHTML = localStorage.getItem("tableData");
-      }
-
       function saveTable() {
         localStorage.setItem("tableData", table.innerHTML);
+        simpanKeuanganFirebase();
       }
 
       function populateNama() {
@@ -305,6 +223,7 @@
       function inputUang(jumlah) {
         const index = parseInt(namaSelect.value);
         const tanggal = document.getElementById("tanggal").value;
+
         if (!tanggal) {
           alert("Silakan pilih tanggal terlebih dahulu.");
           return;
@@ -312,6 +231,7 @@
 
         const thead = document.querySelector("#data thead tr");
         let colIndex = -1;
+
         for (let i = 2; i < thead.cells.length; i++) {
           if (thead.cells[i].getAttribute("data-date") === tanggal) {
             colIndex = i;
@@ -342,7 +262,15 @@
         cell.innerHTML =
           jumlah +
           '<button class="delete-btn" onclick="hapusLangsung(this)">x</button>';
+
         updateTotal();
+        saveTable();
+      }
+
+      function hapusLangsung(btn) {
+        btn.parentElement.innerHTML = "";
+        updateTotal();
+        hapusKolomJikaKosong();
         saveTable();
       }
 
@@ -351,49 +279,41 @@
         const rows = document.querySelectorAll("#data tbody tr");
 
         for (let col = thead.cells.length - 1; col >= 2; col--) {
-          let kosongSemua = true;
+          let kosong = true;
 
           rows.forEach((row) => {
-            const cell = row.cells[col];
-            const value = cell.textContent.replace("x", "").trim(); // buang 'x'
-            if (value !== "") kosongSemua = false;
+            const value = row.cells[col].textContent.replace("x", "").trim();
+            if (value !== "") kosong = false;
           });
 
-          if (kosongSemua) {
-            // Hapus header
+          if (kosong) {
             thead.deleteCell(col);
-            // Hapus semua sel di baris yang sesuai
             rows.forEach((row) => row.deleteCell(col));
           }
         }
       }
 
-      function hapusLangsung(btn) {
-        btn.parentElement.innerHTML = "";
-        updateTotal();
-        hapusKolomJikaKosong(); // ini penting banget biar cek kosong
-        saveTable();
-      }
-
       function updateTotal() {
         let total = 0;
         const rows = document.querySelectorAll("#data tbody tr");
+
         rows.forEach((row) => {
           for (let i = 2; i < row.cells.length; i++) {
-            const cell = row.cells[i];
-            const nilai = cell.textContent.trim().replace("x", "");
-            if (nilai !== "") {
-              total += parseInt(nilai);
-            }
+            const nilai = row.cells[i].textContent.replace("x", "").trim();
+            if (nilai !== "") total += parseInt(nilai);
           }
         });
+
+        const totalAkhir = saldoAwal + total;
+
         document.getElementById("total").textContent =
-          "Rp. " + total.toLocaleString("id-ID");
+          "Rp. " + totalAkhir.toLocaleString("id-ID");
       }
 
-      updateTotal();
       populateNama();
+      updateTotal();
 
+      // LOGIN
       async function hashPassword(text) {
         const encoder = new TextEncoder();
         const data = encoder.encode(text);
@@ -405,9 +325,8 @@
       async function login() {
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value;
-        const loginError = document.getElementById("loginError");
-
         const inputHash = await hashPassword(password);
+
         const storedUsername = "annur";
         const storedPasswordHash =
           "0b9743e14e8a5627dae52f81642644368dfd75fd85e265ab06345dce28a6cd06";
@@ -416,16 +335,16 @@
           document.getElementById("loginPage").style.display = "none";
           document.getElementById("mainContent").style.display = "block";
         } else {
-          loginError.style.display = "block";
+          document.getElementById("loginError").style.display = "block";
         }
       }
     </script>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
+
+    <!-- FIREBASE -->
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
   import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
-  // Konfigurasi Firebase milikmu
   const firebaseConfig = {
     apiKey: "AIzaSyCuSe6S91ZzV7PMV9EeUW3bRaAf_P8QkZo",
     authDomain: "maswahyu-86655.firebaseapp.com",
@@ -436,47 +355,31 @@
     appId: "1:343863883612:web:283d349edb0e251bf2f399"
   };
 
-  // Inisialisasi Firebase
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Fungsi untuk simpan data keuangan ke Firebase
   function simpanKeuanganFirebase() {
     const tableData = document.getElementById("data").innerHTML;
     set(ref(db, "keuangan/tabel"), {
       html: tableData,
+      saldoAwal: 480000,
       timestamp: new Date().toISOString()
-    }).then(() => {
-      console.log("✅ Data berhasil disimpan ke Firebase.");
-    }).catch((error) => {
-      console.error("❌ Gagal menyimpan data ke Firebase:", error);
     });
   }
 
-  // Fungsi untuk ambil data dari Firebase
   function ambilKeuanganDariFirebase() {
-    get(child(ref(db), "keuangan/tabel"))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          document.getElementById("data").innerHTML = snapshot.val().html;
-          updateTotal();
-          populateNama();
-          console.log("✅ Data berhasil dimuat dari Firebase.");
-        } else {
-          console.log("📦 Belum ada data tersimpan di Firebase.");
-        }
-      })
-      .catch((error) => {
-        console.error("❌ Gagal mengambil data dari Firebase:", error);
-      });
+    get(child(ref(db), "keuangan/tabel")).then((snapshot) => {
+      if (snapshot.exists()) {
+        document.getElementById("data").innerHTML = snapshot.val().html;
+        saldoAwal = snapshot.val().saldoAwal || 480000;
+        updateTotal();
+        populateNama();
+      }
+    });
   }
 
-  // Jalankan saat load pertama
-  window.addEventListener("load", () => {
-    ambilKeuanganDariFirebase();
-  });
+  window.addEventListener("load", () => ambilKeuanganDariFirebase());
 
-  // Tambahkan juga ke saveTable biar sekalian backup ke Firebase
   window.saveTable = function () {
     localStorage.setItem("tableData", document.getElementById("data").innerHTML);
     simpanKeuanganFirebase();
@@ -485,7 +388,3 @@
 
   </body>
 </html>
-
-
-
-
